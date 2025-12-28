@@ -1,8 +1,10 @@
+import Navbar from "#components/Navbar"
+
 const App = () => {
   return (
-    <div>
-      <h1>01shrvan</h1>
-    </div>
+    <main>
+      <Navbar />
+    </main>
   )
 }
 
