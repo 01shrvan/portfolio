@@ -5,15 +5,21 @@ const navLinks = [
         type: "finder",
     },
     {
-        id: 3,
-        name: "Contact",
-        type: "contact",
-    },
-    {
-        id: 4,
+        id: 2,
         name: "Resume",
         type: "resume",
     },
+    {
+        id: 3,
+        name: "About",
+        type: "about",
+    },
+    {
+        id: 4,
+        name: "Contact",
+        type: "contact",
+    },
+
 ];
 
 const navIcons = [
@@ -44,31 +50,31 @@ const dockApps = [
     },
     {
         id: "safari",
-        name: "Articles", 
+        name: "Articles",
         icon: "safari.png",
         canOpen: true,
     },
     {
         id: "photos",
-        name: "Gallery", 
+        name: "Gallery",
         icon: "photos.png",
         canOpen: true,
     },
     {
         id: "contact",
-        name: "Contact", 
+        name: "Contact",
         icon: "contact.png",
         canOpen: true,
     },
     {
         id: "terminal",
-        name: "Skills", 
+        name: "Skills",
         icon: "terminal.png",
         canOpen: true,
     },
     {
         id: "trash",
-        name: "Archive", 
+        name: "Archive",
         icon: "trash.png",
         canOpen: false,
     },
