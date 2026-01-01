@@ -1,8 +1,8 @@
-import { Container } from 'lucide-react'
-import React, { useRef } from 'react'
+import React, { useRef, useEffect } from 'react'
+import gsap from 'gsap'
 
 const FONT_WEIGHTS = {
-    subttitle: { min: 100, max: 400, default: 100 },
+    subtitle: { min: 100, max: 400, default: 100 },
     title: { min: 400, max: 900, default: 400 }
 }
 
@@ -21,11 +21,59 @@ const setupTextHover = (container, type) => {
     if (!container) return;
 
     const letters = container.querySelectorAll("span");
+    const { min, max, default: defaultWeight } = FONT_WEIGHTS[type];
+
+    const handleMouseMove = (e) => {
+        const rect = container.getBoundingClientRect();
+        const mouseX = e.clientX - rect.left;
+
+        letters.forEach((letter) => {
+            const letterRect = letter.getBoundingClientRect();
+            const letterCenterX = letterRect.left - rect.left + letterRect.width / 2;
+            const distance = Math.abs(mouseX - letterCenterX);
+            const intensity = Math.exp(-(distance ** 2) / 5000);
+            const weight = min + (max - min) * intensity;
+
+            gsap.to(letter, {
+                duration: 0.3,
+                ease: 'power2.out',
+                fontVariationSettings: `'wght' ${weight}`
+            });
+        });
+    };
+
+    const handleMouseLeave = () => {
+        letters.forEach((letter) => {
+            gsap.to(letter, {
+                duration: 0.5,
+                ease: 'power2.out',
+                fontVariationSettings: `'wght' ${defaultWeight}`
+            });
+        });
+    };
+
+    container.addEventListener('mousemove', handleMouseMove);
+    container.addEventListener('mouseleave', handleMouseLeave);
+
+    return () => {
+        container.removeEventListener('mousemove', handleMouseMove);
+        container.removeEventListener('mouseleave', handleMouseLeave);
+    };
 }
 
 const Welcome = () => {
     const titleRef = useRef(null);
     const subtitleRef = useRef(null);
+
+    useEffect(() => {
+        const cleanupTitle = setupTextHover(titleRef.current, 'title');
+        const cleanupSubtitle = setupTextHover(subtitleRef.current, 'subtitle');
+
+        return () => {
+            cleanupTitle?.();
+            cleanupSubtitle?.();
+        };
+    }, [])
 
     return (
         <section id="welcome">
@@ -33,7 +81,7 @@ const Welcome = () => {
                 {renderText('yoo, i\'m shrvan! welcome to my', 'text-3xl font-georama', 100)}
             </p>
             <h1 ref={titleRef} className='mt-7'>
-                {renderText('space', 'text-9xl italic font-georama')}
+                {renderText('space', 'text-9xl italic font-georama', 400)}
             </h1>
 
             <div className='small-screen'>
