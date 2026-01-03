@@ -7,7 +7,7 @@ import React from "react";
 const links = [
   { href: "/", text: "about" },
   { href: "/writings", text: "writings" },
-  { href: "/projects", text: "projects" },
+  { href: "/works", text: "works" },
 ];
 
 export default function Navbar() {

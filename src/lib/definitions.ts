@@ -6,7 +6,7 @@ export interface Writings {
   _createdAt: string;
 }
 
-export interface Projects {
+export interface Works {
   title: string;
   href: string;
   description: string;

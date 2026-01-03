@@ -15,8 +15,8 @@ const links = [
     label: "works",
   },
   {
-    href: "/thoughts",
-    label: "thoughts",
+    href: "/writings",
+    label: "writings",
   },
   {
     href: "/archive",
@@ -71,7 +71,7 @@ function SidebarContent() {
                 ? 1
                 : hoveredIndex === null
                   ? 0.65
-                  : 0.20,
+                  : 0.2,
         }}
         transition={{ duration: 0.2 }}
         onMouseEnter={() => setHoveredIndex("connect")}

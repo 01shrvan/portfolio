@@ -3,7 +3,7 @@ import { useState } from "react";
 import { cn } from "@/lib/utils";
 
 // Define the type for a project object
-interface Project {
+interface Works {
   title: string;
   role: string;
   description: string;
@@ -11,11 +11,11 @@ interface Project {
 }
 
 // Define the props for the ProjectList component
-interface ProjectListProps {
-  projects: Project[];
+interface WorksListProps {
+  works: Works[];
 }
 
-const ProjectList: React.FC<ProjectListProps> = ({ projects }) => {
+const WorksList: React.FC<WorksListProps> = ({ works }) => {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const [cursorPosition, setCursorPosition] = useState<{
     x: number;
@@ -40,12 +40,12 @@ const ProjectList: React.FC<ProjectListProps> = ({ projects }) => {
 
   return (
     <ul className="flex flex-col justify-start relative">
-      {projects.map((project, index) => (
+      {works.map((project, index) => (
         <li
           key={index}
           className={cn([
             "relative py-2.5 px-2.5 group",
-            { "border-b": index !== projects.length - 1 },
+            { "border-b": index !== works.length - 1 },
           ])}
           onMouseEnter={() => handleMouseEnter(index)}
           onMouseLeave={handleMouseLeave}
@@ -85,4 +85,4 @@ const ProjectList: React.FC<ProjectListProps> = ({ projects }) => {
   );
 };
 
-export default ProjectList;
+export default WorksList;
