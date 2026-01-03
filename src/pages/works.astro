@@ -1,57 +1,46 @@
 ---
-import Container from "@/components/Container.astro";
+import Container from "../components/Container.astro";
 import Layout from "../layouts/Layout.astro";
-import WorksList from "@/components/works/WorksList";
+import WorksList from "../components/works/WorksList";
+import { basehub } from "../lib/basehub";
 
-// Dummy works data
-const works = [
-    {
-        id: "1",
-        title: "Align Dev",
-        description:
-            "A social feed experiment focused on ranking relevance and intent.",
-        tags: ["TypeScript", "Algorithms", "Web"],
-        link: "https://github.com/01shrvan/align-dev",
-        status: "active",
+const {
+  works: { items: works },
+} = await basehub.query({
+  works: {
+    __args: { orderBy: "_sys_createdAt__DESC" },
+    items: {
+      _title: true,
+      role: true,
+      description: true,
+      href: true,
+      _id: true,
     },
-    {
-        id: "2",
-        title: "Portfolio v1",
-        description: "My personal portfolio built with Astro and Tailwind.",
-        tags: ["Astro", "Tailwind", "UI"],
-        link: "https://example.com",
-        status: "completed",
-    },
-    {
-        id: "3",
-        title: "Indie Tooling",
-        description: "Small developer utilities built for fun and mild sanity.",
-        tags: ["Node.js", "CLI"],
-        link: null,
-        status: "wip",
-    },
-];
+  },
+});
+
+console.log(works);
 ---
 
 <Layout
-    title="works | astro"
-    description="an assortment of my works, ranging from my involvements in professional paradigms and indie adventures in code."
+  title="works | astro"
+  description="an assortment of my works, ranging from my involvements in professional paradigms and indie adventures in code."
 >
-    <Container>
-        <div class="flex flex-col space-y-12">
-            <div class="space-y-4">
-                <h1 class="text-2xl font-semibold">works</h1>
-                <p
-                    class="leading-[150%] tracking-wide text-muted-foreground text-sm md:text-base"
-                >
-                    an assortment of my works, ranging from my involvements in
-                    professional paradigms and indie adventures in code.
-                </p>
+  <Container>
+    <div class="flex flex-col space-y-12">
+      <div class="space-y-4">
+        <h1 class="text-2xl font-semibold">works</h1>
+        <p
+          class="leading-[150%] tracking-wide text-muted-foreground text-sm md:text-base"
+        >
+          an assortment of my works, ranging from my involvements in
+          professional paradigms and indie adventures in code.
+        </p>
 
-                <div>
-                    <WorksList works={works} client:load />
-                </div>
-            </div>
+        <div>
+          <WorksList works={works} client:load />
         </div>
-    </Container>
+      </div>
+    </div>
+  </Container>
 </Layout>

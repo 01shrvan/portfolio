@@ -18,10 +18,10 @@ const links = [
     href: "/writings",
     label: "writings",
   },
-  {
-    href: "/archive",
-    label: "archive",
-  },
+  // {
+  //   href: "/archive",
+  //   label: "archive",
+  // },
 ];
 
 function SidebarContent() {

@@ -13,7 +13,7 @@ export interface Works {
   role: string;
 }
 
-export interface ArchiveImages {
-  title: string;
-  image: any;
-}
+// export interface ArchiveImages {
+//   title: string;
+//   image: any;
+// }

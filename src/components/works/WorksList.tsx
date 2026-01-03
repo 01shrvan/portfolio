@@ -2,15 +2,13 @@ import { motion } from "framer-motion";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
 
-// Define the type for a project object
 interface Works {
-  title: string;
+  _title: string;
   role: string;
   description: string;
   href: string;
 }
 
-// Define the props for the ProjectList component
 interface WorksListProps {
   works: Works[];
 }
@@ -22,7 +20,6 @@ const WorksList: React.FC<WorksListProps> = ({ works }) => {
     y: number;
   }>({ x: 0, y: 0 });
 
-  // Capture mouse movement and update position
   const handleMouseMove = (e: React.MouseEvent<HTMLLIElement>) => {
     setCursorPosition({
       x: e.clientX,
@@ -49,7 +46,7 @@ const WorksList: React.FC<WorksListProps> = ({ works }) => {
           ])}
           onMouseEnter={() => handleMouseEnter(index)}
           onMouseLeave={handleMouseLeave}
-          onMouseMove={handleMouseMove} // Track mouse movement
+          onMouseMove={handleMouseMove}
         >
           <a
             href={project.href}
@@ -57,7 +54,7 @@ const WorksList: React.FC<WorksListProps> = ({ works }) => {
             className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-0.5 hover:text-foreground/65"
           >
             <p className="flex items-center font-medium truncate md:max-w-[calc(100%-5rem)] max-w-[70%]">
-              {project.title}
+              {project._title}
             </p>
             <p className="text-xs md:text-sm text-muted-foreground whitespace-nowrap">
               {project.role}
@@ -75,7 +72,7 @@ const WorksList: React.FC<WorksListProps> = ({ works }) => {
                 left: cursorPosition.x + 10,
               }}
             >
-              <h4 className="text-sm font-semibold mb-2">{project.title}</h4>
+              <h4 className="text-sm font-semibold mb-2">{project._title}</h4>
               <p className="text-xs text-gray-600">{project.description}</p>
             </motion.div>
           )}
