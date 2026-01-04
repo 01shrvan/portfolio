@@ -62,16 +62,17 @@ const createdAt = new Date(writing._sys.createdAt).toLocaleString("en-US", {
   minute: "2-digit",
   hourCycle: "h23",
   timeZoneName: "shortOffset",
+  timeZone: "Asia/Kolkata",
 });
 ---
 
-<Layout title={`${writing._title} | astro`} description={writing._title}>
+<Layout title={`${writing._title} | shrvan`} description={writing._title}>
   <Container>
     <div class="space-y-8">
       <header class="space-y-2">
         <h1 class="text-2xl font-semibold">{writing._title}</h1>
         <div class="flex items-center gap-2 text-sm md:text-base">
-          <p class="text-muted-foreground font-medium">777advait</p>
+          <p class="text-muted-foreground font-medium">shrvan</p>
           <span>•</span>
           <p class="">{createdAt}</p>
         </div>
