@@ -86,7 +86,10 @@ const createdAt = new Date(writing._sys.createdAt).toLocaleString("en-US", {
             </blockquote>
           )
         }
-        <div set:html={writing.content.html} />
+        <div
+          class="prose dark:prose-invert max-w-none"
+          set:html={writing.content.html}
+        />
       </section>
     </div>
   </Container>
