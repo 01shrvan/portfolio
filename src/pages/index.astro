@@ -6,76 +6,80 @@ import { Image } from "astro:assets";
 ---
 
 <Layout>
-  <Container>
-    <div
-      class="space-y-6 text-sm md:text-base "
-    >
-      <div class="space-y-4 lg:w-3/4">
-        <p class="leading-[150%] tracking-wide">
-          i'm a multidisciplinary engineer focused on building scalable and
-          performant applications. i enjoy crafting minimal user-interfaces
-          using <Link
-            className="md:text-base"
-            blank={true}
-            href="https://nextjs.org">Next.js</Link
-          > and <Link
-            className="md:text-base"
-            blank={true}
-            href="https://typescriptlang.org/">TypeScript</Link
-          > and robust backends using libraries/tools like <Link
-            className="md:text-base"
-            blank={true}
-            href="https://trpc.io">trpc</Link
-          >,{" "}
-          <Link
-            className="md:text-base"
-            blank={true}
-            href="https://orm.drizzle.team">DrizzleORM</Link
-          > and <Link
-            className="md:text-base"
-            blank={true}
-            href="https://supabase.com">Supabase</Link
-          >
-        </p>
-        <p class="leading-[150%] tracking-wide">
-          im also keen about music, gfx and vfx. in the past i used to make AMVs
-          to post on instagram (back in 2022), u may find some of my work <Link
-            className="md:text-base"
-            href="/archive"
-            >here
-          </Link>
-        </p>
-        <p class="leading-[150%] tracking-wide">
-          My goal is to build products that are easy to use and have a good UX -
-          whether through building an app or writing code for other people (<Link
-            className="md:text-base"
-            href="/chat">hmu</Link
-          > for freelance work)
-        </p>
+    <Container className="h-[calc(100vh-200px)] flex items-center">
+        <div class="grid lg:grid-cols-2 gap-8 items-center w-full">
+            <div class="space-y-5 text-sm md:text-base">
+                <div class="space-y-3">
+                    <h1 class="text-3xl md:text-4xl font-medium">
+                        hey, i'm shrvan <span class="text-muted-foreground"
+                            >👋</span
+                        >
+                    </h1>
+                    <p
+                        class="leading-relaxed tracking-wide text-muted-foreground"
+                    >
+                        building stuff that (hopefully) doesn't break
+                    </p>
+                </div>
 
-        <ul class="space-y-2.5 list-disc list-inside">
-          <li>
-            Built <Link
-              className="md:text-base"
-              blank={true}
-              href="https://indielettr.com">IndieLettr</Link
-            > - empowering indie creators and small businesses to reach their audience.
-          </li>
-          <li>currently exploring web3 and ml</li>
-        </ul>
-      </div>
+                <div class="space-y-4">
+                    <p class="leading-relaxed tracking-wide">
+                        i make things with code. mostly web apps that look clean
+                        and run smooth. currently obsessed with <Link
+                            className="md:text-base"
+                            blank={true}
+                            href="https://nextjs.org">next.js</Link
+                        > and making ai do the boring parts for me
+                    </p>
 
-      <div
-        class="w-[180px] h-[180px] md:w-[220px] md:h-[220px] lg:w-[250px] lg:h-[250px]"
-      >
-        <Image
-          src="/Runner.svg"
-          alt="Runner"
-          width={250}
-          height={250}
-          class="transform scale-x-[-1] w-[180px] h-[180px] md:w-full md:h-full"
-        />
-      </div>
-    </div>
-  </Container>
+                    <p class="leading-relaxed tracking-wide">
+                        when i'm not staring at my editor, you'll find me
+                        experimenting with <Link
+                            className="md:text-base"
+                            blank={true}
+                            href="https://anthropic.com">claude</Link
+                        > and other ai tools, or probably overthinking some random
+                        design detail that no one will notice
+                    </p>
+
+                    <div class="flex flex-wrap gap-2 pt-2">
+                        <span
+                            class="px-3 py-1 bg-secondary rounded-full text-xs"
+                        >
+                            react enthusiast
+                        </span>
+                        <span
+                            class="px-3 py-1 bg-secondary rounded-full text-xs"
+                        >
+                            ai explorer
+                        </span>
+                        <span
+                            class="px-3 py-1 bg-secondary rounded-full text-xs"
+                        >
+                            minimal design fan
+                        </span>
+                    </div>
+                </div>
+
+                <p class="leading-relaxed tracking-wide pt-2">
+                    wanna work together? <Link
+                        className="md:text-base"
+                        href="/connect">hit me up</Link
+                    > and let's build something cool
+                </p>
+            </div>
+
+            <div class="hidden lg:flex justify-center items-center h-full">
+                <div class="relative w-[280px] h-[280px]">
+                    <Image
+                        src="/Runner.svg"
+                        alt="Runner"
+                        width={280}
+                        height={280}
+                        class="w-full h-full opacity-80"
+                    />
+                </div>
+            </div>
+        </div>
+    </Container>
 </Layout>

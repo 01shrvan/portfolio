@@ -8,7 +8,7 @@ import { AnimatePresence, motion } from "framer-motion";
 const links = [
   {
     href: "/",
-    label: "about",
+    label: "home",
   },
   {
     href: "/works",
@@ -18,10 +18,6 @@ const links = [
     href: "/writings",
     label: "writings",
   },
-  // {
-  //   href: "/archive",
-  //   label: "archive",
-  // },
 ];
 
 function SidebarContent() {
@@ -54,7 +50,7 @@ function SidebarContent() {
               onMouseLeave={() => setHoveredIndex(null)}
             >
               <a href={link.href} className="block">
-                {link.label} {isActive ? "-" : "+"}
+                {link.label} {isActive ? "→" : ""}
               </a>
             </motion.li>
           );
@@ -62,10 +58,10 @@ function SidebarContent() {
       </ul>
       <motion.li
         className="flex border-t text-sm px-1.5 py-2"
-        initial={{ opacity: currentPath === "connect" ? 1 : 0.65 }}
+        initial={{ opacity: currentPath === "/connect" ? 1 : 0.65 }}
         animate={{
           opacity:
-            currentPath === "connect"
+            currentPath === "/connect"
               ? 1
               : hoveredIndex === "connect"
                 ? 1
@@ -78,7 +74,7 @@ function SidebarContent() {
         onMouseLeave={() => setHoveredIndex(null)}
       >
         <a href="/connect" className="block">
-          connect {currentPath === "connect" ? "-" : "+"}
+          connect {currentPath === "/connect" ? "→" : ""}
         </a>
       </motion.li>
     </nav>

@@ -1,71 +1,66 @@
 ---
-import Container from "@/components/Container.astro";
+import Container from "../components/Container.astro";
 import Layout from "../layouts/Layout.astro";
-import type { SanityDocument } from "@sanity/client";
-import type { Writings } from "@/lib/definitions";
-import { cn } from "@/lib/utils";
+import { basehub } from "../lib/basehub";
+import { cn } from "../lib/utils";
 
-export async function getStaticPaths() {
-  const { data: writings } = await loadQuery<SanityDocument[]>({
-    query: `*[_type == "writings"]`,
-  });
-
-  return writings.map(({ slug }) => {
-    return {
-      params: {
-        slug: slug.current,
-      },
-    };
-  });
-}
-
-const { params } = Astro;
-
-const { data: writings } = await loadQuery<Writings[]>({
-  query: `*[_type == "writings"] | order(_createdAt desc)`,
-  params,
+const {
+    writings: { items: writings },
+} = await basehub.query({
+    writings: {
+        __args: { orderBy: "_sys_createdAt__DESC" },
+        items: {
+            _title: true,
+            _slug: true,
+            _sys: {
+                createdAt: true,
+            },
+        },
+    },
 });
 ---
 
 <Layout
-  title="writings | astro"
-  description="A journal of random tidbits, ranging from thoughts and experiences from my journey through life and code."
+    title="writings | shrvan"
+    description="random thoughts, cool finds, and things i probably should've kept to myself but didn't"
 >
-  <Container>
-    <div class="flex flex-col space-y-4">
-      <div class="space-y-4">
-        <h1 class="text-2xl font-semibold">writings</h1>
-        <p
-          class="leading-[150%] tracking-wide text-muted-foreground text-sm md:text-base"
-        >
-          A journal of random tidbits, ranging from thoughts and experiences
-          from my journey through life and code.
-        </p>
-      </div>
-      <ul class="flex flex-col justify-start">
-        {
-          writings.map((writing, index) => (
-            <li
-              class={cn([
-                "py-2.5 px-2.5",
-                { "border-b": index != writings.length - 1 },
-              ])}
-            >
-              <a
-                href={`/writings/${writing.slug.current}`}
-                class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-0.5 hover:text-foreground/65"
-              >
-                <p class="font-medium truncate md:max-w-[calc(100%-5rem)] max-w-[70%]">
-                  {writing.title}
+    <Container>
+        <div class="flex flex-col space-y-4">
+            <div class="space-y-4">
+                <h1 class="text-2xl font-semibold">writings</h1>
+                <p
+                    class="leading-[150%] tracking-wide text-muted-foreground text-sm md:text-base"
+                >
+                    random thoughts, cool finds, and things i probably should've
+                    kept to myself but didn't
                 </p>
-                <p class="text-xs md:text-sm text-muted-foreground whitespace-nowrap">
-                  {new Date(writing._createdAt).toLocaleDateString("en-GB")}
-                </p>
-              </a>
-            </li>
-          ))
-        }
-      </ul>
-    </div>
-  </Container>
+            </div>
+            <ul class="flex flex-col justify-start">
+                {
+                    writings.map((writing, index) => (
+                        <li
+                            class={cn([
+                                "py-2.5 px-2.5",
+                                { "border-b": index != writings.length - 1 },
+                            ])}
+                        >
+                            <a
+                                href={`/writings/${writing._slug}`}
+                                class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-0.5 hover:text-foreground/65 transition-colors"
+                            >
+                                <p class="font-medium truncate md:max-w-[calc(100%-5rem)] max-w-[70%]">
+                                    {writing._title}
+                                </p>
+                                <p class="text-xs md:text-sm text-muted-foreground whitespace-nowrap">
+                                    {new Date(
+                                        writing._sys.createdAt,
+                                    ).toLocaleDateString("en-GB")}
+                                </p>
+                            </a>
+                        </li>
+                    ))
+                }
+            </ul>
+        </div>
+    </Container>
 </Layout>

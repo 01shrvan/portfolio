@@ -1,67 +1,92 @@
 ---
-import Container from "@/components/Container.astro";
+import Container from "../../components/Container.astro";
 import Layout from "../../layouts/Layout.astro";
-import type { SanityDocument } from "@sanity/client";
-import { loadQuery } from "../../sanity/lib/load-query";
-import type { Writings } from "@/lib/definitions";
-import PortableText from "@/components/sanity/PortableText.astro";
+import { basehub } from "../../lib/basehub";
 
 export async function getStaticPaths() {
-  const { data: writings } = await loadQuery<SanityDocument[]>({
-    query: `*[_type == "writings"]`,
-  });
+    const {
+        writings: { items: writings },
+    } = await basehub.query({
+        writings: {
+            items: {
+                _slug: true,
+            },
+        },
+    });
 
-  return writings.map(({ slug }) => {
-    return {
-      params: {
-        slug: slug.current,
-      },
-    };
-  });
+    return writings.map((writing) => {
+        return {
+            params: {
+                slug: writing._slug,
+            },
+        };
+    });
 }
 
-const { params } = Astro;
+const { slug } = Astro.params;
 
-const { data: writing } = await loadQuery<Writings>({
-  query: `*[_type == "writings" && slug.current == $slug][0]`,
-  params,
+const {
+    writings: { items: writings },
+} = await basehub.query({
+    writings: {
+        __args: {
+            filter: {
+                _slug: { eq: slug },
+            },
+            first: 1,
+        },
+        items: {
+            _title: true,
+            tldr: true,
+            _sys: {
+                createdAt: true,
+            },
+            content: {
+                html: true,
+            },
+        },
+    },
 });
 
-const createdAt = new Date(writing._createdAt).toLocaleString("en-US", {
-  year: "numeric",
-  month: "short",
-  day: "2-digit",
-  hour: "2-digit",
-  minute: "2-digit",
-  hourCycle: "h23",
-  timeZoneName: "shortOffset",
+const writing = writings[0];
+
+if (!writing) {
+    return Astro.redirect("/404");
+}
+
+const createdAt = new Date(writing._sys.createdAt).toLocaleString("en-US", {
+    year: "numeric",
+    month: "short",
+    day: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit",
+    hourCycle: "h23",
+    timeZoneName: "shortOffset",
 });
 ---
 
-<Layout title={`${writing.title} | astro`} description={writing.title}>
-  <Container>
-    <div class="space-y-8">
-      <header class="space-y-2">
-        <h1 class="text-2xl font-semibold">{writing.title}</h1>
-        <div class="flex items-center gap-2 text-sm md:text-base">
-          <p class="text-muted-foreground font-medium">777advait</p>
-          <span>•</span>
-          <p class="">{createdAt}</p>
+<Layout title={`${writing._title} | astro`} description={writing._title}>
+    <Container>
+        <div class="space-y-8">
+            <header class="space-y-2">
+                <h1 class="text-2xl font-semibold">{writing._title}</h1>
+                <div class="flex items-center gap-2 text-sm md:text-base">
+                    <p class="text-muted-foreground font-medium">777advait</p>
+                    <span>•</span>
+                    <p class="">{createdAt}</p>
+                </div>
+            </header>
+            <section class="space-y-8 text-sm md:text-base">
+                {
+                    writing.tldr && (
+                        <blockquote class="space-y-2 border-l-[3px] pl-4">
+                            <p class="font-medium">tl;dr</p>
+                            <p class="font-light italic">"{writing.tldr}"</p>
+                        </blockquote>
+                    )
+                }
+                <div set:html={writing.content.html} />
+            </section>
         </div>
-      </header>
-      <section class="space-y-8 text-sm md:text-base">
-        {
-          writing.tldr && (
-            <blockquote class="space-y-2 border-l-[3px] pl-4">
-              <p class="font-medium">tl;dr</p>
-              <p class="font-light italic">"{writing.tldr}"</p>
-            </blockquote>
-          )
-        }
-        <div class="">
-          <PortableText portableText={writing.content} />
-        </div>
-      </section>
-    </div>
-  </Container>
+    </Container>
 </Layout>
