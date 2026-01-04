@@ -14,6 +14,11 @@ const links = [
     handle: "@01shrvan",
   },
   {
+    title: "LinkedIn",
+    href: "https://www.linkedin.com/in/shrvanbenke",
+    handle: "Shrvan Benke",
+  },
+  {
     title: "Email",
     href: "mailto:benkeshrvan@gmail.com",
     handle: "benkeshrvan@gmail.com",
@@ -40,7 +45,7 @@ export default function ConnectLinks() {
               "relative flex items-center justify-between p-4 border transition-all duration-300",
               hoveredIndex === index
                 ? "border-foreground/20 bg-muted/30"
-                : "border-border"
+                : "border-border",
             )}
           >
             <div className="flex flex-col">
@@ -55,7 +60,7 @@ export default function ConnectLinks() {
                   "w-6 h-6 transition-transform duration-300 ease-in-out",
                   hoveredIndex === index
                     ? "translate-x-1 -translate-y-1"
-                    : "text-muted-foreground"
+                    : "text-muted-foreground",
                 )}
               />
             </div>

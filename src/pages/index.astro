@@ -6,66 +6,55 @@ import { Image } from "astro:assets";
 
 <Layout>
   <div class="flex flex-col justify-center py-6 lg:py-0 lg:min-h-[calc(100vh-200px)]">
-    <div class="grid lg:grid-cols-2 gap-12 lg:gap-10 items-center w-full">
-      <div class="space-y-6 text-sm md:text-base">
+    <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center w-full">
+      <div class="space-y-8 text-sm md:text-base">
         <div class="space-y-4">
-          <h1 class="text-3xl md:text-5xl font-bold tracking-tight">
-            hey, i'm shrvan <span class="text-muted-foreground inline-block transition-transform hover:rotate-12 cursor-default">👋</span>
+          <h1 class="text-3xl md:text-5xl font-bold tracking-tighter flex flex-wrap items-baseline gap-x-3">
+            hey, i'm shrvan
+            <span class="text-lg md:text-2xl text-muted-foreground/80 font-normal tracking-normal">(01shrvan)</span>
           </h1>
-          <p class="text-lg leading-relaxed tracking-wide text-muted-foreground">
+          <p class="text-lg leading-relaxed tracking-wide text-muted-foreground max-w-md">
             building stuff that (hopefully) doesn't break
           </p>
         </div>
 
-        <div class="space-y-5">
-          <p class="leading-relaxed tracking-wide text-muted-foreground/90">
+        <div class="space-y-6">
+          <p class="leading-relaxed tracking-wide text-muted-foreground/90 font-light text-base md:text-lg">
             i make things with code. mostly web apps that look clean and run
             smooth. currently obsessed with <Link
-              className="text-foreground font-medium underline-offset-4 hover:underline md:text-base"
+              className="text-foreground font-medium underline-offset-4 hover:underline decoration-muted-foreground/40 hover:decoration-foreground transition-all"
               blank={true}
               href="https://nextjs.org">next.js</Link>
-            and making ai do the boring parts for me
+            and making ai do the boring parts for me.
           </p>
 
-          <p class="leading-relaxed tracking-wide text-muted-foreground/90">
+          <p class="leading-relaxed tracking-wide text-muted-foreground/90 font-light text-base md:text-lg">
             when i'm not staring at my editor, you'll find me experimenting with <Link
-              className="text-foreground font-medium underline-offset-4 hover:underline md:text-base"
+              className="text-foreground font-medium underline-offset-4 hover:underline decoration-muted-foreground/40 hover:decoration-foreground transition-all"
               blank={true}
               href="https://anthropic.com">claude</Link>
             and other ai tools, or probably overthinking some random design detail
-            that no one will notice
+            that no one will notice.
           </p>
-
-          <div class="flex flex-wrap gap-2 pt-2">
-            {[
-              "react enthusiast",
-              "ai explorer",
-              "minimal design fan"
-            ].map((tag) => (
-              <span class="px-3 py-1 bg-secondary text-secondary-foreground rounded-full text-xs font-medium transition-colors hover:bg-secondary/80 cursor-default">
-                {tag}
-              </span>
-            ))}
-          </div>
         </div>
 
-        <div class="pt-2">
-          <p class="leading-relaxed tracking-wide text-muted-foreground">
-            wanna work together? <Link className="text-foreground font-medium hover:text-primary transition-colors md:text-base" href="/connect"
+        <div class="pt-4">
+          <p class="leading-relaxed tracking-wide text-muted-foreground font-light text-base">
+            wanna work together? <Link className="text-foreground font-medium hover:text-primary transition-colors border-b border-foreground/30 hover:border-primary pb-0.5 no-underline" href="/connect"
               >hit me up</Link>
-            and let's build something cool
+            and let's build something cool.
           </p>
         </div>
       </div>
 
       <div class="flex justify-center items-center h-full order-first lg:order-none">
-        <div class="relative w-[260px] h-[260px] sm:w-[300px] sm:h-[300px] lg:w-[320px] lg:h-[320px] xl:w-[400px] xl:h-[400px] transition-all duration-500 hover:scale-105">
+        <div class="relative w-[280px] h-[280px] sm:w-[320px] sm:h-[320px] lg:w-[380px] lg:h-[380px] xl:w-[450px] xl:h-[450px]">
           <Image
             src="/Runner.svg"
             alt="Runner"
-            width={400}
-            height={400}
-            class="w-full h-full opacity-90 object-contain"
+            width={450}
+            height={450}
+            class="w-full h-full object-contain drop-shadow-lg"
             loading="eager"
           />
         </div>
