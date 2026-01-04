@@ -6,80 +6,68 @@ import { Image } from "astro:assets";
 ---
 
 <Layout>
-    <Container className="h-[calc(100vh-200px)] flex items-center">
-        <div class="grid lg:grid-cols-2 gap-8 items-center w-full">
-            <div class="space-y-5 text-sm md:text-base">
-                <div class="space-y-3">
-                    <h1 class="text-3xl md:text-4xl font-medium">
-                        hey, i'm shrvan <span class="text-muted-foreground"
-                            >👋</span
-                        >
-                    </h1>
-                    <p
-                        class="leading-relaxed tracking-wide text-muted-foreground"
-                    >
-                        building stuff that (hopefully) doesn't break
-                    </p>
-                </div>
-
-                <div class="space-y-4">
-                    <p class="leading-relaxed tracking-wide">
-                        i make things with code. mostly web apps that look clean
-                        and run smooth. currently obsessed with <Link
-                            className="md:text-base"
-                            blank={true}
-                            href="https://nextjs.org">next.js</Link
-                        > and making ai do the boring parts for me
-                    </p>
-
-                    <p class="leading-relaxed tracking-wide">
-                        when i'm not staring at my editor, you'll find me
-                        experimenting with <Link
-                            className="md:text-base"
-                            blank={true}
-                            href="https://anthropic.com">claude</Link
-                        > and other ai tools, or probably overthinking some random
-                        design detail that no one will notice
-                    </p>
-
-                    <div class="flex flex-wrap gap-2 pt-2">
-                        <span
-                            class="px-3 py-1 bg-secondary rounded-full text-xs"
-                        >
-                            react enthusiast
-                        </span>
-                        <span
-                            class="px-3 py-1 bg-secondary rounded-full text-xs"
-                        >
-                            ai explorer
-                        </span>
-                        <span
-                            class="px-3 py-1 bg-secondary rounded-full text-xs"
-                        >
-                            minimal design fan
-                        </span>
-                    </div>
-                </div>
-
-                <p class="leading-relaxed tracking-wide pt-2">
-                    wanna work together? <Link
-                        className="md:text-base"
-                        href="/connect">hit me up</Link
-                    > and let's build something cool
-                </p>
-            </div>
-
-            <div class="hidden lg:flex justify-center items-center h-full">
-                <div class="relative w-[280px] h-[280px]">
-                    <Image
-                        src="/Runner.svg"
-                        alt="Runner"
-                        width={280}
-                        height={280}
-                        class="w-full h-full opacity-80"
-                    />
-                </div>
-            </div>
+  <Container className="h-[calc(100vh-200px)] flex items-center">
+    <div class="grid lg:grid-cols-2 gap-8 items-center w-full">
+      <div class="space-y-5 text-sm md:text-base">
+        <div class="space-y-3">
+          <h1 class="text-3xl md:text-4xl font-medium">
+            hey, i'm shrvan <span class="text-muted-foreground">👋</span>
+          </h1>
+          <p class="leading-relaxed tracking-wide text-muted-foreground">
+            building stuff that (hopefully) doesn't break
+          </p>
         </div>
-    </Container>
+
+        <div class="space-y-4">
+          <p class="leading-relaxed tracking-wide">
+            i make things with code. mostly web apps that look clean and run
+            smooth. currently obsessed with <Link
+              className="md:text-base"
+              blank={true}
+              href="https://nextjs.org">next.js</Link
+            > and making ai do the boring parts for me
+          </p>
+
+          <p class="leading-relaxed tracking-wide">
+            when i'm not staring at my editor, you'll find me experimenting with <Link
+              className="md:text-base"
+              blank={true}
+              href="https://anthropic.com">claude</Link
+            > and other ai tools, or probably overthinking some random design detail
+            that no one will notice
+          </p>
+
+          <div class="flex flex-wrap gap-2 pt-2">
+            <span class="px-3 py-1 bg-secondary rounded-full text-xs">
+              react enthusiast
+            </span>
+            <span class="px-3 py-1 bg-secondary rounded-full text-xs">
+              ai explorer
+            </span>
+            <span class="px-3 py-1 bg-secondary rounded-full text-xs">
+              minimal design fan
+            </span>
+          </div>
+        </div>
+
+        <p class="leading-relaxed tracking-wide pt-2">
+          wanna work together? <Link className="md:text-base" href="/connect"
+            >hit me up</Link
+          > and let's build something cool
+        </p>
+      </div>
+
+      <div class="hidden lg:flex justify-center items-center h-full">
+        <div class="relative w-[280px] h-[280px]">
+          <Image
+            src="/Runner.svg"
+            alt="Runner"
+            width={280}
+            height={280}
+            class="w-full h-full opacity-80"
+          />
+        </div>
+      </div>
+    </div>
+  </Container>
 </Layout>

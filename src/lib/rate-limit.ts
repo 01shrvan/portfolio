@@ -32,7 +32,7 @@ export function rateLimit(clientAddress: string) {
     };
   } else {
     requestCounter[clientAddress].count++;
-    
+
     return {
       isAllowed: true,
       clientAddress,

@@ -5,62 +5,60 @@ import { basehub } from "../lib/basehub";
 import { cn } from "../lib/utils";
 
 const {
-    writings: { items: writings },
+  writings: { items: writings },
 } = await basehub.query({
-    writings: {
-        __args: { orderBy: "_sys_createdAt__DESC" },
-        items: {
-            _title: true,
-            _slug: true,
-            _sys: {
-                createdAt: true,
-            },
-        },
+  writings: {
+    __args: { orderBy: "_sys_createdAt__DESC" },
+    items: {
+      _title: true,
+      _slug: true,
+      _sys: {
+        createdAt: true,
+      },
     },
+  },
 });
 ---
 
 <Layout
-    title="writings | shrvan"
-    description="random thoughts, cool finds, and things i probably should've kept to myself but didn't"
+  title="writings | shrvan"
+  description="random thoughts, cool finds, and things i probably should've kept to myself but didn't"
 >
-    <Container>
-        <div class="flex flex-col space-y-4">
-            <div class="space-y-4">
-                <h1 class="text-2xl font-semibold">writings</h1>
-                <p
-                    class="leading-[150%] tracking-wide text-muted-foreground text-sm md:text-base"
-                >
-                    random thoughts, cool finds, and things i probably should've
-                    kept to myself but didn't
+  <Container>
+    <div class="flex flex-col space-y-4">
+      <div class="space-y-4">
+        <h1 class="text-2xl font-semibold">writings</h1>
+        <p
+          class="leading-[150%] tracking-wide text-muted-foreground text-sm md:text-base"
+        >
+          random thoughts, cool finds, and things i probably should've kept to
+          myself but didn't
+        </p>
+      </div>
+      <ul class="flex flex-col justify-start">
+        {
+          writings.map((writing, index) => (
+            <li
+              class={cn([
+                "py-2.5 px-2.5",
+                { "border-b": index != writings.length - 1 },
+              ])}
+            >
+              <a
+                href={`/writings/${writing._slug}`}
+                class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-0.5 hover:text-foreground/65 transition-colors"
+              >
+                <p class="font-medium truncate md:max-w-[calc(100%-5rem)] max-w-[70%]">
+                  {writing._title}
                 </p>
-            </div>
-            <ul class="flex flex-col justify-start">
-                {
-                    writings.map((writing, index) => (
-                        <li
-                            class={cn([
-                                "py-2.5 px-2.5",
-                                { "border-b": index != writings.length - 1 },
-                            ])}
-                        >
-                            <a
-                                href={`/writings/${writing._slug}`}
-                                class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-0.5 hover:text-foreground/65 transition-colors"
-                            >
-                                <p class="font-medium truncate md:max-w-[calc(100%-5rem)] max-w-[70%]">
-                                    {writing._title}
-                                </p>
-                                <p class="text-xs md:text-sm text-muted-foreground whitespace-nowrap">
-                                    {new Date(
-                                        writing._sys.createdAt,
-                                    ).toLocaleDateString("en-GB")}
-                                </p>
-                            </a>
-                        </li>
-                    ))
-                }
-            </ul>
-        </div>
-    </Container>
+                <p class="text-xs md:text-sm text-muted-foreground whitespace-nowrap">
+                  {new Date(writing._sys.createdAt).toLocaleDateString("en-GB")}
+                </p>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </Container>
 </Layout>

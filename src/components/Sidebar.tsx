@@ -4,6 +4,7 @@ import { Circle } from "lucide-react";
 import React from "react";
 import { useMediaQuery } from "usehooks-ts";
 import { AnimatePresence, motion } from "framer-motion";
+import Time from "./Time";
 
 const links = [
   {
@@ -77,6 +78,9 @@ function SidebarContent() {
           connect {currentPath === "/connect" ? "→" : ""}
         </a>
       </motion.li>
+      <div className="border-t px-1.5 py-2">
+        <Time />
+      </div>
     </nav>
   );
 }
