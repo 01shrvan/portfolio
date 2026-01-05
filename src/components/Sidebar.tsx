@@ -29,7 +29,7 @@ function SidebarContent() {
 
   return (
     <nav className="min-h-full flex flex-col">
-      <ul className="space-y-6 text-sm flex-grow">
+      <ul className="space-y-6 text-base flex-grow">
         {links.map((link, index) => {
           const isActive = link.href === currentPath;
           return (
@@ -51,14 +51,14 @@ function SidebarContent() {
               onMouseLeave={() => setHoveredIndex(null)}
             >
               <a href={link.href} className="block">
-                {link.label} {isActive ? "→" : ""}
+                {link.label}
               </a>
             </motion.li>
           );
         })}
       </ul>
       <motion.li
-        className="flex border-t text-sm px-1.5 py-2"
+        className="flex border-t text-base px-1.5 py-2"
         initial={{ opacity: currentPath === "/connect" ? 1 : 0.65 }}
         animate={{
           opacity:
@@ -75,7 +75,7 @@ function SidebarContent() {
         onMouseLeave={() => setHoveredIndex(null)}
       >
         <a href="/connect" className="block">
-          connect {currentPath === "/connect" ? "→" : ""}
+          connect
         </a>
       </motion.li>
       <div className="border-t px-1.5 py-2">

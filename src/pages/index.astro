@@ -9,9 +9,8 @@ import { Image } from "astro:assets";
     <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center w-full">
       <div class="space-y-8 text-sm md:text-base">
         <div class="space-y-4">
-          <h1 class="text-3xl md:text-5xl font-bold tracking-tighter flex flex-wrap items-baseline gap-x-3">
+          <h1 class="text-3xl md:text-5xl font-['Naori'] font-bold tracking-tighter flex flex-wrap items-baseline gap-x-3">
             hey, i'm shrvan
-            <span class="text-lg md:text-2xl text-muted-foreground/80 font-normal tracking-normal">(01shrvan)</span>
           </h1>
           <p class="text-lg leading-relaxed tracking-wide text-muted-foreground max-w-md">
             building stuff that (hopefully) doesn't break
@@ -22,7 +21,7 @@ import { Image } from "astro:assets";
           <p class="leading-relaxed tracking-wide text-muted-foreground/90 font-light text-base md:text-lg">
             i make things with code. mostly web apps that look clean and run
             smooth. currently obsessed with <Link
-              className="text-foreground font-medium underline-offset-4 hover:underline decoration-muted-foreground/40 hover:decoration-foreground transition-all"
+              className="text-base md:text-lg text-foreground font-medium underline-offset-4 hover:underline decoration-muted-foreground/40 hover:decoration-foreground transition-all"
               blank={true}
               href="https://nextjs.org">next.js</Link>
             and making ai do the boring parts for me.
@@ -30,7 +29,7 @@ import { Image } from "astro:assets";
 
           <p class="leading-relaxed tracking-wide text-muted-foreground/90 font-light text-base md:text-lg">
             when i'm not staring at my editor, you'll find me experimenting with <Link
-              className="text-foreground font-medium underline-offset-4 hover:underline decoration-muted-foreground/40 hover:decoration-foreground transition-all"
+              className="text-base md:text-lg text-foreground font-medium underline-offset-4 hover:underline decoration-muted-foreground/40 hover:decoration-foreground transition-all"
               blank={true}
               href="https://anthropic.com">claude</Link>
             and other ai tools, or probably overthinking some random design detail
@@ -40,7 +39,7 @@ import { Image } from "astro:assets";
 
         <div class="pt-4">
           <p class="leading-relaxed tracking-wide text-muted-foreground font-light text-base">
-            wanna work together? <Link className="text-foreground font-medium hover:text-primary transition-colors border-b border-foreground/30 hover:border-primary pb-0.5 no-underline" href="/connect"
+            wanna work together? <Link className="text-base text-foreground font-medium hover:text-primary transition-colors border-b border-foreground/30 hover:border-primary pb-0.5 no-underline" href="/connect"
               >hit me up</Link>
             and let's build something cool.
           </p>
