@@ -19,6 +19,10 @@ const ogImage = new URL("/og-image.png", Astro.url);
     <meta charset="UTF-8" />
     <meta name="description" content={description} />
     <meta name="viewport" content="width=device-width" />
+    <meta name="theme-color" content="#f8f6f2" />
+    <meta name="author" content="Shrvan Benke" />
+    <link rel="canonical" href={url} />
+    <meta name="robots" content="index, follow" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={url} />
@@ -41,13 +45,13 @@ const ogImage = new URL("/og-image.png", Astro.url);
     <link rel="sitemap" href="/sitemap-0.xml" />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      rel="preload"
-      href="/fonts/naori.otf"
-      as="font"
-      type="font/otf"
-      crossorigin
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap"
+      rel="stylesheet"
     />
+
 
     <ViewTransitions />
   </head>
