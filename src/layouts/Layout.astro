@@ -4,10 +4,14 @@ import "@/styles/global.css";
 import { ViewTransitions } from "astro:transitions";
 import { Toaster } from "@/components/ui/toaster";
 import Sidebar from "@/components/Sidebar";
+import SpotifyNowPlaying from "@/components/SpotifyNowPlaying";
 
 const {
   title = "shrvan - maker, builder, breaker.",
   description = "building cool stuff with code and ai. currently exploring what happens when you mix react with too much coffee.",
+  showSidebar = true,
+  showNowPlaying = true,
+  fullScreen = false,
 } = Astro.props;
 const url = Astro.url;
 const ogImage = new URL("/og-image.png", Astro.url);
@@ -52,18 +56,44 @@ const ogImage = new URL("/og-image.png", Astro.url);
       rel="stylesheet"
     />
 
-
     <ViewTransitions />
   </head>
   <body>
-    <div class="flex">
-      <Sidebar client:only="react" />
-      <main class="flex-1 ml-0 lg:ml-64 p-4">
-        <Container>
+    {
+      showSidebar ? (
+        <div class="flex">
+          <Sidebar client:only="react" />
+          <main class="flex-1 ml-0 lg:ml-64 p-4 pb-28 sm:pb-24 lg:pb-6">
+            <Container>
+              <slot />
+            </Container>
+          </main>
+        </div>
+      ) : fullScreen ? (
+        <main class="h-screen overflow-hidden">
           <slot />
-        </Container>
-      </main>
-    </div>
+        </main>
+      ) : (
+        <main class="min-h-screen p-4 md:p-8">
+          <Container className="py-0">
+            <slot />
+          </Container>
+        </main>
+      )
+    }
+
+    {
+      showNowPlaying && (
+        <div
+          class="pointer-events-none fixed bottom-4 left-4 right-4 z-40 sm:left-auto sm:right-4 sm:w-[22rem]"
+        >
+          <div class="pointer-events-auto">
+            <SpotifyNowPlaying client:load />
+          </div>
+        </div>
+      )
+    }
+
     <Toaster client:load />
   </body>
 </html>

@@ -1,6 +1,15 @@
 import { cn } from "@/lib/utils";
-import { Cross2Icon } from "@radix-ui/react-icons";
-import { Circle } from "lucide-react";
+import {
+  ArrowRight01Icon,
+  BookOpen01Icon,
+  Briefcase01Icon,
+  Cancel01Icon,
+  Clock01Icon,
+  Home01Icon,
+  Menu02Icon,
+  Message01Icon,
+} from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import React from "react";
 import { useMediaQuery } from "usehooks-ts";
 import { AnimatePresence, motion } from "framer-motion";
@@ -10,76 +19,111 @@ const links = [
   {
     href: "/",
     label: "home",
+    icon: Home01Icon,
   },
   {
     href: "/works",
     label: "works",
+    icon: Briefcase01Icon,
   },
   {
     href: "/writings",
     label: "writings",
+    icon: BookOpen01Icon,
   },
 ];
 
 function SidebarContent() {
-  const [hoveredIndex, setHoveredIndex] = React.useState<
-    number | null | string
-  >(null);
+  const [hoveredIndex, setHoveredIndex] = React.useState<number | null>(null);
   const currentPath = `/${window.location.pathname.split("/")[1]}`;
+  const isHome = window.location.pathname === "/";
 
   return (
     <nav className="min-h-full flex flex-col">
-      <ul className="space-y-6 text-base flex-grow">
+      <div className="border-b border-border/70 pb-5">
+        <a href="/" className="font-naori text-5xl leading-none tracking-tight">
+          shrvan
+        </a>
+        <p className="mt-2 text-xs tracking-wide text-muted-foreground">
+          maker, builder, breaker
+        </p>
+      </div>
+
+      <ul className="space-y-2 text-base flex-grow pt-5">
         {links.map((link, index) => {
-          const isActive = link.href === currentPath;
+          const isActive = link.href === currentPath || (link.href === "/" && isHome);
           return (
             <motion.li
-              className={cn("border-t px-1.5 py-2")}
+              className="px-0.5"
               key={link.href}
-              initial={{ opacity: isActive ? 1 : 0.65 }}
+              initial={{ opacity: isActive ? 1 : 0.8 }}
               animate={{
                 opacity: isActive
                   ? 1
                   : hoveredIndex === null
-                    ? 0.65
+                    ? 0.8
                     : hoveredIndex === index
                       ? 1
-                      : 0.25,
+                      : 0.45,
               }}
               transition={{ duration: 0.2 }}
               onMouseEnter={() => setHoveredIndex(index)}
               onMouseLeave={() => setHoveredIndex(null)}
             >
-              <a href={link.href} className="block">
-                {link.label}
+              <a
+                href={link.href}
+                className={cn(
+                  "group flex items-center justify-between rounded-xl border px-3 py-2.5 transition-all duration-200",
+                  isActive
+                    ? "border-border/90 bg-card text-foreground"
+                    : "border-transparent text-muted-foreground hover:border-border/70 hover:bg-card/50 hover:text-foreground",
+                )}
+              >
+                <span className="flex items-center gap-2.5">
+                  <HugeiconsIcon icon={link.icon} size={17} strokeWidth={1.8} />
+                  <span>{link.label}</span>
+                </span>
+                <HugeiconsIcon
+                  icon={ArrowRight01Icon}
+                  size={15}
+                  strokeWidth={1.9}
+                  className={cn(
+                    "transition-transform duration-200",
+                    isActive
+                      ? "translate-x-0 text-foreground"
+                      : "translate-x-0 text-muted-foreground group-hover:translate-x-0.5 group-hover:text-foreground",
+                  )}
+                />
               </a>
             </motion.li>
           );
         })}
       </ul>
-      <motion.li
-        className="flex border-t text-base px-1.5 py-2"
-        initial={{ opacity: currentPath === "/connect" ? 1 : 0.65 }}
-        animate={{
-          opacity:
-            currentPath === "/connect"
-              ? 1
-              : hoveredIndex === "connect"
-                ? 1
-                : hoveredIndex === null
-                  ? 0.65
-                  : 0.2,
-        }}
-        transition={{ duration: 0.2 }}
-        onMouseEnter={() => setHoveredIndex("connect")}
-        onMouseLeave={() => setHoveredIndex(null)}
-      >
-        <a href="/connect" className="block">
-          connect
+
+      <div className="space-y-3 border-t border-border/70 pt-4">
+        <a
+          href="/connect"
+          className="group flex items-center justify-between rounded-xl border border-border/80 bg-card/60 px-3 py-2.5 text-sm transition hover:border-border hover:bg-card"
+        >
+          <span className="flex items-center gap-2.5">
+            <HugeiconsIcon icon={Message01Icon} size={17} strokeWidth={1.8} />
+            connect
+          </span>
+          <HugeiconsIcon
+            icon={ArrowRight01Icon}
+            size={15}
+            strokeWidth={1.9}
+            className="text-muted-foreground transition-transform duration-200 group-hover:translate-x-0.5 group-hover:text-foreground"
+          />
         </a>
-      </motion.li>
-      <div className="border-t px-1.5 py-2">
-        <Time />
+
+        <div className="flex items-center justify-between rounded-xl border border-border/70 px-3 py-2 text-sm text-muted-foreground">
+          <span className="inline-flex items-center gap-2">
+            <HugeiconsIcon icon={Clock01Icon} size={15} strokeWidth={1.9} />
+            local time
+          </span>
+          <Time />
+        </div>
       </div>
     </nav>
   );
@@ -99,12 +143,24 @@ export default function Sidebar() {
       {!isDesktop && (
         <motion.button
           onClick={() => setIsOpen(true)}
-          className="fixed top-4 left-4 z-50"
+          className="fixed top-4 left-4 z-50 rounded-full border border-border/80 bg-background/80 p-2 text-foreground shadow-sm backdrop-blur-sm"
+          whileTap={{ scale: 0.94 }}
+          aria-label="Open navigation"
         >
-          <Circle />
+          <HugeiconsIcon icon={Menu02Icon} size={22} strokeWidth={1.9} />
         </motion.button>
       )}
       <AnimatePresence>
+        {!isDesktop && isOpen && (
+          <motion.button
+            aria-label="Close navigation"
+            className="fixed inset-0 z-[998] bg-foreground/20 backdrop-blur-[2px]"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setIsOpen(false)}
+          />
+        )}
         {(isDesktop || isOpen) && (
           <motion.aside
             initial="closed"
@@ -112,12 +168,12 @@ export default function Sidebar() {
             exit="closed"
             variants={sidebarVariants}
             transition={{ type: "tween", duration: 0.3, ease: "easeInOut" }}
-            className="fixed top-0 left-0 h-screen w-64 px-4 py-16 border-r border-border/65 bg-background z-[999]"
+            className="fixed top-0 left-0 z-[999] h-screen w-72 border-r border-border/65 bg-background px-5 py-7 lg:w-64 lg:py-8"
           >
             {!isDesktop && (
               <motion.button
                 onClick={() => setIsOpen(false)}
-                className="absolute top-4 right-4"
+                className="absolute right-4 top-4 rounded-full border border-border/80 bg-background/80 p-1.5"
                 initial="closed"
                 animate="open"
                 exit="closed"
@@ -125,7 +181,7 @@ export default function Sidebar() {
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
               >
-                <Cross2Icon />
+                <HugeiconsIcon icon={Cancel01Icon} size={20} strokeWidth={1.9} />
               </motion.button>
             )}
             <SidebarContent />

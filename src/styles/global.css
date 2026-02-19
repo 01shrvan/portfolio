@@ -47,6 +47,7 @@
   }
   body {
     @apply bg-background text-foreground font-sans lowercase;
+    margin: 0;
   }
 }
 
@@ -107,6 +108,23 @@
   100% {
     transform: translate3d(-50%, 0, 0);
   }
+}
+
+@keyframes spotify-wave {
+  0%,
+  100% {
+    transform: scaleY(0.45);
+    opacity: 0.55;
+  }
+  50% {
+    transform: scaleY(1);
+    opacity: 1;
+  }
+}
+
+.spotify-wave {
+  animation: spotify-wave 0.95s ease-in-out infinite;
+  transform-origin: bottom;
 }
 
 .marquee-container:hover .marquee-content {

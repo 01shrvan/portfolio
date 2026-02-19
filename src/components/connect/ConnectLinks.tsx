@@ -1,4 +1,5 @@
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight01Icon } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
 
@@ -55,9 +56,12 @@ export default function ConnectLinks() {
               </span>
             </div>
             <div className="relative overflow-hidden">
-              <ArrowUpRight
+              <HugeiconsIcon
+                icon={ArrowUpRight01Icon}
+                size={22}
+                strokeWidth={1.8}
                 className={cn(
-                  "w-6 h-6 transition-transform duration-300 ease-in-out",
+                  "transition-transform duration-300 ease-in-out",
                   hoveredIndex === index
                     ? "translate-x-1 -translate-y-1"
                     : "text-muted-foreground",
