@@ -52,7 +52,7 @@ function SidebarContent() {
         </p>
       </div>
 
-      <ul className="flex-1 space-y-2 overflow-y-auto pt-4 pr-1 text-base">
+      <ul className="flex-1 space-y-2 overflow-y-auto pt-3 pr-1 text-base">
         {links.map((link, index) => {
           const isActive = link.href === currentPath || (link.href === "/" && isHome);
           return (
@@ -103,7 +103,7 @@ function SidebarContent() {
         })}
       </ul>
 
-      <div className="shrink-0 space-y-2.5 border-t border-border/70 pt-3">
+      <div className="shrink-0 space-y-2 border-t border-border/70 pt-2.5">
         <a
           href="/connect"
           className="group flex items-center justify-between rounded-xl border border-border/80 bg-card/60 px-3 py-2 text-sm transition hover:border-border hover:bg-card"
@@ -171,7 +171,7 @@ export default function Sidebar() {
             exit="closed"
             variants={sidebarVariants}
             transition={{ type: "tween", duration: 0.3, ease: "easeInOut" }}
-            className="fixed top-0 left-0 z-[999] h-screen w-72 overflow-hidden border-r border-border/65 bg-background px-5 py-5 lg:w-64 lg:py-8"
+            className="fixed inset-y-0 left-0 z-[999] w-72 overflow-hidden border-r border-border/65 bg-background px-5 pb-[max(0.75rem,env(safe-area-inset-bottom))] pt-4 lg:w-64 lg:py-8"
           >
             {!isDesktop && (
               <motion.button
