@@ -39,17 +39,20 @@ function SidebarContent() {
   const isHome = window.location.pathname === "/";
 
   return (
-    <nav className="min-h-full flex flex-col">
-      <div className="border-b border-border/70 pb-5">
-        <a href="/" className="font-naori text-5xl leading-none tracking-tight">
+    <nav className="flex h-full flex-col overflow-hidden">
+      <div className="shrink-0 border-b border-border/70 pb-4">
+        <a
+          href="/"
+          className="font-naori text-[2.4rem] leading-none tracking-tight lg:text-5xl"
+        >
           shrvan
         </a>
-        <p className="mt-2 text-xs tracking-wide text-muted-foreground">
+        <p className="mt-2 text-xs tracking-wide text-muted-foreground max-[420px]:hidden">
           maker, builder, breaker
         </p>
       </div>
 
-      <ul className="space-y-2 text-base flex-grow pt-5">
+      <ul className="flex-1 space-y-2 overflow-y-auto pt-4 pr-1 text-base">
         {links.map((link, index) => {
           const isActive = link.href === currentPath || (link.href === "/" && isHome);
           return (
@@ -100,10 +103,10 @@ function SidebarContent() {
         })}
       </ul>
 
-      <div className="space-y-3 border-t border-border/70 pt-4">
+      <div className="shrink-0 space-y-2.5 border-t border-border/70 pt-3">
         <a
           href="/connect"
-          className="group flex items-center justify-between rounded-xl border border-border/80 bg-card/60 px-3 py-2.5 text-sm transition hover:border-border hover:bg-card"
+          className="group flex items-center justify-between rounded-xl border border-border/80 bg-card/60 px-3 py-2 text-sm transition hover:border-border hover:bg-card"
         >
           <span className="flex items-center gap-2.5">
             <HugeiconsIcon icon={Message01Icon} size={17} strokeWidth={1.8} />
@@ -117,7 +120,7 @@ function SidebarContent() {
           />
         </a>
 
-        <div className="flex items-center justify-between rounded-xl border border-border/70 px-3 py-2 text-sm text-muted-foreground">
+        <div className="flex items-center justify-between rounded-xl border border-border/70 px-3 py-1.5 text-sm text-muted-foreground">
           <span className="inline-flex items-center gap-2">
             <HugeiconsIcon icon={Clock01Icon} size={15} strokeWidth={1.9} />
             local time
@@ -168,7 +171,7 @@ export default function Sidebar() {
             exit="closed"
             variants={sidebarVariants}
             transition={{ type: "tween", duration: 0.3, ease: "easeInOut" }}
-            className="fixed top-0 left-0 z-[999] h-screen w-72 overflow-hidden border-r border-border/65 bg-background px-5 py-7 lg:w-64 lg:py-8"
+            className="fixed top-0 left-0 z-[999] h-screen w-72 overflow-hidden border-r border-border/65 bg-background px-5 py-5 lg:w-64 lg:py-8"
           >
             {!isDesktop && (
               <motion.button
@@ -184,9 +187,7 @@ export default function Sidebar() {
                 <HugeiconsIcon icon={Cancel01Icon} size={20} strokeWidth={1.9} />
               </motion.button>
             )}
-            <div className="h-full overflow-y-auto pb-[max(1rem,env(safe-area-inset-bottom))] pr-1 [scrollbar-gutter:stable]">
-              <SidebarContent />
-            </div>
+            <SidebarContent />
           </motion.aside>
         )}
       </AnimatePresence>
