@@ -168,7 +168,7 @@ export default function Sidebar() {
             exit="closed"
             variants={sidebarVariants}
             transition={{ type: "tween", duration: 0.3, ease: "easeInOut" }}
-            className="fixed top-0 left-0 z-[999] h-screen w-72 border-r border-border/65 bg-background px-5 py-7 lg:w-64 lg:py-8"
+            className="fixed top-0 left-0 z-[999] h-screen w-72 overflow-hidden border-r border-border/65 bg-background px-5 py-7 lg:w-64 lg:py-8"
           >
             {!isDesktop && (
               <motion.button
@@ -184,7 +184,9 @@ export default function Sidebar() {
                 <HugeiconsIcon icon={Cancel01Icon} size={20} strokeWidth={1.9} />
               </motion.button>
             )}
-            <SidebarContent />
+            <div className="h-full overflow-y-auto pb-[max(1rem,env(safe-area-inset-bottom))] pr-1 [scrollbar-gutter:stable]">
+              <SidebarContent />
+            </div>
           </motion.aside>
         )}
       </AnimatePresence>
