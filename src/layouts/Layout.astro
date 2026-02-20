@@ -84,12 +84,8 @@ const ogImage = new URL("/og-image.png", Astro.url);
 
     {
       showNowPlaying && (
-        <div
-          class="pointer-events-none fixed bottom-4 left-4 right-4 z-40 sm:left-auto sm:right-4 sm:w-[22rem]"
-        >
-          <div class="pointer-events-auto">
-            <SpotifyNowPlaying client:load />
-          </div>
+        <div class="fixed bottom-4 left-4 right-4 z-40 sm:left-auto sm:right-4 sm:w-[22rem]">
+          <SpotifyNowPlaying client:load />
         </div>
       )
     }

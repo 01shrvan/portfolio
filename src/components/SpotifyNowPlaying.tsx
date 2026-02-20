@@ -15,6 +15,9 @@ type SpotifyResponse = {
     title: string;
     artist: string;
     songUrl: string;
+    albumImage: string | null;
+    progressMs: number;
+    durationMs: number;
   } | null;
 };
 
@@ -26,6 +29,7 @@ export default function SpotifyNowPlaying({ className }: SpotifyNowPlayingProps)
   const [data, setData] = useState<SpotifyResponse | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
+  const [liveProgressMs, setLiveProgressMs] = useState(0);
 
   useEffect(() => {
     let isMounted = true;
@@ -67,27 +71,87 @@ export default function SpotifyNowPlaying({ className }: SpotifyNowPlayingProps)
     };
   }, []);
 
+  const activeTrack = data?.isPlaying ? data.track : null;
+  const isLive = Boolean(activeTrack);
+
+  useEffect(() => {
+    if (activeTrack) {
+      setLiveProgressMs(activeTrack.progressMs);
+      return;
+    }
+
+    setLiveProgressMs(0);
+  }, [
+    activeTrack,
+  ]);
+
+  useEffect(() => {
+    if (!activeTrack?.durationMs) {
+      return;
+    }
+
+    const duration = activeTrack.durationMs;
+
+    const interval = window.setInterval(() => {
+      setLiveProgressMs((prev) => Math.min(prev + 1000, duration));
+    }, 1000);
+
+    return () => {
+      window.clearInterval(interval);
+    };
+  }, [
+    activeTrack,
+  ]);
+
   const label = isLoading
     ? "syncing spotify..."
     : data?.status === "unconfigured"
       ? "set spotify env vars"
       : hasError
         ? "spotify is taking a break"
-        : data?.isPlaying && data.track
-          ? `${data.track.title} - ${data.track.artist}`
+        : activeTrack
+          ? `${activeTrack.title} - ${activeTrack.artist}`
           : "not listening right now";
+
+  const helperText = isLoading
+    ? "fetching current track"
+    : data?.status === "unconfigured"
+      ? "spotify credentials are not configured"
+      : hasError
+        ? "please try again shortly"
+        : isLive
+          ? "live from spotify"
+          : "check back in a bit";
+
+  const durationMs = activeTrack?.durationMs ?? 0;
+  const safeProgressMs =
+    isLive && durationMs > 0
+      ? Math.min(liveProgressMs, durationMs)
+      : Math.max(liveProgressMs, 0);
+  const progressPercent = durationMs > 0 ? (safeProgressMs / durationMs) * 100 : 0;
+
+  const formatDuration = (ms: number) => {
+    if (!Number.isFinite(ms) || ms <= 0) {
+      return "--:--";
+    }
+
+    const totalSeconds = Math.floor(ms / 1000);
+    const minutes = Math.floor(totalSeconds / 60);
+    const seconds = String(totalSeconds % 60).padStart(2, "0");
+    return `${minutes}:${seconds}`;
+  };
 
   return (
     <div
       className={cn(
-        "relative overflow-hidden rounded-2xl border border-border/70 bg-background/85 px-3 py-2.5 shadow-[0_12px_35px_-20px_rgba(32,53,74,0.8)] backdrop-blur-md",
+        "rounded-2xl border border-border/70 px-3 py-2.5",
         className,
       )}
     >
-      <div className="mb-1.5 flex items-center justify-between gap-3">
+      <div className="mb-2 flex items-center justify-between gap-3">
         <p className="inline-flex items-center gap-1.5 text-[10px] font-medium tracking-[0.14em] text-muted-foreground/90">
           <HugeiconsIcon icon={MusicNote01Icon} size={13} strokeWidth={1.9} />
-          now playing
+          spotify pulse
         </p>
         <span className="inline-flex items-center gap-1 text-[10px] text-muted-foreground">
           <HugeiconsIcon
@@ -96,40 +160,97 @@ export default function SpotifyNowPlaying({ className }: SpotifyNowPlayingProps)
             strokeWidth={2.4}
             className={cn(
               "shrink-0",
-              data?.isPlaying ? "text-emerald-600" : "text-muted-foreground/60",
+              isLive ? "text-foreground/70" : "text-muted-foreground/60",
             )}
           />
-          {data?.isPlaying ? "live" : "idle"}
+          {isLive ? "live" : "idle"}
         </span>
       </div>
 
-      <div className="min-w-0">
-        {isLoading ? (
-          <div className="h-3.5 w-full animate-pulse rounded bg-muted" />
-        ) : data?.isPlaying && data.track ? (
-          <a
-            href={data.track.songUrl}
-            target="_blank"
-            rel="noreferrer"
-            className="inline-flex min-w-0 items-center gap-2 text-xs text-foreground/90 transition-colors hover:text-foreground"
-          >
-            <span className="inline-flex items-end gap-[2px]">
-              <span className="spotify-wave h-[7px] w-[2px] rounded-full bg-emerald-500" />
-              <span className="spotify-wave h-[10px] w-[2px] rounded-full bg-emerald-500 [animation-delay:0.12s]" />
-              <span className="spotify-wave h-[8px] w-[2px] rounded-full bg-emerald-500 [animation-delay:0.24s]" />
-            </span>
-            <span className="truncate">{label}</span>
-            <HugeiconsIcon
-              icon={ArrowUpRight01Icon}
-              size={14}
-              strokeWidth={1.9}
-              className="shrink-0 text-muted-foreground"
-            />
-          </a>
-        ) : (
-          <p className="truncate text-xs text-muted-foreground">{label}</p>
-        )}
-      </div>
+      {isLoading ? (
+        <div className="mt-1.5">
+          <p className="truncate text-xs text-foreground/90">{label}</p>
+          <p className="mt-0.5 truncate text-[10px] tracking-[0.12em] text-muted-foreground/85">
+            {helperText}
+          </p>
+        </div>
+      ) : activeTrack ? (
+        <>
+          <div className="mt-2 flex items-center gap-3">
+            {activeTrack.albumImage ? (
+              <img
+                src={activeTrack.albumImage}
+                alt={`${activeTrack.title} album art`}
+                className="h-14 w-14 shrink-0 rounded-lg border border-border/70 object-cover"
+                loading="lazy"
+                referrerPolicy="no-referrer"
+              />
+            ) : (
+              <span className="inline-flex h-14 w-14 shrink-0 items-center justify-center rounded-lg border border-dashed border-border/70 text-muted-foreground/75">
+                <HugeiconsIcon icon={MusicNote01Icon} size={18} strokeWidth={1.9} />
+              </span>
+            )}
+
+            <div className="min-w-0 flex-1">
+              <a
+                href={activeTrack.songUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="group block min-w-0"
+              >
+                <p className="truncate text-sm font-medium text-foreground transition-colors group-hover:text-foreground/80">
+                  {activeTrack.title}
+                </p>
+                <p className="mt-0.5 truncate text-[11px] tracking-wide text-muted-foreground/90">
+                  {activeTrack.artist}
+                </p>
+              </a>
+
+              <div className="mt-2 inline-flex items-end gap-[2px]">
+                <span className="spotify-wave h-[7px] w-[2px] rounded-full bg-foreground/60" />
+                <span className="spotify-wave h-[10px] w-[2px] rounded-full bg-foreground/60 [animation-delay:0.12s]" />
+                <span className="spotify-wave h-[8px] w-[2px] rounded-full bg-foreground/60 [animation-delay:0.24s]" />
+              </div>
+            </div>
+
+            <a
+              href={activeTrack.songUrl}
+              target="_blank"
+              rel="noreferrer"
+              aria-label="Open track on Spotify"
+              className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-border/70 text-muted-foreground transition-colors hover:border-foreground/30 hover:text-foreground"
+            >
+              <HugeiconsIcon icon={ArrowUpRight01Icon} size={14} strokeWidth={2} />
+            </a>
+          </div>
+
+          <div className="mt-2.5 space-y-1.5">
+            <div className="h-px w-full bg-border/45" />
+            <div className="h-[2px] w-full">
+              <span
+                className="block h-full bg-foreground/55 transition-[width] duration-700 ease-linear"
+                style={{ width: `${Math.max(0, Math.min(progressPercent, 100))}%` }}
+              />
+            </div>
+            <div className="flex items-center justify-between text-[10px] tracking-wide text-muted-foreground/80">
+              <span>{formatDuration(safeProgressMs)}</span>
+              <span>{formatDuration(durationMs)}</span>
+            </div>
+          </div>
+        </>
+      ) : (
+        <div className="mt-2 flex items-center gap-3">
+          <span className="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-dashed border-border/70 text-muted-foreground/85">
+            <HugeiconsIcon icon={MusicNote01Icon} size={16} strokeWidth={1.9} />
+          </span>
+          <div className="min-w-0">
+            <p className="truncate text-xs text-foreground/90">{label}</p>
+            <p className="mt-0.5 truncate text-[10px] tracking-[0.12em] text-muted-foreground/85">
+              {helperText}
+            </p>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

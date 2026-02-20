@@ -131,6 +131,12 @@
   animation-play-state: paused;
 }
 
+@media (prefers-reduced-motion: reduce) {
+  .spotify-wave {
+    animation: none;
+  }
+}
+
 @media (min-width: 768px) {
   .marquee-container {
     overflow: hidden;

@@ -9,6 +9,9 @@ type SpotifyTrack = {
   title: string;
   artist: string;
   songUrl: string;
+  albumImage: string | null;
+  progressMs: number;
+  durationMs: number;
 };
 
 const getAccessToken = async () => {
@@ -94,6 +97,13 @@ export const GET: APIRoute = async () => {
           .map((artist: { name: string }) => artist.name)
           .join(", "),
         songUrl: nowPlaying.item.external_urls.spotify,
+        albumImage: nowPlaying.item.album?.images?.[0]?.url ?? null,
+        progressMs:
+          typeof nowPlaying.progress_ms === "number" ? nowPlaying.progress_ms : 0,
+        durationMs:
+          typeof nowPlaying.item.duration_ms === "number"
+            ? nowPlaying.item.duration_ms
+            : 0,
       }
       : null;
 
