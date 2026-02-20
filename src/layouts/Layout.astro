@@ -15,6 +15,7 @@ const {
 } = Astro.props;
 const url = Astro.url;
 const ogImage = new URL("/og-image.png", Astro.url);
+const isHomePage = Astro.url.pathname === "/";
 ---
 
 <!doctype html>
@@ -83,7 +84,7 @@ const ogImage = new URL("/og-image.png", Astro.url);
     }
 
     {
-      showNowPlaying && (
+      showNowPlaying && isHomePage && (
         <div class="fixed bottom-4 left-4 right-4 z-40 sm:left-auto sm:right-4 sm:w-[22rem]">
           <SpotifyNowPlaying client:load />
         </div>
