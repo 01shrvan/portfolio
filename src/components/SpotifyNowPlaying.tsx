@@ -144,7 +144,7 @@ export default function SpotifyNowPlaying({ className }: SpotifyNowPlayingProps)
   return (
     <div
       className={cn(
-        "rounded-2xl border border-border/70 px-3 py-2.5",
+        "rounded-2xl border border-border/70 bg-card/60 px-3 py-2.5 backdrop-blur-md",
         className,
       )}
     >
