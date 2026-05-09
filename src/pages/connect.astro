@@ -1,5 +1,4 @@
 ---
-import Container from "../components/Container.astro";
 import Layout from "../layouts/Layout.astro";
 import ConnectLinks from "../components/connect/ConnectLinks";
 ---
@@ -8,21 +7,19 @@ import ConnectLinks from "../components/connect/ConnectLinks";
   title="connect | shrvan"
   description="get in touch with me via social media or email."
 >
-  <Container>
-    <div class="flex flex-col space-y-12">
-      <div class="space-y-4">
-        <h1 class="text-2xl font-semibold">connect</h1>
-        <p
-          class="leading-[150%] tracking-wide text-muted-foreground text-sm md:text-base"
-        >
-          feel free to reach out to me on any of the platforms below. i'm always
-          open to new opportunities and collaborations.
-        </p>
-
-        <div class="pt-4">
-          <ConnectLinks client:load />
-        </div>
-      </div>
+  <div class="px-5 py-10">
+    <div class="space-y-3">
+      <span class="font-mono text-[9px] uppercase tracking-[0.25em] text-muted-foreground/50">
+        get in touch
+      </span>
+      <h1 class="text-xl font-semibold tracking-tight">connect</h1>
+      <p class="text-muted-foreground text-sm max-w-sm leading-relaxed">
+        feel free to reach out. always open to new things.
+      </p>
     </div>
-  </Container>
+
+    <div class="mt-8">
+      <ConnectLinks client:load />
+    </div>
+  </div>
 </Layout>

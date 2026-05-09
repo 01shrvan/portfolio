@@ -1,5 +1,4 @@
 ---
-import Container from "../components/Container.astro";
 import Layout from "../layouts/Layout.astro";
 import WorksList from "../components/works/WorksList";
 import { basehub } from "../lib/basehub";
@@ -24,21 +23,19 @@ const {
   title="works | shrvan"
   description="stuff i've built, broke, fixed, and somehow shipped anyway"
 >
-  <Container>
-    <div class="flex flex-col space-y-12">
-      <div class="space-y-4">
-        <h1 class="text-2xl font-semibold">works</h1>
-        <p
-          class="leading-[150%] tracking-wide text-muted-foreground text-sm md:text-base"
-        >
-          stuff i've built, broke, fixed, and somehow shipped anyway. from side
-          projects that went somewhere to experiments that taught me something
-        </p>
-
-        <div>
-          <WorksList works={works} client:load />
-        </div>
-      </div>
+  <div class="px-5 py-10">
+    <div class="space-y-3">
+      <span class="font-mono text-[9px] uppercase tracking-[0.25em] text-muted-foreground/50">
+        selected works
+      </span>
+      <h1 class="text-xl font-semibold tracking-tight">works</h1>
+      <p class="text-muted-foreground text-sm max-w-sm leading-relaxed">
+        stuff i've built, broke, fixed, and somehow shipped anyway.
+      </p>
     </div>
-  </Container>
+
+    <div class="mt-8">
+      <WorksList works={works as any} client:load />
+    </div>
+  </div>
 </Layout>

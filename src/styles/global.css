@@ -2,42 +2,38 @@
 @tailwind components;
 @tailwind utilities;
 
-@font-face {
-  font-family: "Naori";
-  src: url("/fonts/naori.otf");
-}
 
 @layer base {
   :root {
-    --background: 40 30% 96%;
-    --foreground: 210 40% 25%;
+    --background: 0 0% 4%;
+    --foreground: 0 0% 96%;
 
-    --card: 40 30% 94%;
-    --card-foreground: 210 40% 25%;
+    --card: 0 0% 6%;
+    --card-foreground: 0 0% 96%;
 
-    --popover: 40 30% 96%;
-    --popover-foreground: 210 40% 25%;
+    --popover: 0 0% 6%;
+    --popover-foreground: 0 0% 96%;
 
-    --primary: 210 60% 60%;
-    --primary-foreground: 40 30% 96%;
+    --primary: 0 0% 96%;
+    --primary-foreground: 0 0% 4%;
 
-    --secondary: 40 20% 85%;
-    --secondary-foreground: 210 40% 25%;
+    --secondary: 0 0% 9%;
+    --secondary-foreground: 0 0% 96%;
 
-    --muted: 40 20% 90%;
-    --muted-foreground: 210 30% 45%;
+    --muted: 0 0% 8%;
+    --muted-foreground: 0 0% 48%;
 
-    --accent: 40 20% 85%;
-    --accent-foreground: 210 40% 25%;
+    --accent: 0 0% 9%;
+    --accent-foreground: 0 0% 96%;
 
-    --destructive: 0 84% 60%;
-    --destructive-foreground: 40 30% 96%;
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 96%;
 
-    --border: 210 30% 80%;
-    --input: 210 30% 80%;
-    --ring: 210 60% 60%;
+    --border: 0 0% 12%;
+    --input: 0 0% 12%;
+    --ring: 0 0% 70%;
 
-    --radius: 0.5rem;
+    --radius: 0rem;
   }
 }
 
@@ -45,69 +41,29 @@
   * {
     @apply border-border;
   }
+  html,
+  body {
+    height: 100%;
+    overflow: hidden;
+  }
   body {
     @apply bg-background text-foreground font-sans lowercase;
     margin: 0;
   }
 }
 
-.marquee-container {
-  overflow: hidden;
-  mask-image: linear-gradient(
-    to right,
-    transparent,
-    black 10%,
-    black 90%,
-    transparent 100%
-  );
-  -webkit-mask-image: linear-gradient(
-    to right,
-    transparent,
-    black 10%,
-    black 90%,
-    transparent 100%
-  );
-  width: 100%;
-  max-width: 100%;
+/* shine sweep — starts hidden off-left, sweeps right only on group hover */
+.shine {
+  left: -100%;
 }
 
-.slider-container {
-  overflow: hidden;
-  mask-image: linear-gradient(
-    to right,
-    transparent,
-    black 2%,
-    black 98%,
-    transparent 100%
-  );
-  -webkit-mask-image: linear-gradient(
-    to right,
-    transparent,
-    black 2%,
-    black 98%,
-    transparent 100%
-  );
-  width: 100%;
-  max-width: 100%;
+@keyframes shine-sweep {
+  from { left: -100%; }
+  to   { left: 200%;  }
 }
 
-.marquee-content {
-  display: inline-flex;
-  white-space: nowrap;
-  animation: marquee linear infinite;
-}
-
-.marquee-content span {
-  padding-right: 30px;
-}
-
-@keyframes marquee {
-  0% {
-    transform: translate3d(0, 0, 0);
-  }
-  100% {
-    transform: translate3d(-50%, 0, 0);
-  }
+.group:hover .shine {
+  animation: shine-sweep 0.65s ease-in-out forwards;
 }
 
 @keyframes spotify-wave {
@@ -127,37 +83,8 @@
   transform-origin: bottom;
 }
 
-.marquee-container:hover .marquee-content {
-  animation-play-state: paused;
-}
-
 @media (prefers-reduced-motion: reduce) {
   .spotify-wave {
     animation: none;
-  }
-}
-
-@media (min-width: 768px) {
-  .marquee-container {
-    overflow: hidden;
-    width: 100%;
-    max-width: 15rem;
-  }
-
-  .slider-container {
-    mask-image: linear-gradient(
-      to right,
-      transparent,
-      black 1%,
-      black 99%,
-      transparent 100%
-    );
-    -webkit-mask-image: linear-gradient(
-      to right,
-      transparent,
-      black 1%,
-      black 99%,
-      transparent 100%
-    );
   }
 }

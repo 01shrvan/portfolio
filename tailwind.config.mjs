@@ -4,15 +4,21 @@ export default {
   content: ["./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}"],
   theme: {
     fontFamily: {
-      sans: ["Inter", "sans-serif"],
-      naori: ["Naori", "sans-serif"],
+      sans: ["Space Grotesk", "sans-serif"],
+      mono: ["Space Mono", "monospace"],
+    },
+    borderRadius: {
+      none: "0",
+      sm: "0",
+      DEFAULT: "0",
+      md: "0",
+      lg: "var(--radius)",
+      xl: "0",
+      "2xl": "0",
+      "3xl": "0",
+      full: "9999px",
     },
     extend: {
-      borderRadius: {
-        lg: "var(--radius)",
-        md: "calc(var(--radius) - 2px)",
-        sm: "calc(var(--radius) - 4px)",
-      },
       colors: {
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",

@@ -1,76 +1,53 @@
-import { ArrowUpRight01Icon } from "@hugeicons/core-free-icons";
-import { HugeiconsIcon } from "@hugeicons/react";
-import { useState } from "react";
-import { cn } from "@/lib/utils";
-
 const links = [
   {
-    title: "Twitter",
+    title: "twitter",
     href: "https://twitter.com/01shrvan",
     handle: "@01shrvan",
   },
+  { title: "github", href: "https://github.com/01shrvan", handle: "@01shrvan" },
   {
-    title: "GitHub",
-    href: "https://github.com/01shrvan",
-    handle: "@01shrvan",
-  },
-  {
-    title: "LinkedIn",
+    title: "linkedin",
     href: "https://www.linkedin.com/in/shrvanbenke",
-    handle: "Shrvan Benke",
+    handle: "shrvan benke",
   },
   {
-    title: "Email",
+    title: "email",
     href: "mailto:benkeshrvan@gmail.com",
     handle: "benkeshrvan@gmail.com",
   },
 ];
 
 export default function ConnectLinks() {
-  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
-
   return (
-    <div className="grid grid-cols-1 gap-4">
+    <ul className="flex flex-col">
       {links.map((link, index) => (
-        <a
-          key={index}
-          href={link.href}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="group relative block"
-          onMouseEnter={() => setHoveredIndex(index)}
-          onMouseLeave={() => setHoveredIndex(null)}
-        >
-          <div
-            className={cn(
-              "relative flex items-center justify-between p-4 border transition-all duration-300",
-              hoveredIndex === index
-                ? "border-foreground/20 bg-muted/30"
-                : "border-border",
-            )}
+        <li key={index} className="group border-t border-border last:border-b">
+          <a
+            href={link.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="relative flex items-center justify-between px-4 py-4 transition-colors duration-200 group-hover:bg-muted/20 overflow-hidden"
           >
-            <div className="flex flex-col">
-              <span className="font-medium text-lg">{link.title}</span>
-              <span className="text-muted-foreground text-sm mt-1">
+            <span className="absolute h-2.5 w-2.5 border-foreground/[0.1] group-hover:border-foreground/40 border-t border-l top-0 left-0 transition-colors duration-300" />
+            <span className="absolute h-2.5 w-2.5 border-foreground/[0.1] group-hover:border-foreground/40 border-t border-r top-0 right-0 transition-colors duration-300" />
+            <span className="absolute h-2.5 w-2.5 border-foreground/[0.1] group-hover:border-foreground/40 border-b border-l bottom-0 left-0 transition-colors duration-300" />
+            <span className="absolute h-2.5 w-2.5 border-foreground/[0.1] group-hover:border-foreground/40 border-b border-r bottom-0 right-0 transition-colors duration-300" />
+
+            <span className="shine absolute -top-1/2 h-[200%] w-1/2 skew-x-[-20deg] bg-gradient-to-r from-transparent via-white/[0.06] to-transparent pointer-events-none" />
+
+            <div className="flex flex-col gap-0.5 z-10">
+              <span className="text-sm font-medium">{link.title}</span>
+              <span className="font-mono text-[10px] text-muted-foreground">
                 {link.handle}
               </span>
             </div>
-            <div className="relative overflow-hidden">
-              <HugeiconsIcon
-                icon={ArrowUpRight01Icon}
-                size={22}
-                strokeWidth={1.8}
-                className={cn(
-                  "transition-transform duration-300 ease-in-out",
-                  hoveredIndex === index
-                    ? "translate-x-1 -translate-y-1"
-                    : "text-muted-foreground",
-                )}
-              />
-            </div>
-          </div>
-        </a>
+
+            <span className="overflow-hidden w-0 opacity-0 group-hover:w-4 group-hover:opacity-100 transition-all duration-200 text-muted-foreground font-mono text-sm z-10">
+              ↗
+            </span>
+          </a>
+        </li>
       ))}
-    </div>
+    </ul>
   );
 }
