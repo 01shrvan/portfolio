@@ -126,7 +126,7 @@ export default function ConnectPage() {
 
       <div className="mx-auto flex w-full max-w-7xl min-w-0 flex-col border-x shrink-0">
         <nav className="relative flex h-14 items-center justify-between px-4 sm:px-6">
-          <Link href="/" className="font-serif italic text-xl tracking-tight">shrvan</Link>
+          <Link href="/" className="font-serif italic text-xl tracking-tight">astra</Link>
           <div className="flex items-center gap-0.5">
             {navLinks.map(({ href, label }) => (
               <Link key={href} href={href}

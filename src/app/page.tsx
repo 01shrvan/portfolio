@@ -3,6 +3,7 @@
 import { motion } from "motion/react";
 import Link from "next/link";
 import { ThemeToggle } from "@/components/theme-toggle";
+import { TechGrid } from "@/components/tech-grid";
 
 const RUNG_COUNT = 10;
 
@@ -36,11 +37,6 @@ const navLinks = [
   { href: "/connect", label: "connect" },
 ];
 
-const stackCategories = [
-  { cat: "frontend", items: ["next.js", "react", "tailwind", "typescript"] },
-  { cat: "backend",  items: ["python", "node.js", "postgresql"] },
-  { cat: "ai",       items: ["openai", "langchain"] },
-];
 
 export default function Home() {
   return (
@@ -48,7 +44,7 @@ export default function Home() {
 
       <div className="mx-auto flex w-full max-w-7xl min-w-0 flex-col border-x shrink-0">
         <nav className="relative flex h-14 items-center justify-between px-4 sm:px-6">
-          <Link href="/" className="font-serif italic text-xl tracking-tight">shrvan</Link>
+          <Link href="/" className="font-serif italic text-xl tracking-tight">astra</Link>
           <div className="flex items-center gap-0.5">
             {navLinks.map(({ href, label }) => (
               <Link key={href} href={href}
@@ -122,26 +118,8 @@ export default function Home() {
               </div>
             </div>
 
-            <div className="px-6 py-6 flex-1 flex flex-col">
-              <span className="text-[8px] font-mono uppercase tracking-[0.2em] text-muted-foreground/60 block mb-5">
-                stack
-              </span>
-              <div className="space-y-4">
-                {stackCategories.map(({ cat, items }) => (
-                  <div key={cat} className="flex gap-4">
-                    <span className="text-[7px] font-mono uppercase tracking-[0.15em] text-muted-foreground/35 w-14 shrink-0 pt-px">
-                      {cat}
-                    </span>
-                    <div className="flex flex-wrap gap-x-2 gap-y-1">
-                      {items.map((t) => (
-                        <span key={t} className="text-[9px] font-mono text-muted-foreground/80 hover:text-foreground transition-colors cursor-default">
-                          {t}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                ))}
-              </div>
+            <div className="flex-1 overflow-hidden">
+              <TechGrid />
             </div>
           </motion.div>
 
