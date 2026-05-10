@@ -13,8 +13,37 @@ const cormorant = Cormorant_Garamond({
 });
 
 export const metadata: Metadata = {
-  title: "Shrvan Benke",
-  description: "full-stack dev from pune. building things end-to-end.",
+  title: {
+    default: "Shrvan Benke",
+    template: "%s — Shrvan Benke",
+  },
+  description: "full-stack developer. building things end-to-end — from data layer to the pixel.",
+  keywords: ["shrvan benke", "full-stack developer", "next.js", "react", "typescript", "python", "web development", "portfolio"],
+  authors: [{ name: "Shrvan Benke", url: "https://github.com/01shrvan" }],
+  creator: "Shrvan Benke",
+  metadataBase: new URL("https://shrvans-space.vercel.app"),
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: "/",
+    title: "Shrvan Benke — Full-Stack Developer",
+    description: "building things end-to-end. from data layer to the pixel. care about craft, not just shipping.",
+    siteName: "Shrvan Benke",
+  },
+  twitter: {
+    card: "summary",
+    title: "Shrvan Benke — Full-Stack Developer",
+    description: "building things end-to-end. care about craft, not just shipping.",
+    creator: "@01shrvan",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+    },
+  },
 };
 
 export default function RootLayout({

@@ -56,25 +56,21 @@ export default async function WritingPage({
   return (
     <PageLayout>
       <div className="h-full flex flex-col overflow-hidden">
-        {/* Scrollable content area */}
         <div className="flex-1 overflow-y-auto no-scrollbar">
           <div className="px-5 sm:px-8 lg:px-10 xl:px-12 py-10 max-w-2xl">
 
-            {/* Back link */}
             <Link
               href="/writings"
-              className="inline-flex items-center gap-1.5 text-[8px] font-mono uppercase tracking-[0.2em] text-muted-foreground/50 hover:text-foreground transition-colors mb-8"
+              className="inline-flex items-center gap-1.5 text-[8px] font-mono uppercase tracking-[0.2em] text-muted-foreground/60 hover:text-foreground transition-colors mb-8"
             >
               ← writings
             </Link>
 
-            {/* Title */}
             <h1 className="font-serif italic text-4xl sm:text-5xl leading-tight text-foreground mb-3">
               {writing._title}
             </h1>
 
-            {/* Meta row */}
-            <div className="flex items-center gap-2 text-[9px] font-mono text-muted-foreground/40 mb-8">
+            <div className="flex items-center gap-2 text-xs font-mono text-muted-foreground/70 mb-8">
               <span>shrvan</span>
               <span>·</span>
               <span>{formatDate(writing._sys?.createdAt)}</span>
@@ -86,10 +82,9 @@ export default async function WritingPage({
               )}
             </div>
 
-            {/* TL;DR callout */}
             {writing.tldr && (
               <div className="border-l-2 border-border pl-4 mb-10">
-                <span className="block text-[7px] font-mono uppercase tracking-[0.25em] text-muted-foreground/40 mb-2">
+                <span className="block text-[7px] font-mono uppercase tracking-[0.25em] text-muted-foreground/60 mb-2">
                   tl;dr
                 </span>
                 <p className="font-serif italic text-base text-muted-foreground leading-relaxed">
@@ -98,16 +93,15 @@ export default async function WritingPage({
               </div>
             )}
 
-            {/* Article body */}
             <div
               className="prose prose-neutral dark:prose-invert max-w-none
-                prose-p:text-[13px] prose-p:leading-[1.75] prose-p:text-muted-foreground prose-p:mb-5
+                prose-p:text-sm prose-p:leading-[1.8] prose-p:text-muted-foreground prose-p:mb-5
                 prose-headings:font-serif prose-headings:italic prose-headings:font-normal prose-headings:text-foreground
                 prose-h2:text-2xl prose-h2:mt-10 prose-h2:mb-4
                 prose-h3:text-xl prose-h3:mt-8 prose-h3:mb-3
                 prose-a:text-foreground prose-a:underline-offset-4 prose-a:decoration-border hover:prose-a:decoration-foreground
                 prose-strong:text-foreground prose-strong:font-medium
-                prose-code:text-[11px] prose-code:font-mono prose-code:bg-muted prose-code:px-1 prose-code:py-0.5 prose-code:rounded-none
+                prose-code:text-xs prose-code:font-mono prose-code:bg-muted prose-code:px-1 prose-code:py-0.5 prose-code:rounded-none
                 prose-pre:bg-muted prose-pre:rounded-none prose-pre:border prose-pre:border-border
                 prose-blockquote:border-l-2 prose-blockquote:border-border prose-blockquote:text-muted-foreground prose-blockquote:italic prose-blockquote:font-serif
                 prose-hr:border-border

@@ -42,7 +42,6 @@ export default function Home() {
   return (
     <div className="flex h-screen w-full flex-col overflow-hidden">
 
-      {/* NAV */}
       <div className="mx-auto flex w-full max-w-7xl min-w-0 flex-col border-x shrink-0">
         <nav className="relative flex h-14 items-center justify-between px-4 sm:px-6">
           <Link href="/" className="font-serif italic text-xl tracking-tight">shrvan</Link>
@@ -61,177 +60,109 @@ export default function Home() {
         </nav>
       </div>
 
-      {/* MAIN */}
       <div className="flex-1 w-full overflow-hidden xl:grid xl:grid-cols-[minmax(0,1fr)_minmax(0,80rem)_minmax(0,1fr)]">
         <aside className="pointer-events-none hidden xl:flex pr-[20%]">
           <Ladder side="left" />
         </aside>
 
-        {/* Content — two distinct zones, not a mirrored 2-col card layout */}
         <div className="mx-auto flex w-full h-full max-w-7xl min-w-0 border-x overflow-hidden flex-col">
 
-          {/* Top zone: editorial headline (takes most of the space) */}
-          <div className="flex-1 flex flex-col lg:flex-row overflow-hidden">
+          <div className="flex-1 flex flex-col justify-end px-5 sm:px-8 lg:px-10 xl:px-12 pt-10 pb-8 overflow-hidden relative">
 
-            {/* LEFT — typographic statement */}
-            <div className="flex-1 flex flex-col justify-between px-5 sm:px-8 lg:px-10 xl:px-12 py-10 lg:border-r lg:border-border overflow-hidden">
-
-              {/* Headline */}
-              <div>
-                <motion.div
-                  className="overflow-hidden"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ duration: 0.3 }}
-                >
-                  <span className="text-[8px] font-mono uppercase tracking-[0.25em] text-muted-foreground/50">
-                    full-stack developer · pune, india
-                  </span>
-                </motion.div>
-
-                <div className="mt-4 space-y-0">
-                  {["building", "things", "for the web."].map((line, i) => (
-                    <div
-                      key={line}
-                      className="overflow-hidden"
-                      style={{ paddingBottom: 40, marginBottom: -40 }}
-                    >
-                      <motion.p
-                        className={[
-                          "font-serif italic leading-[0.92] tracking-tight",
-                          "text-[clamp(2.8rem,7.5vw,5.5rem)]",
-                          i === 2 ? "text-muted-foreground" : "text-foreground",
-                        ].join(" ")}
-                        initial={{ y: "115%" }}
-                        animate={{ y: 0 }}
-                        transition={{ duration: 0.7, delay: i * 0.08, ease: [0.16, 1, 0.3, 1] }}
-                      >
-                        {line}
-                      </motion.p>
-                    </div>
-                  ))}
-                </div>
-
-                <motion.p
-                  className="mt-6 text-sm text-muted-foreground/60 leading-relaxed max-w-xs"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ delay: 0.45, duration: 0.4 }}
-                >
-                  i build end-to-end — from data layer to the pixel. care about
-                  craft, not just shipping.
-                </motion.p>
-              </div>
-
-              {/* Stack tags + links at bottom */}
-              <div>
-                <motion.div
-                  className="flex flex-wrap gap-x-3 gap-y-1.5 mb-5"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ delay: 0.55, duration: 0.4 }}
-                >
-                  {stack.map((t) => (
-                    <span key={t} className="text-[9px] font-mono text-muted-foreground/40 hover:text-muted-foreground transition-colors cursor-default">
-                      {t}
-                    </span>
-                  ))}
-                </motion.div>
-
-                <motion.div
-                  className="flex items-center gap-4"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ delay: 0.62, duration: 0.35 }}
-                >
-                  {[
-                    { href: "https://github.com/01shrvan", label: "github ↗", ext: true },
-                    { href: "/works", label: "works", ext: false },
-                    { href: "/writings", label: "writings", ext: false },
-                  ].map(({ href, label, ext }) => (
-                    <a key={href} href={href}
-                      target={ext ? "_blank" : undefined}
-                      rel={ext ? "noopener noreferrer" : undefined}
-                      className="text-[9px] font-mono uppercase tracking-[0.15em] text-muted-foreground/50 hover:text-foreground border-b border-transparent hover:border-foreground/30 pb-px transition-all duration-200">
-                      {label}
-                    </a>
-                  ))}
-                </motion.div>
-              </div>
-            </div>
-
-            {/* RIGHT — index sidebar (completely different from akira's card stack) */}
-            <motion.div
-              className="hidden lg:flex lg:w-[260px] xl:w-[300px] shrink-0 flex-col border-t border-border lg:border-t-0 overflow-hidden"
+            <motion.span
+              className="absolute top-8 right-5 sm:right-8 lg:right-10 xl:right-12 text-[8px] font-mono uppercase tracking-[0.25em] text-muted-foreground/50"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ delay: 0.3, duration: 0.5 }}
+              transition={{ delay: 0.05, duration: 0.6 }}
             >
-              {/* Status */}
-              <div className="px-5 py-4 border-b border-border">
-                <div className="flex items-center gap-2">
+              full-stack developer
+            </motion.span>
+
+            <div className="mb-6">
+              {["building", "things", "for the web."].map((line, i) => (
+                <motion.p
+                  key={line}
+                  className={[
+                    "font-serif italic block tracking-tight",
+                    "text-[clamp(4rem,10.5vw,9rem)]",
+                    "leading-[0.87]",
+                    i === 2 ? "text-foreground/35" : "text-foreground",
+                  ].join(" ")}
+                  initial={{ clipPath: "inset(0 0 100% 0)" }}
+                  animate={{ clipPath: "inset(-30% -5% -30% -5%)" }}
+                  transition={{ duration: 0.9, delay: 0.12 + i * 0.13, ease: [0.16, 1, 0.3, 1] }}
+                >
+                  {line}
+                </motion.p>
+              ))}
+            </div>
+
+            <motion.p
+              className="text-sm text-muted-foreground leading-relaxed max-w-sm"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.6, duration: 0.5 }}
+            >
+              i build end-to-end — from data layer to the pixel.
+              care about craft, not just shipping.
+            </motion.p>
+          </div>
+
+          <motion.div
+            className="shrink-0 border-t border-border"
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.65, duration: 0.5 }}
+          >
+            <div className="grid grid-cols-3 divide-x divide-border">
+
+              <div className="px-4 sm:px-6 lg:px-8 py-5">
+                <div className="flex items-center gap-2 mb-2">
                   <span className="relative flex h-1.5 w-1.5 shrink-0">
                     <span className="absolute inline-flex h-full w-full bg-foreground opacity-75 animate-[ping-sequence_2s_linear_infinite]" />
                     <span className="relative inline-flex h-1.5 w-1.5 bg-foreground" />
                   </span>
-                  <span className="text-[8px] font-mono uppercase tracking-[0.2em] text-muted-foreground">
+                  <span className="text-[9px] font-mono uppercase tracking-[0.18em] text-muted-foreground">
                     open to work
                   </span>
                 </div>
-                <p className="mt-2 text-[9px] text-muted-foreground/40 font-mono">
-                  available for freelance, contracts, full-time.
+                <p className="text-xs font-mono text-muted-foreground/70">
+                  freelance · contracts · full-time
                 </p>
               </div>
 
-              {/* Works index */}
-              <div className="px-5 py-4 border-b border-border flex-1">
-                <div className="flex items-center justify-between mb-3">
-                  <span className="text-[8px] font-mono uppercase tracking-[0.2em] text-muted-foreground/50">works</span>
-                  <Link href="/works" className="text-[8px] font-mono text-muted-foreground/30 hover:text-foreground transition-colors">all →</Link>
-                </div>
-                <div className="space-y-0">
-                  {[
-                    { label: "web apps", note: "next.js · react" },
-                    { label: "ai tools", note: "openai · python" },
-                    { label: "apis", note: "trpc · rest" },
-                  ].map((item, i) => (
-                    <div key={i} className="flex items-center justify-between py-1.5 border-b border-border/20 last:border-0">
-                      <span className="text-[9px] text-foreground/60">{item.label}</span>
-                      <span className="text-[8px] font-mono text-muted-foreground/30">{item.note}</span>
-                    </div>
+              <div className="px-4 sm:px-6 lg:px-8 py-5">
+                <p className="text-[8px] font-mono uppercase tracking-[0.2em] text-muted-foreground/60 mb-2">stack</p>
+                <div className="flex flex-wrap gap-x-2 gap-y-1">
+                  {stack.map((t) => (
+                    <span key={t} className="text-[9px] font-mono text-muted-foreground/80 hover:text-foreground transition-colors cursor-default">
+                      {t}
+                    </span>
                   ))}
                 </div>
               </div>
 
-              {/* Writings index */}
-              <div className="px-5 py-4 border-b border-border">
-                <div className="flex items-center justify-between mb-3">
-                  <span className="text-[8px] font-mono uppercase tracking-[0.2em] text-muted-foreground/50">writings</span>
-                  <Link href="/writings" className="text-[8px] font-mono text-muted-foreground/30 hover:text-foreground transition-colors">all →</Link>
-                </div>
-                <p className="text-[9px] text-muted-foreground/30 font-mono">thoughts on code, design, craft.</p>
-              </div>
-
-              {/* Contact row */}
-              <div className="px-5 py-4">
-                <span className="text-[8px] font-mono uppercase tracking-[0.2em] text-muted-foreground/50 block mb-3">links</span>
-                <div className="flex items-center gap-3">
+              <div className="px-4 sm:px-6 lg:px-8 py-5">
+                <p className="text-[8px] font-mono uppercase tracking-[0.2em] text-muted-foreground/60 mb-2">links</p>
+                <div className="flex flex-col gap-1.5">
                   {[
-                    { href: "https://github.com/01shrvan", label: "github" },
-                    { href: "https://x.com/01shrvan", label: "x" },
-                    { href: "/connect", label: "email" },
-                  ].map(({ href, label }) => (
-                    <a key={label} href={href}
-                      target={href.startsWith("http") ? "_blank" : undefined}
-                      rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
-                      className="text-[9px] font-mono text-muted-foreground/50 hover:text-foreground transition-colors duration-200 border-b border-transparent hover:border-foreground/20 pb-px">
+                    { href: "https://github.com/01shrvan", label: "github ↗", ext: true },
+                    { href: "/works", label: "works →", ext: false },
+                    { href: "/writings", label: "writings →", ext: false },
+                    { href: "/connect", label: "connect →", ext: false },
+                  ].map(({ href, label, ext }) => (
+                    <a key={href} href={href}
+                      target={ext ? "_blank" : undefined}
+                      rel={ext ? "noopener noreferrer" : undefined}
+                      className="text-xs font-mono text-muted-foreground hover:text-foreground transition-colors duration-150 w-fit">
                       {label}
                     </a>
                   ))}
                 </div>
               </div>
-            </motion.div>
-          </div>
+
+            </div>
+          </motion.div>
         </div>
 
         <aside className="pointer-events-none hidden xl:flex pl-[20%]">
@@ -239,7 +170,6 @@ export default function Home() {
         </aside>
       </div>
 
-      {/* FOOTER */}
       <div className="mx-auto flex w-full max-w-7xl min-w-0 flex-col border-x shrink-0">
         <footer className="relative h-14 px-4 sm:px-6">
           <div className="flex h-full items-center justify-between">
@@ -250,7 +180,7 @@ export default function Home() {
                 shrvan
               </a>
             </span>
-            <span className="text-[8px] font-mono text-muted-foreground/30">
+            <span className="text-[8px] font-mono text-muted-foreground/40">
               inspired by{" "}
               <a href="https://akira.sachi.dev" target="_blank" rel="noopener noreferrer"
                 className="hover:text-muted-foreground transition-colors">

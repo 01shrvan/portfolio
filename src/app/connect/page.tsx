@@ -6,8 +6,6 @@ import { ArrowUpRight, Check, Copy } from "lucide-react";
 import { motion } from "motion/react";
 import { ThemeToggle } from "@/components/theme-toggle";
 
-// ─── Ladder (same as home) ────────────────────────────────────────────────────
-
 const RUNG_COUNT = 10;
 
 function Ladder({ side }: { side: "left" | "right" }) {
@@ -34,8 +32,6 @@ function Ladder({ side }: { side: "left" | "right" }) {
   );
 }
 
-// ─── Email card ───────────────────────────────────────────────────────────────
-
 const EMAIL = "benkeshrvan@gmail.com";
 
 function EmailCard() {
@@ -59,13 +55,13 @@ function EmailCard() {
 
       <div className="p-6 sm:p-8 flex flex-col gap-6">
         <div className="flex items-start justify-between">
-          <span className="text-[8px] uppercase tracking-[0.2em] text-muted-foreground font-mono">
+          <span className="text-[8px] uppercase tracking-[0.2em] text-muted-foreground/70 font-mono">
             email
           </span>
           <motion.div
             animate={copied ? { scale: [1, 1.2, 1] } : {}}
             transition={{ duration: 0.25 }}
-            className="text-muted-foreground/50 group-hover:text-foreground transition-colors duration-200"
+            className="text-muted-foreground/60 group-hover:text-foreground transition-colors duration-200"
           >
             {copied ? (
               <Check size={13} strokeWidth={2.5} />
@@ -79,17 +75,17 @@ function EmailCard() {
           <p className="text-xl sm:text-2xl font-mono text-foreground tracking-tight break-all">
             {EMAIL}
           </p>
-          <p className="text-[9px] font-mono text-muted-foreground/50 mt-2 uppercase tracking-[0.15em]">
+          <p className="text-xs font-mono text-muted-foreground/70 mt-2 uppercase tracking-[0.15em]">
             {copied ? "copied to clipboard ✓" : "click to copy"}
           </p>
         </div>
 
-        <div className="h-px w-full bg-border/30" />
+        <div className="h-px w-full bg-border/50" />
 
         <a
           href={`mailto:${EMAIL}`}
           onClick={(e) => e.stopPropagation()}
-          className="flex items-center justify-between text-[10px] uppercase tracking-[0.18em] text-muted-foreground group-hover:text-foreground transition-colors duration-300"
+          className="flex items-center justify-between text-xs uppercase tracking-[0.18em] text-muted-foreground group-hover:text-foreground transition-colors duration-300"
         >
           <span>open in mail</span>
           <ArrowUpRight
@@ -106,8 +102,6 @@ function EmailCard() {
     </motion.div>
   );
 }
-
-// ─── Social card ──────────────────────────────────────────────────────────────
 
 function SocialCard({
   label,
@@ -132,16 +126,16 @@ function SocialCard({
     >
       <span className="shine absolute -top-1/2 -left-full h-[200%] w-3/4 skew-x-[-20deg] bg-gradient-to-r from-transparent via-white/40 to-transparent pointer-events-none z-20" />
       <div className="p-5 flex flex-col justify-between h-[96px]">
-        <span className="text-[8px] uppercase tracking-[0.2em] text-muted-foreground font-mono">
+        <span className="text-[8px] uppercase tracking-[0.2em] text-muted-foreground/70 font-mono">
           {label}
         </span>
         <div className="flex items-end justify-between">
-          <span className="text-[13px] font-mono text-foreground">
+          <span className="text-sm font-mono text-foreground">
             {handle}
           </span>
           <ArrowUpRight
             size={12}
-            className="text-muted-foreground/40 group-hover:text-foreground group-hover:-translate-y-0.5 group-hover:translate-x-0.5 transition-all duration-200"
+            className="text-muted-foreground/50 group-hover:text-foreground group-hover:-translate-y-0.5 group-hover:translate-x-0.5 transition-all duration-200"
           />
         </div>
       </div>
@@ -153,22 +147,18 @@ function SocialCard({
   );
 }
 
-// ─── Nav links ────────────────────────────────────────────────────────────────
-
 const navLinks = [
   { href: "/writings", label: "writings" },
   { href: "/works", label: "works" },
   { href: "/connect", label: "connect" },
 ];
 
-// ─── Page ─────────────────────────────────────────────────────────────────────
-
 export default function ConnectPage() {
   return (
     <div className="flex h-screen w-full flex-col overflow-hidden">
-      <div className="mx-auto flex w-full max-w-7xl min-w-0 flex-col border-x">
+      <div className="mx-auto flex w-full max-w-7xl min-w-0 flex-col border-x shrink-0">
         <nav className="relative flex h-14 items-center justify-between px-4 sm:px-6">
-          <Link href="/" className="font-serif italic text-base tracking-tight">
+          <Link href="/" className="font-serif italic text-xl tracking-tight">
             shrvan
           </Link>
           <div className="flex items-center gap-0.5">
@@ -189,50 +179,41 @@ export default function ConnectPage() {
         </nav>
       </div>
 
-      <div className="min-h-[calc(100vh-7rem)] flex-1 w-full xl:grid xl:grid-cols-[minmax(0,1fr)_minmax(0,80rem)_minmax(0,1fr)]">
+      <div className="flex-1 w-full overflow-hidden xl:grid xl:grid-cols-[minmax(0,1fr)_minmax(0,80rem)_minmax(0,1fr)]">
         <aside className="pointer-events-none hidden xl:flex pr-[20%]">
           <Ladder side="left" />
         </aside>
 
-        <section className="mx-auto flex w-full h-full max-w-7xl min-w-0 flex-1 flex-col border-x md:min-h-0 md:flex-row">
+        <section className="mx-auto flex w-full h-full max-w-7xl min-w-0 flex-col border-x overflow-hidden md:flex-row">
           <div className="flex min-w-0 flex-1 flex-col justify-center px-5 py-12 sm:px-8 lg:px-10 xl:px-12 md:border-r md:border-border">
-            <motion.div
+            <motion.span
+              className="text-[8px] uppercase tracking-[0.2em] text-muted-foreground/60 font-mono"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.4 }}
             >
-              <span className="text-[8px] uppercase tracking-[0.2em] text-muted-foreground font-mono">
-                03 · connect
-              </span>
-            </motion.div>
+              03 · connect
+            </motion.span>
 
-            <div className="overflow-hidden mt-2">
-              <motion.h1
-                className="font-serif italic text-5xl sm:text-6xl lg:text-7xl leading-none"
-                initial={{ y: "110%" }}
-                animate={{ y: 0 }}
-                transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-              >
-                let&apos;s build
-              </motion.h1>
-            </div>
-            <div className="overflow-hidden">
-              <motion.h1
-                className="font-serif italic text-5xl sm:text-6xl lg:text-7xl leading-none text-muted-foreground"
-                initial={{ y: "110%" }}
-                animate={{ y: 0 }}
-                transition={{
-                  duration: 0.7,
-                  delay: 0.08,
-                  ease: [0.16, 1, 0.3, 1],
-                }}
-              >
-                something.
-              </motion.h1>
-            </div>
+            <motion.h1
+              className="font-serif italic text-5xl sm:text-6xl lg:text-7xl leading-none mt-2"
+              initial={{ clipPath: "inset(0 0 100% 0)" }}
+              animate={{ clipPath: "inset(-30% -5% -30% -5%)" }}
+              transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+            >
+              let&apos;s build
+            </motion.h1>
+            <motion.h1
+              className="font-serif italic text-5xl sm:text-6xl lg:text-7xl leading-none text-foreground/40"
+              initial={{ clipPath: "inset(0 0 100% 0)" }}
+              animate={{ clipPath: "inset(-30% -5% -30% -5%)" }}
+              transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+            >
+              something.
+            </motion.h1>
 
             <motion.p
-              className="mt-6 text-sm text-muted-foreground leading-relaxed max-w-[280px] font-sans"
+              className="mt-6 text-sm text-muted-foreground leading-relaxed max-w-[280px]"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.4, duration: 0.5 }}
@@ -251,8 +232,8 @@ export default function ConnectPage() {
                 <span className="absolute inline-flex h-full w-full bg-foreground opacity-75 animate-[ping-sequence_2s_linear_infinite]" />
                 <span className="relative inline-flex h-1.5 w-1.5 bg-foreground" />
               </span>
-              <span className="text-[9px] uppercase tracking-[0.2em] text-muted-foreground font-mono">
-                available · pune, india
+              <span className="text-xs uppercase tracking-[0.2em] text-muted-foreground/80 font-mono">
+                available for work
               </span>
             </motion.div>
           </div>
@@ -260,36 +241,16 @@ export default function ConnectPage() {
           <div className="hidden md:flex lg:w-[460px] lg:flex-none lg:flex-col lg:justify-center lg:px-6 lg:py-8 xl:w-auto xl:flex-1 xl:px-8 gap-4">
             <EmailCard />
             <div className="flex gap-4">
-              <SocialCard
-                label="github"
-                handle="01shrvan"
-                href="https://github.com/01shrvan"
-                delay={0.2}
-              />
-              <SocialCard
-                label="x / twitter"
-                handle="@01shrvan"
-                href="https://x.com/01shrvan"
-                delay={0.28}
-              />
+              <SocialCard label="github" handle="01shrvan" href="https://github.com/01shrvan" delay={0.2} />
+              <SocialCard label="x / twitter" handle="@01shrvan" href="https://x.com/01shrvan" delay={0.28} />
             </div>
           </div>
 
           <div className="flex flex-col md:hidden px-5 py-6 gap-4">
             <EmailCard />
             <div className="flex gap-3">
-              <SocialCard
-                label="github"
-                handle="01shrvan"
-                href="https://github.com/01shrvan"
-                delay={0.2}
-              />
-              <SocialCard
-                label="x"
-                handle="@01shrvan"
-                href="https://x.com/01shrvan"
-                delay={0.28}
-              />
+              <SocialCard label="github" handle="01shrvan" href="https://github.com/01shrvan" delay={0.2} />
+              <SocialCard label="x" handle="@01shrvan" href="https://x.com/01shrvan" delay={0.28} />
             </div>
           </div>
         </section>
@@ -299,38 +260,29 @@ export default function ConnectPage() {
         </aside>
       </div>
 
-      <div className="mx-auto flex w-full max-w-7xl min-w-0 flex-col border-x">
+      <div className="mx-auto flex w-full max-w-7xl min-w-0 flex-col border-x shrink-0">
         <footer className="relative h-14 px-4 sm:px-6">
           <div className="flex h-full items-center justify-between">
-            <span className="text-sm text-muted-foreground font-sans">
+            <span className="text-sm text-muted-foreground">
               built by{" "}
-              <a
-                href="https://github.com/01shrvan"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="underline underline-offset-4 hover:text-foreground transition-colors"
-              >
+              <a href="https://github.com/01shrvan" target="_blank" rel="noopener noreferrer"
+                className="underline underline-offset-4 hover:text-foreground transition-colors">
                 shrvan
               </a>
             </span>
-            <div className="flex items-center gap-2 text-sm text-muted-foreground font-sans">
-              <a
-                href="https://github.com/01shrvan"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:text-foreground hover:underline underline-offset-4 transition-colors"
-              >
-                github
+            <span className="text-[8px] font-mono text-muted-foreground/40">
+              inspired by{" "}
+              <a href="https://akira.sachi.dev" target="_blank" rel="noopener noreferrer"
+                className="hover:text-muted-foreground transition-colors">
+                akira.sachi.dev
               </a>
-              <span className="text-2xl leading-none">·</span>
-              <a
-                href="https://x.com/01shrvan"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:text-foreground hover:underline underline-offset-4 transition-colors"
-              >
-                x
-              </a>
+            </span>
+            <div className="flex items-center gap-2 text-sm text-muted-foreground">
+              <a href="https://github.com/01shrvan" target="_blank" rel="noopener noreferrer"
+                className="hover:text-foreground transition-colors">github</a>
+              <span className="opacity-30">·</span>
+              <a href="https://x.com/01shrvan" target="_blank" rel="noopener noreferrer"
+                className="hover:text-foreground transition-colors">x</a>
             </div>
           </div>
           <div className="z-10 absolute top-0 left-0 -translate-x-1/2 -translate-y-1/2 size-2.5 rounded-full border border-border bg-background" />

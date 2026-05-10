@@ -36,7 +36,6 @@ const navLinks = [
 export function PageLayout({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex h-screen w-full flex-col overflow-hidden">
-      {/* NAV */}
       <div className="mx-auto flex w-full max-w-7xl min-w-0 flex-col border-x shrink-0">
         <nav className="relative flex h-14 items-center justify-between px-4 sm:px-6">
           <Link href="/" className="font-serif italic text-xl tracking-tight">
@@ -60,7 +59,6 @@ export function PageLayout({ children }: { children: React.ReactNode }) {
         </nav>
       </div>
 
-      {/* CONTENT — flex-1 so it fills between nav and footer */}
       <div className="flex-1 w-full overflow-hidden xl:grid xl:grid-cols-[minmax(0,1fr)_minmax(0,80rem)_minmax(0,1fr)]">
         <aside className="pointer-events-none hidden xl:flex pr-[20%]">
           <Ladder side="left" />
@@ -75,7 +73,6 @@ export function PageLayout({ children }: { children: React.ReactNode }) {
         </aside>
       </div>
 
-      {/* FOOTER */}
       <div className="mx-auto flex w-full max-w-7xl min-w-0 flex-col border-x shrink-0">
         <footer className="relative h-14 px-4 sm:px-6">
           <div className="flex h-full items-center justify-between">
@@ -86,7 +83,7 @@ export function PageLayout({ children }: { children: React.ReactNode }) {
                 shrvan
               </a>
             </span>
-            <span className="text-[8px] font-mono text-muted-foreground/30">
+            <span className="text-[8px] font-mono text-muted-foreground/40">
               inspired by{" "}
               <a href="https://akira.sachi.dev" target="_blank" rel="noopener noreferrer"
                 className="hover:text-muted-foreground transition-colors">
