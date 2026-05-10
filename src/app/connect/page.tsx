@@ -52,49 +52,33 @@ function EmailCard() {
       onClick={copy}
     >
       <span className="shine absolute -top-1/2 -left-full h-[200%] w-3/4 skew-x-[-20deg] bg-gradient-to-r from-transparent via-white/40 to-transparent pointer-events-none z-20" />
-
-      <div className="p-6 sm:p-8 flex flex-col gap-6">
+      <div className="p-5 sm:p-6 flex flex-col gap-5">
         <div className="flex items-start justify-between">
-          <span className="text-[8px] uppercase tracking-[0.2em] text-muted-foreground/70 font-mono">
-            email
-          </span>
+          <span className="text-[8px] uppercase tracking-[0.2em] text-muted-foreground/70 font-mono">email</span>
           <motion.div
             animate={copied ? { scale: [1, 1.2, 1] } : {}}
             transition={{ duration: 0.25 }}
             className="text-muted-foreground/60 group-hover:text-foreground transition-colors duration-200"
           >
-            {copied ? (
-              <Check size={13} strokeWidth={2.5} />
-            ) : (
-              <Copy size={13} />
-            )}
+            {copied ? <Check size={13} strokeWidth={2.5} /> : <Copy size={13} />}
           </motion.div>
         </div>
-
         <div>
-          <p className="text-xl sm:text-2xl font-mono text-foreground tracking-tight break-all">
-            {EMAIL}
-          </p>
-          <p className="text-xs font-mono text-muted-foreground/70 mt-2 uppercase tracking-[0.15em]">
-            {copied ? "copied to clipboard ✓" : "click to copy"}
+          <p className="text-base sm:text-xl font-mono text-foreground tracking-tight break-all">{EMAIL}</p>
+          <p className="text-xs font-mono text-muted-foreground/70 mt-1.5 uppercase tracking-[0.15em]">
+            {copied ? "copied ✓" : "click to copy"}
           </p>
         </div>
-
         <div className="h-px w-full bg-border/50" />
-
         <a
           href={`mailto:${EMAIL}`}
           onClick={(e) => e.stopPropagation()}
           className="flex items-center justify-between text-xs uppercase tracking-[0.18em] text-muted-foreground group-hover:text-foreground transition-colors duration-300"
         >
           <span>open in mail</span>
-          <ArrowUpRight
-            size={12}
-            className="transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
-          />
+          <ArrowUpRight size={12} className="transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
         </a>
       </div>
-
       <span className="absolute h-3 w-3 border-foreground/20 group-hover:border-foreground border-b border-r bottom-0 right-0 transition-colors duration-300" />
       <span className="absolute h-3 w-3 border-foreground/20 group-hover:border-foreground border-b border-l bottom-0 left-0 transition-colors duration-300" />
       <span className="absolute h-3 w-3 border-foreground/20 group-hover:border-foreground border-t border-r top-0 right-0 transition-colors duration-300" />
@@ -103,17 +87,7 @@ function EmailCard() {
   );
 }
 
-function SocialCard({
-  label,
-  handle,
-  href,
-  delay,
-}: {
-  label: string;
-  handle: string;
-  href: string;
-  delay: number;
-}) {
+function SocialCard({ label, handle, href, delay }: { label: string; handle: string; href: string; delay: number }) {
   return (
     <motion.a
       href={href}
@@ -122,21 +96,14 @@ function SocialCard({
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.45, ease: "easeOut", delay }}
-      className="relative flex-1 overflow-hidden border border-border group cursor-pointer block"
+      className="relative flex-1 overflow-hidden border border-border group block"
     >
       <span className="shine absolute -top-1/2 -left-full h-[200%] w-3/4 skew-x-[-20deg] bg-gradient-to-r from-transparent via-white/40 to-transparent pointer-events-none z-20" />
-      <div className="p-5 flex flex-col justify-between h-[96px]">
-        <span className="text-[8px] uppercase tracking-[0.2em] text-muted-foreground/70 font-mono">
-          {label}
-        </span>
+      <div className="p-4 sm:p-5 flex flex-col justify-between h-[88px]">
+        <span className="text-[8px] uppercase tracking-[0.2em] text-muted-foreground/70 font-mono">{label}</span>
         <div className="flex items-end justify-between">
-          <span className="text-sm font-mono text-foreground">
-            {handle}
-          </span>
-          <ArrowUpRight
-            size={12}
-            className="text-muted-foreground/50 group-hover:text-foreground group-hover:-translate-y-0.5 group-hover:translate-x-0.5 transition-all duration-200"
-          />
+          <span className="text-sm font-mono text-foreground">{handle}</span>
+          <ArrowUpRight size={12} className="text-muted-foreground/50 group-hover:text-foreground group-hover:-translate-y-0.5 group-hover:translate-x-0.5 transition-all duration-200" />
         </div>
       </div>
       <span className="absolute h-2.5 w-2.5 border-foreground/20 group-hover:border-foreground border-b border-r bottom-0 right-0 transition-colors duration-300" />
@@ -156,18 +123,14 @@ const navLinks = [
 export default function ConnectPage() {
   return (
     <div className="flex h-screen w-full flex-col overflow-hidden">
+
       <div className="mx-auto flex w-full max-w-7xl min-w-0 flex-col border-x shrink-0">
         <nav className="relative flex h-14 items-center justify-between px-4 sm:px-6">
-          <Link href="/" className="font-serif italic text-xl tracking-tight">
-            shrvan
-          </Link>
+          <Link href="/" className="font-serif italic text-xl tracking-tight">shrvan</Link>
           <div className="flex items-center gap-0.5">
             {navLinks.map(({ href, label }) => (
-              <Link
-                key={href}
-                href={href}
-                className="px-2.5 py-1.5 text-[10px] uppercase tracking-[0.18em] text-muted-foreground hover:text-foreground transition-colors duration-200 font-mono"
-              >
+              <Link key={href} href={href}
+                className="px-2.5 py-1.5 text-[10px] uppercase tracking-[0.18em] text-muted-foreground hover:text-foreground transition-colors duration-200 font-mono">
                 {label}
               </Link>
             ))}
@@ -184,8 +147,9 @@ export default function ConnectPage() {
           <Ladder side="left" />
         </aside>
 
-        <section className="mx-auto flex w-full h-full max-w-7xl min-w-0 flex-col border-x overflow-hidden md:flex-row">
-          <div className="flex min-w-0 flex-1 flex-col justify-center px-5 py-12 sm:px-8 lg:px-10 xl:px-12 md:border-r md:border-border">
+        <div className="mx-auto flex w-full h-full max-w-7xl min-w-0 border-x overflow-hidden flex-col md:flex-row">
+
+          <div className="flex-1 flex flex-col justify-center px-5 sm:px-8 lg:px-10 xl:px-12 py-10 md:border-r border-border overflow-y-auto no-scrollbar">
             <motion.span
               className="text-[8px] uppercase tracking-[0.2em] text-muted-foreground/60 font-mono"
               initial={{ opacity: 0 }}
@@ -204,7 +168,7 @@ export default function ConnectPage() {
               let&apos;s build
             </motion.h1>
             <motion.h1
-              className="font-serif italic text-5xl sm:text-6xl lg:text-7xl leading-none text-foreground/40"
+              className="font-serif italic text-5xl sm:text-6xl lg:text-7xl leading-none text-foreground/35"
               initial={{ clipPath: "inset(0 0 100% 0)" }}
               animate={{ clipPath: "inset(-30% -5% -30% -5%)" }}
               transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
@@ -213,32 +177,37 @@ export default function ConnectPage() {
             </motion.h1>
 
             <motion.p
-              className="mt-6 text-sm text-muted-foreground leading-relaxed max-w-[280px]"
+              className="mt-6 text-sm text-muted-foreground leading-relaxed max-w-xs"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ delay: 0.4, duration: 0.5 }}
+              transition={{ delay: 0.35, duration: 0.5 }}
             >
-              open to collaborations, freelance work, or just a good
-              conversation about code and craft.
+              open to collaborations, freelance work, or just a good conversation about code and craft.
             </motion.p>
 
             <motion.div
-              className="mt-6 flex items-center gap-2"
+              className="mt-5 flex items-center gap-2"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ delay: 0.5, duration: 0.4 }}
+              transition={{ delay: 0.45, duration: 0.4 }}
             >
               <span className="relative flex h-1.5 w-1.5">
                 <span className="absolute inline-flex h-full w-full bg-foreground opacity-75 animate-[ping-sequence_2s_linear_infinite]" />
                 <span className="relative inline-flex h-1.5 w-1.5 bg-foreground" />
               </span>
-              <span className="text-xs uppercase tracking-[0.2em] text-muted-foreground/80 font-mono">
-                available for work
-              </span>
+              <span className="text-xs font-mono uppercase tracking-[0.2em] text-muted-foreground/80">available for work</span>
             </motion.div>
+
+            <div className="mt-8 flex flex-col gap-3 md:hidden">
+              <EmailCard />
+              <div className="flex gap-3">
+                <SocialCard label="github" handle="01shrvan" href="https://github.com/01shrvan" delay={0.2} />
+                <SocialCard label="x / twitter" handle="@01shrvan" href="https://x.com/01shrvan" delay={0.28} />
+              </div>
+            </div>
           </div>
 
-          <div className="hidden md:flex lg:w-[460px] lg:flex-none lg:flex-col lg:justify-center lg:px-6 lg:py-8 xl:w-auto xl:flex-1 xl:px-8 gap-4">
+          <div className="hidden md:flex w-[380px] lg:w-[420px] xl:w-[460px] shrink-0 flex-col justify-center px-6 lg:px-8 py-8 gap-4 overflow-y-auto no-scrollbar">
             <EmailCard />
             <div className="flex gap-4">
               <SocialCard label="github" handle="01shrvan" href="https://github.com/01shrvan" delay={0.2} />
@@ -246,14 +215,7 @@ export default function ConnectPage() {
             </div>
           </div>
 
-          <div className="flex flex-col md:hidden px-5 py-6 gap-4">
-            <EmailCard />
-            <div className="flex gap-3">
-              <SocialCard label="github" handle="01shrvan" href="https://github.com/01shrvan" delay={0.2} />
-              <SocialCard label="x" handle="@01shrvan" href="https://x.com/01shrvan" delay={0.28} />
-            </div>
-          </div>
-        </section>
+        </div>
 
         <aside className="pointer-events-none hidden xl:flex pl-[20%]">
           <Ladder side="right" />

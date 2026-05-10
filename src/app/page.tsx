@@ -65,104 +65,103 @@ export default function Home() {
           <Ladder side="left" />
         </aside>
 
-        <div className="mx-auto flex w-full h-full max-w-7xl min-w-0 border-x overflow-hidden flex-col">
+        <div className="mx-auto flex w-full h-full max-w-7xl min-w-0 border-x overflow-hidden flex-col md:flex-row">
 
-          <div className="flex-1 flex flex-col justify-end px-5 sm:px-8 lg:px-10 xl:px-12 pt-10 pb-8 overflow-hidden relative">
-
+          <div className="flex-1 flex flex-col justify-end px-5 sm:px-8 lg:px-10 xl:px-12 py-8 md:py-12 border-b md:border-b-0 md:border-r border-border overflow-hidden">
             <motion.span
-              className="absolute top-8 right-5 sm:right-8 lg:right-10 xl:right-12 text-[8px] font-mono uppercase tracking-[0.25em] text-muted-foreground/50"
+              className="text-[8px] font-mono uppercase tracking-[0.3em] text-muted-foreground/50 mb-8"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ delay: 0.05, duration: 0.6 }}
+              transition={{ delay: 0.05, duration: 0.5 }}
             >
-              full-stack developer
+              mmxxv
             </motion.span>
 
-            <div className="mb-6">
-              {["building", "things", "for the web."].map((line, i) => (
+            <div>
+              {["shrvan", "benke"].map((word, i) => (
                 <motion.p
-                  key={line}
+                  key={word}
                   className={[
                     "font-serif italic block tracking-tight",
-                    "text-[clamp(4rem,10.5vw,9rem)]",
-                    "leading-[0.87]",
-                    i === 2 ? "text-foreground/35" : "text-foreground",
+                    "text-[clamp(4.5rem,11vw,9.5rem)]",
+                    "leading-[0.85]",
+                    i === 1 ? "text-foreground/25" : "text-foreground",
                   ].join(" ")}
                   initial={{ clipPath: "inset(0 0 100% 0)" }}
                   animate={{ clipPath: "inset(-30% -5% -30% -5%)" }}
-                  transition={{ duration: 0.9, delay: 0.12 + i * 0.13, ease: [0.16, 1, 0.3, 1] }}
+                  transition={{ duration: 0.95, delay: 0.1 + i * 0.14, ease: [0.16, 1, 0.3, 1] }}
                 >
-                  {line}
+                  {word}
                 </motion.p>
               ))}
             </div>
-
-            <motion.p
-              className="text-sm text-muted-foreground leading-relaxed max-w-sm"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.6, duration: 0.5 }}
-            >
-              i build end-to-end — from data layer to the pixel.
-              care about craft, not just shipping.
-            </motion.p>
           </div>
 
           <motion.div
-            className="shrink-0 border-t border-border"
-            initial={{ opacity: 0, y: 8 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.65, duration: 0.5 }}
+            className="w-full md:w-[280px] lg:w-[320px] xl:w-[340px] shrink-0 flex flex-col overflow-hidden"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.3, duration: 0.6 }}
           >
-            <div className="grid grid-cols-3 divide-x divide-border">
+            <div className="px-6 py-5 border-b border-border">
+              <span className="text-[8px] font-mono uppercase tracking-[0.2em] text-muted-foreground/60 block mb-1.5">
+                role
+              </span>
+              <span className="text-sm text-foreground">full-stack developer</span>
+            </div>
 
-              <div className="px-4 sm:px-6 lg:px-8 py-5">
-                <div className="flex items-center gap-2 mb-2">
-                  <span className="relative flex h-1.5 w-1.5 shrink-0">
-                    <span className="absolute inline-flex h-full w-full bg-foreground opacity-75 animate-[ping-sequence_2s_linear_infinite]" />
-                    <span className="relative inline-flex h-1.5 w-1.5 bg-foreground" />
+            <div className="px-6 py-5 border-b border-border">
+              <div className="flex items-center gap-2 mb-3">
+                <span className="relative flex h-1.5 w-1.5 shrink-0">
+                  <span className="absolute inline-flex h-full w-full bg-foreground opacity-75 animate-[ping-sequence_2s_linear_infinite]" />
+                  <span className="relative inline-flex h-1.5 w-1.5 bg-foreground" />
+                </span>
+                <span className="text-[9px] font-mono uppercase tracking-[0.18em] text-muted-foreground">
+                  open to work
+                </span>
+              </div>
+              <div className="space-y-1">
+                {["freelance", "contracts", "full-time"].map((t) => (
+                  <p key={t} className="text-xs font-mono text-muted-foreground/70">{t}</p>
+                ))}
+              </div>
+            </div>
+
+            <div className="px-6 py-5 border-b border-border flex-1">
+              <span className="text-[8px] font-mono uppercase tracking-[0.2em] text-muted-foreground/60 block mb-3">
+                stack
+              </span>
+              <div className="flex flex-wrap gap-x-2 gap-y-1.5">
+                {stack.map((t) => (
+                  <span key={t} className="text-[9px] font-mono text-muted-foreground/80 hover:text-foreground transition-colors cursor-default">
+                    {t}
                   </span>
-                  <span className="text-[9px] font-mono uppercase tracking-[0.18em] text-muted-foreground">
-                    open to work
-                  </span>
-                </div>
-                <p className="text-xs font-mono text-muted-foreground/70">
-                  freelance · contracts · full-time
-                </p>
+                ))}
               </div>
+            </div>
 
-              <div className="px-4 sm:px-6 lg:px-8 py-5">
-                <p className="text-[8px] font-mono uppercase tracking-[0.2em] text-muted-foreground/60 mb-2">stack</p>
-                <div className="flex flex-wrap gap-x-2 gap-y-1">
-                  {stack.map((t) => (
-                    <span key={t} className="text-[9px] font-mono text-muted-foreground/80 hover:text-foreground transition-colors cursor-default">
-                      {t}
-                    </span>
-                  ))}
-                </div>
+            <div className="px-6 py-5">
+              <span className="text-[8px] font-mono uppercase tracking-[0.2em] text-muted-foreground/60 block mb-3">
+                links
+              </span>
+              <div className="flex flex-col gap-2">
+                {[
+                  { href: "https://github.com/01shrvan", label: "github ↗", ext: true },
+                  { href: "/works", label: "works →", ext: false },
+                  { href: "/writings", label: "writings →", ext: false },
+                  { href: "/connect", label: "connect →", ext: false },
+                ].map(({ href, label, ext }) => (
+                  <a key={href} href={href}
+                    target={ext ? "_blank" : undefined}
+                    rel={ext ? "noopener noreferrer" : undefined}
+                    className="text-xs font-mono text-muted-foreground hover:text-foreground transition-colors duration-150 w-fit">
+                    {label}
+                  </a>
+                ))}
               </div>
-
-              <div className="px-4 sm:px-6 lg:px-8 py-5">
-                <p className="text-[8px] font-mono uppercase tracking-[0.2em] text-muted-foreground/60 mb-2">links</p>
-                <div className="flex flex-col gap-1.5">
-                  {[
-                    { href: "https://github.com/01shrvan", label: "github ↗", ext: true },
-                    { href: "/works", label: "works →", ext: false },
-                    { href: "/writings", label: "writings →", ext: false },
-                    { href: "/connect", label: "connect →", ext: false },
-                  ].map(({ href, label, ext }) => (
-                    <a key={href} href={href}
-                      target={ext ? "_blank" : undefined}
-                      rel={ext ? "noopener noreferrer" : undefined}
-                      className="text-xs font-mono text-muted-foreground hover:text-foreground transition-colors duration-150 w-fit">
-                      {label}
-                    </a>
-                  ))}
-                </div>
-              </div>
-
             </div>
           </motion.div>
+
         </div>
 
         <aside className="pointer-events-none hidden xl:flex pl-[20%]">

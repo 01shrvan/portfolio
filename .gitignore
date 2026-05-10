@@ -1,6 +1,10 @@
 # Build output
 dist/
 dist-ssr/
+.next/
+
+# Claude Code
+.claude/
 
 # Generated types
 .astro/
