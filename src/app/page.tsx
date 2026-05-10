@@ -36,7 +36,11 @@ const navLinks = [
   { href: "/connect", label: "connect" },
 ];
 
-const stack = ["next.js", "typescript", "react", "python", "postgresql", "tailwind", "openai", "node.js"];
+const stackCategories = [
+  { cat: "frontend", items: ["next.js", "react", "tailwind", "typescript"] },
+  { cat: "backend",  items: ["python", "node.js", "postgresql"] },
+  { cat: "ai",       items: ["openai", "langchain"] },
+];
 
 export default function Home() {
   return (
@@ -68,15 +72,6 @@ export default function Home() {
         <div className="mx-auto flex w-full h-full max-w-7xl min-w-0 border-x overflow-hidden flex-col md:flex-row">
 
           <div className="flex-1 flex flex-col justify-end px-5 sm:px-8 lg:px-10 xl:px-12 py-8 md:py-12 border-b md:border-b-0 md:border-r border-border overflow-hidden">
-            <motion.span
-              className="text-[8px] font-mono uppercase tracking-[0.3em] text-muted-foreground/50 mb-8"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.05, duration: 0.5 }}
-            >
-              mmxxv
-            </motion.span>
-
             <div>
               {["shrvan", "benke"].map((word, i) => (
                 <motion.p
@@ -127,36 +122,24 @@ export default function Home() {
               </div>
             </div>
 
-            <div className="px-6 py-5 border-b border-border flex-1">
-              <span className="text-[8px] font-mono uppercase tracking-[0.2em] text-muted-foreground/60 block mb-3">
+            <div className="px-6 py-6 flex-1 flex flex-col">
+              <span className="text-[8px] font-mono uppercase tracking-[0.2em] text-muted-foreground/60 block mb-5">
                 stack
               </span>
-              <div className="flex flex-wrap gap-x-2 gap-y-1.5">
-                {stack.map((t) => (
-                  <span key={t} className="text-[9px] font-mono text-muted-foreground/80 hover:text-foreground transition-colors cursor-default">
-                    {t}
-                  </span>
-                ))}
-              </div>
-            </div>
-
-            <div className="px-6 py-5">
-              <span className="text-[8px] font-mono uppercase tracking-[0.2em] text-muted-foreground/60 block mb-3">
-                links
-              </span>
-              <div className="flex flex-col gap-2">
-                {[
-                  { href: "https://github.com/01shrvan", label: "github ↗", ext: true },
-                  { href: "/works", label: "works →", ext: false },
-                  { href: "/writings", label: "writings →", ext: false },
-                  { href: "/connect", label: "connect →", ext: false },
-                ].map(({ href, label, ext }) => (
-                  <a key={href} href={href}
-                    target={ext ? "_blank" : undefined}
-                    rel={ext ? "noopener noreferrer" : undefined}
-                    className="text-xs font-mono text-muted-foreground hover:text-foreground transition-colors duration-150 w-fit">
-                    {label}
-                  </a>
+              <div className="space-y-4">
+                {stackCategories.map(({ cat, items }) => (
+                  <div key={cat} className="flex gap-4">
+                    <span className="text-[7px] font-mono uppercase tracking-[0.15em] text-muted-foreground/35 w-14 shrink-0 pt-px">
+                      {cat}
+                    </span>
+                    <div className="flex flex-wrap gap-x-2 gap-y-1">
+                      {items.map((t) => (
+                        <span key={t} className="text-[9px] font-mono text-muted-foreground/80 hover:text-foreground transition-colors cursor-default">
+                          {t}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
                 ))}
               </div>
             </div>
