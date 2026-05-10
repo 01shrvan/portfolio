@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "WebFetch(domain:akira.sachi.dev)",
+      "PowerShell(Get-ChildItem \"C:\\\\Users\\\\Shrvan Benke\\\\OneDrive\\\\Desktop\\\\projects\\\\portfolio\" -Name | Where-Object { $_ -notmatch '^\\(node_modules|\\\\.vercel|\\\\.git\\)$' })",
+      "PowerShell(Get-Content \"C:\\\\Users\\\\Shrvan Benke\\\\OneDrive\\\\Desktop\\\\projects\\\\portfolio\\\\.env\" | Where-Object { $_ -notmatch '\\(SECRET|TOKEN|KEY|PASSWORD|PASS|CLIENT_ID|CLIENT_SECRET|REFRESH|ACCESS\\)' })"
+    ]
+  }
+}
