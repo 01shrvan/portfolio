@@ -57,10 +57,15 @@ export default {
           "66%": { transform: "rotate(90deg)" },
           "100%": { transform: "rotate(0deg)" },
         },
+        "clip-reveal": {
+          from: { clipPath: "inset(0 0 100% 0)" },
+          to: { clipPath: "inset(-30% -5% -30% -5%)" },
+        },
       },
       animation: {
         "ping-sequence": "ping-sequence 2s linear infinite",
         "rotate-sequence": "rotate-sequence 2s linear infinite",
+        "clip-reveal": "clip-reveal 0.85s cubic-bezier(0.16, 1, 0.3, 1) both",
       },
     },
   },

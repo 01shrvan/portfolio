@@ -35,7 +35,7 @@ const navLinks = [
 
 export function PageLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="flex h-screen w-full flex-col overflow-hidden">
+    <div className="flex h-[100dvh] w-full flex-col overflow-hidden">
       <div className="mx-auto flex w-full max-w-7xl min-w-0 flex-col border-x shrink-0">
         <nav className="relative flex h-14 items-center justify-between px-4 sm:px-6">
           <Link href="/" className="font-serif italic text-xl tracking-tight">

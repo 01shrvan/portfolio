@@ -52,7 +52,7 @@ function EmailCard() {
       onClick={copy}
     >
       <span className="shine absolute -top-1/2 -left-full h-[200%] w-3/4 skew-x-[-20deg] bg-gradient-to-r from-transparent via-white/40 to-transparent pointer-events-none z-20" />
-      <div className="p-5 sm:p-6 flex flex-col gap-5">
+      <div className="p-4 sm:p-5 flex flex-col gap-3 sm:gap-5">
         <div className="flex items-start justify-between">
           <span className="text-[8px] uppercase tracking-[0.2em] text-muted-foreground/70 font-mono">email</span>
           <motion.div
@@ -122,7 +122,7 @@ const navLinks = [
 
 export default function ConnectPage() {
   return (
-    <div className="flex h-screen w-full flex-col overflow-hidden">
+    <div className="flex h-[100dvh] w-full flex-col overflow-hidden">
 
       <div className="mx-auto flex w-full max-w-7xl min-w-0 flex-col border-x shrink-0">
         <nav className="relative flex h-14 items-center justify-between px-4 sm:px-6">
@@ -149,7 +149,7 @@ export default function ConnectPage() {
 
         <div className="mx-auto flex w-full h-full max-w-7xl min-w-0 border-x overflow-hidden flex-col md:flex-row">
 
-          <div className="flex-1 flex flex-col justify-center px-5 sm:px-8 lg:px-10 xl:px-12 py-10 md:border-r border-border overflow-y-auto no-scrollbar">
+          <div className="flex-1 min-h-0 flex flex-col justify-center px-5 sm:px-8 lg:px-10 xl:px-12 py-5 md:py-10 md:border-r border-border overflow-hidden">
             <motion.span
               className="text-[8px] uppercase tracking-[0.2em] text-muted-foreground/60 font-mono"
               initial={{ opacity: 0 }}
@@ -160,7 +160,7 @@ export default function ConnectPage() {
             </motion.span>
 
             <motion.h1
-              className="font-serif italic text-5xl sm:text-6xl lg:text-7xl leading-none mt-2"
+              className="font-serif italic text-4xl sm:text-5xl lg:text-6xl xl:text-7xl leading-none mt-2"
               initial={{ clipPath: "inset(0 0 100% 0)" }}
               animate={{ clipPath: "inset(-30% -5% -30% -5%)" }}
               transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
@@ -168,7 +168,7 @@ export default function ConnectPage() {
               let&apos;s build
             </motion.h1>
             <motion.h1
-              className="font-serif italic text-5xl sm:text-6xl lg:text-7xl leading-none text-foreground/35"
+              className="font-serif italic text-4xl sm:text-5xl lg:text-6xl xl:text-7xl leading-none text-foreground/35"
               initial={{ clipPath: "inset(0 0 100% 0)" }}
               animate={{ clipPath: "inset(-30% -5% -30% -5%)" }}
               transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
@@ -177,7 +177,7 @@ export default function ConnectPage() {
             </motion.h1>
 
             <motion.p
-              className="mt-6 text-sm text-muted-foreground leading-relaxed max-w-xs"
+              className="mt-4 sm:mt-6 text-sm text-muted-foreground leading-relaxed max-w-xs"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.35, duration: 0.5 }}
@@ -186,7 +186,7 @@ export default function ConnectPage() {
             </motion.p>
 
             <motion.div
-              className="mt-5 flex items-center gap-2"
+              className="mt-4 sm:mt-5 flex items-center gap-2"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.45, duration: 0.4 }}
@@ -198,16 +198,9 @@ export default function ConnectPage() {
               <span className="text-xs font-mono uppercase tracking-[0.2em] text-muted-foreground/80">available for work</span>
             </motion.div>
 
-            <div className="mt-8 flex flex-col gap-3 md:hidden">
-              <EmailCard />
-              <div className="flex gap-3">
-                <SocialCard label="github" handle="01shrvan" href="https://github.com/01shrvan" delay={0.2} />
-                <SocialCard label="x / twitter" handle="@01shrvan" href="https://x.com/01shrvan" delay={0.28} />
-              </div>
-            </div>
           </div>
 
-          <div className="hidden md:flex w-[380px] lg:w-[420px] xl:w-[460px] shrink-0 flex-col justify-center px-6 lg:px-8 py-8 gap-4 overflow-y-auto no-scrollbar">
+          <div className="flex w-full h-[280px] md:h-auto md:w-[380px] lg:w-[420px] xl:w-[460px] shrink-0 flex-col justify-center px-5 sm:px-6 lg:px-8 py-4 md:py-8 gap-3 md:gap-4 border-t md:border-t-0">
             <EmailCard />
             <div className="flex gap-4">
               <SocialCard label="github" handle="01shrvan" href="https://github.com/01shrvan" delay={0.2} />

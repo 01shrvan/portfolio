@@ -40,7 +40,7 @@ const navLinks = [
 
 export default function Home() {
   return (
-    <div className="flex h-screen w-full flex-col overflow-hidden">
+    <div className="flex h-[100dvh] w-full flex-col overflow-hidden">
 
       <div className="mx-auto flex w-full max-w-7xl min-w-0 flex-col border-x shrink-0">
         <nav className="relative flex h-14 items-center justify-between px-4 sm:px-6">
@@ -67,7 +67,7 @@ export default function Home() {
 
         <div className="mx-auto flex w-full h-full max-w-7xl min-w-0 border-x overflow-hidden flex-col md:flex-row">
 
-          <div className="flex-1 flex flex-col justify-end px-5 sm:px-8 lg:px-10 xl:px-12 py-8 md:py-12 border-b md:border-b-0 md:border-r border-border overflow-hidden">
+          <div className="flex-1 min-h-0 flex flex-col justify-end px-5 sm:px-8 lg:px-10 xl:px-12 py-8 md:py-12 border-b md:border-b-0 md:border-r border-border overflow-hidden">
             <div>
               {["shrvan", "benke"].map((word, i) => (
                 <motion.p
@@ -89,7 +89,7 @@ export default function Home() {
           </div>
 
           <motion.div
-            className="w-full md:w-[280px] lg:w-[320px] xl:w-[340px] shrink-0 flex flex-col overflow-hidden"
+            className="w-full md:w-[280px] lg:w-[320px] xl:w-[340px] shrink-0 flex flex-col overflow-hidden max-h-[44vh] md:max-h-none"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.3, duration: 0.6 }}

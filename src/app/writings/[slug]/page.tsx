@@ -61,16 +61,16 @@ export default async function WritingPage({
 
             <Link
               href="/writings"
-              className="inline-flex items-center gap-1.5 text-[8px] font-mono uppercase tracking-[0.2em] text-muted-foreground/60 hover:text-foreground transition-colors mb-8"
+              className="inline-flex items-center gap-1.5 text-[8px] font-mono uppercase tracking-[0.2em] text-muted-foreground/60 hover:text-foreground transition-colors mb-8 animate-in fade-in-0 duration-400"
             >
               ← writings
             </Link>
 
-            <h1 className="font-serif italic text-4xl sm:text-5xl leading-tight text-foreground mb-3">
+            <h1 className="font-serif italic text-4xl sm:text-5xl leading-tight text-foreground mb-3 animate-clip-reveal [animation-delay:80ms]">
               {writing._title}
             </h1>
 
-            <div className="flex items-center gap-2 text-xs font-mono text-muted-foreground/70 mb-8">
+            <div className="flex items-center gap-2 text-xs font-mono text-muted-foreground/70 mb-8 animate-in fade-in-0 duration-400 [animation-delay:200ms] fill-mode-both">
               <span>shrvan</span>
               <span>·</span>
               <span>{formatDate(writing._sys?.createdAt)}</span>
@@ -83,7 +83,7 @@ export default async function WritingPage({
             </div>
 
             {writing.tldr && (
-              <div className="border-l-2 border-border pl-4 mb-10">
+              <div className="border-l-2 border-border pl-4 mb-10 animate-in fade-in-0 duration-500 [animation-delay:280ms] fill-mode-both">
                 <span className="block text-[7px] font-mono uppercase tracking-[0.25em] text-muted-foreground/60 mb-2">
                   tl;dr
                 </span>
@@ -94,7 +94,7 @@ export default async function WritingPage({
             )}
 
             <div
-              className="prose prose-neutral dark:prose-invert max-w-none
+              className="animate-in fade-in-0 duration-600 [animation-delay:360ms] fill-mode-both prose prose-neutral dark:prose-invert max-w-none
                 prose-p:text-sm prose-p:leading-[1.8] prose-p:text-muted-foreground prose-p:mb-5
                 prose-headings:font-serif prose-headings:italic prose-headings:font-normal prose-headings:text-foreground
                 prose-h2:text-2xl prose-h2:mt-10 prose-h2:mb-4

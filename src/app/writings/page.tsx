@@ -45,10 +45,10 @@ export default async function WritingsPage() {
     <PageLayout>
       <div className="h-full flex flex-col overflow-hidden">
         <div className="shrink-0 px-5 sm:px-8 lg:px-10 xl:px-12 py-10 border-b border-border">
-          <span className="text-[8px] uppercase tracking-[0.2em] text-muted-foreground/60 font-mono">
+          <span className="text-[8px] uppercase tracking-[0.2em] text-muted-foreground/60 font-mono animate-in fade-in-0 duration-500">
             writings
           </span>
-          <h1 className="font-serif italic text-5xl sm:text-6xl mt-1.5 leading-none">
+          <h1 className="font-serif italic text-5xl sm:text-6xl mt-1.5 leading-none animate-clip-reveal [animation-delay:80ms]">
             thoughts.
           </h1>
         </div>
@@ -59,7 +59,8 @@ export default async function WritingsPage() {
               <a
                 key={item._id ?? i}
                 href={`/writings/${item._slug}`}
-                className="group flex items-center justify-between py-7 border-b border-border hover:pl-2 transition-all duration-200"
+                style={{ animationDelay: `${120 + i * 60}ms` }}
+                className="group flex items-center justify-between py-7 border-b border-border hover:pl-2 transition-all duration-200 animate-in fade-in-0 slide-in-from-bottom-2 duration-400 fill-mode-both"
               >
                 <div className="flex items-baseline gap-4">
                   <span className="text-[8px] font-mono text-muted-foreground/50 shrink-0">
