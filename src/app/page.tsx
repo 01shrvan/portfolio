@@ -4,6 +4,7 @@ import { motion } from "motion/react";
 import Link from "next/link";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { TechGrid } from "@/components/tech-grid";
+import { BezierAnatomy } from "@/components/bezier-anatomy";
 
 const RUNG_COUNT = 10;
 
@@ -67,25 +68,8 @@ export default function Home() {
 
         <div className="mx-auto flex w-full h-full max-w-7xl min-w-0 border-x overflow-hidden flex-col md:flex-row">
 
-          <div className="flex-1 min-h-0 flex flex-col justify-end px-5 sm:px-8 lg:px-10 xl:px-12 py-8 md:py-12 border-b md:border-b-0 md:border-r border-border overflow-hidden">
-            <div>
-              {["shrvan", "benke"].map((word, i) => (
-                <motion.p
-                  key={word}
-                  className={[
-                    "font-serif italic block tracking-tight",
-                    "text-[clamp(4.5rem,11vw,9.5rem)]",
-                    "leading-[0.85]",
-                    i === 1 ? "text-foreground/25" : "text-foreground",
-                  ].join(" ")}
-                  initial={{ clipPath: "inset(0 0 100% 0)" }}
-                  animate={{ clipPath: "inset(-30% -5% -30% -5%)" }}
-                  transition={{ duration: 0.95, delay: 0.1 + i * 0.14, ease: [0.16, 1, 0.3, 1] }}
-                >
-                  {word}
-                </motion.p>
-              ))}
-            </div>
+          <div className="flex-1 min-h-0 flex flex-col border-b md:border-b-0 md:border-r border-border overflow-hidden">
+            <BezierAnatomy />
           </div>
 
           <motion.div

@@ -139,7 +139,7 @@ export interface BlockImage {
     thumbhash: Scalars['String']
     /**
      * This field is used to generate the image URL with the provided options. The options are passed as arguments. For example, if you want to resize the image to 200x200 pixels, you can use the following query:
-     * 
+     *
      * ```graphql
      * {
      *   imageBlock {
@@ -147,11 +147,11 @@ export interface BlockImage {
      *   }
      * }
      * ```
-     * 
+     *
      * This will return the URL with the width and height set to 200 pixels.
-     * 
+     *
      * BaseHub uses Cloudflare for image resizing. Check out [all available options in their docs](https://developers.cloudflare.com/images/transform-images/transform-via-workers/#fetch-options).
-     * 
+     *
      */
     url: Scalars['String']
     width: Scalars['Int']
@@ -221,7 +221,7 @@ export type MediaBlockUnion = (BlockAudio | BlockFile | BlockImage | BlockVideo)
 export interface Mutation {
     /**
      * Returns a signed url and an upload url so that you can upload files into your repository.
-     * 
+     *
      * Example usage with JavaScript:
      * ```js
      * async function handleUpload(file: File) {
@@ -232,15 +232,15 @@ export interface Mutation {
      *       uploadURL: true,
      *     }
      *   })
-     * 
+     *
      *   const { signedURL, uploadURL } = getUploadSignedURL
-     * 
+     *
      *   await fetch(signedURL, { method: 'PUT', body: file })
-     * 
+     *
      *   // done! do something with the uploadURL now
      * }
      * ```
-     * 
+     *
      */
     getUploadSignedURL: GetUploadSignedURL
     /** Start a job that can be awaited and the result given directly. Under the hood, it runs `transactionAsync` and polls for the result until it is available. You can pass a `timeout` argument, the default being 30_000ms. */
@@ -576,7 +576,7 @@ export interface BlockDocumentGenqlSelection{
     _analyticsKey?: { __args: {
     /**
      * The scope of the analytics key. Use `send` for just ingesting data. Use `query` if you need to show an analytics data in your website.
-     * 
+     *
      * Have in mind, if you expose your `query` analytics key in the frontend, you'll be exposing all of this block's analytics data to the public. This is generally safe, but it might not be in your case.
      */
     scope?: (AnalyticsKeyScope | null)} } | boolean | number
@@ -638,7 +638,7 @@ export interface BlockImageGenqlSelection{
     thumbhash?: boolean | number
     /**
      * This field is used to generate the image URL with the provided options. The options are passed as arguments. For example, if you want to resize the image to 200x200 pixels, you can use the following query:
-     * 
+     *
      * ```graphql
      * {
      *   imageBlock {
@@ -646,11 +646,11 @@ export interface BlockImageGenqlSelection{
      *   }
      * }
      * ```
-     * 
+     *
      * This will return the URL with the width and height set to 200 pixels.
-     * 
+     *
      * BaseHub uses Cloudflare for image resizing. Check out [all available options in their docs](https://developers.cloudflare.com/images/transform-images/transform-via-workers/#fetch-options).
-     * 
+     *
      */
     url?: { __args: {anim?: (Scalars['String'] | null), background?: (Scalars['String'] | null), blur?: (Scalars['Int'] | null), border?: (Scalars['String'] | null), brightness?: (Scalars['Int'] | null), compression?: (Scalars['String'] | null), contrast?: (Scalars['Int'] | null), dpr?: (Scalars['Int'] | null), fit?: (Scalars['String'] | null), format?: (Scalars['String'] | null), gamma?: (Scalars['String'] | null), gravity?: (Scalars['String'] | null), height?: (Scalars['Int'] | null), metadata?: (Scalars['String'] | null), quality?: (Scalars['Int'] | null), rotate?: (Scalars['String'] | null), sharpen?: (Scalars['String'] | null), trim?: (Scalars['String'] | null), width?: (Scalars['Int'] | null)} } | boolean | number
     width?: boolean | number
@@ -662,7 +662,7 @@ export interface BlockListGenqlSelection{
     _analyticsKey?: { __args: {
     /**
      * The scope of the analytics key. Use `send` for just ingesting data. Use `query` if you need to show an analytics data in your website.
-     * 
+     *
      * Have in mind, if you expose your `query` analytics key in the frontend, you'll be exposing all of this block's analytics data to the public. This is generally safe, but it might not be in your case.
      */
     scope?: (AnalyticsKeyScope | null)} } | boolean | number
@@ -697,7 +697,7 @@ export interface BlockOgImageGenqlSelection{
 export interface BlockRichTextGenqlSelection{
     html?: { __args: {
     /** It automatically generates a unique id for each heading present in the HTML. Enabled by default. */
-    slugs?: (Scalars['Boolean'] | null), 
+    slugs?: (Scalars['Boolean'] | null),
     /** Inserts a table of contents at the beginning of the HTML. */
     toc?: (Scalars['Boolean'] | null)} } | boolean | number
     json?: RichTextJsonGenqlSelection
@@ -729,7 +729,7 @@ export interface BlockVideoGenqlSelection{
 export interface ContentGenqlSelection{
     html?: { __args: {
     /** It automatically generates a unique id for each heading present in the HTML. Enabled by default. */
-    slugs?: (Scalars['Boolean'] | null), 
+    slugs?: (Scalars['Boolean'] | null),
     /** Inserts a table of contents at the beginning of the HTML. */
     toc?: (Scalars['Boolean'] | null)} } | boolean | number
     json?: ContentRichTextGenqlSelection
@@ -796,7 +796,7 @@ export interface MediaBlockUnionGenqlSelection{
 export interface MutationGenqlSelection{
     /**
      * Returns a signed url and an upload url so that you can upload files into your repository.
-     * 
+     *
      * Example usage with JavaScript:
      * ```js
      * async function handleUpload(file: File) {
@@ -807,41 +807,41 @@ export interface MutationGenqlSelection{
      *       uploadURL: true,
      *     }
      *   })
-     * 
+     *
      *   const { signedURL, uploadURL } = getUploadSignedURL
-     * 
+     *
      *   await fetch(signedURL, { method: 'PUT', body: file })
-     * 
+     *
      *   // done! do something with the uploadURL now
      * }
      * ```
-     * 
+     *
      */
     getUploadSignedURL?: (GetUploadSignedURLGenqlSelection & { __args: {
     /** SHA256 hash of the file. Used for reusing existing files. */
-    fileHash?: (Scalars['String'] | null), 
+    fileHash?: (Scalars['String'] | null),
     /** The file name */
     fileName: Scalars['String']} })
     /** Start a job that can be awaited and the result given directly. Under the hood, it runs `transactionAsync` and polls for the result until it is available. You can pass a `timeout` argument, the default being 30_000ms. */
     transaction?: (TransactionStatusGenqlSelection & { __args: {
     /** The ID of the author of the transaction. If not provided, the API Token will be used. */
-    authorId?: (Scalars['String'] | null), 
+    authorId?: (Scalars['String'] | null),
     /** Auto make a commit in your Repo with the specified message. */
-    autoCommit?: (Scalars['String'] | null), 
+    autoCommit?: (Scalars['String'] | null),
     /** Transaction data. */
-    data: Transaction | Scalars['String'], 
+    data: Transaction | Scalars['String'],
     /** Skip running workflows and event subscribers. Defaults to false. */
-    skipWorkflows?: (Scalars['Boolean'] | null), 
+    skipWorkflows?: (Scalars['Boolean'] | null),
     /** Timeout in milliseconds. */
     timeout?: (Scalars['Int'] | null)} })
     /** Start an asynchronous job to mutate BaseHub data. Returns a transaction ID which you can use to get the result of the job. */
     transactionAsync?: { __args: {
     /** The ID of the author of the transaction. If not provided, the API Token will be used. */
-    authorId?: (Scalars['String'] | null), 
+    authorId?: (Scalars['String'] | null),
     /** Auto make a commit in your Repo with the specified message. */
-    autoCommit?: (Scalars['String'] | null), 
+    autoCommit?: (Scalars['String'] | null),
     /** Transaction data. */
-    data: Scalars['String'], 
+    data: Scalars['String'],
     /** Skip running workflows and event subscribers. Defaults to false. */
     skipWorkflows?: (Scalars['Boolean'] | null)} }
     transactionStatus?: (TransactionStatusGenqlSelection & { __args: {
@@ -868,38 +868,38 @@ export interface QueryGenqlSelection{
     /** The structure of the repository. Used by START. */
     _structure?: { __args: {
     /** The format of the structure. */
-    format?: (_StructureFormatEnum | null), 
+    format?: (_StructureFormatEnum | null),
     /** The format of the structure. */
-    resolveTargetsWith?: (_ResolveTargetsWithEnum | null), 
+    resolveTargetsWith?: (_ResolveTargetsWithEnum | null),
     /** A target block to forcefully resolve in the schema. */
-    targetBlock?: (TargetBlock | null), 
+    targetBlock?: (TargetBlock | null),
     /** Whether to include constraints in the structure. */
-    withConstraints?: (Scalars['Boolean'] | null), 
+    withConstraints?: (Scalars['Boolean'] | null),
     /** Whether to include IDs in the structure. */
-    withIDs?: (Scalars['Boolean'] | null), 
+    withIDs?: (Scalars['Boolean'] | null),
     /** Whether to include type options in the structure. */
     withTypeOptions?: (Scalars['Boolean'] | null)} } | boolean | number
     _sys?: RepoSysGenqlSelection
     works?: (WorksGenqlSelection & { __args?: {
     /** Filter by a field. */
-    filter?: (WorksComponentFilterInput | null), 
+    filter?: (WorksComponentFilterInput | null),
     /** Limit the number of items returned. Defaults to 500. */
-    first?: (Scalars['Int'] | null), 
+    first?: (Scalars['Int'] | null),
     /** Order by a field. */
-    orderBy?: (WorksComponentOrderByEnum | null), 
+    orderBy?: (WorksComponentOrderByEnum | null),
     /** Search configuration */
-    search?: (WorksComponentSearchInput | null), 
+    search?: (WorksComponentSearchInput | null),
     /** Skip the first n items. */
     skip?: (Scalars['Int'] | null)} })
     writings?: (WritingsGenqlSelection & { __args?: {
     /** Filter by a field. */
-    filter?: (WritingsComponentFilterInput | null), 
+    filter?: (WritingsComponentFilterInput | null),
     /** Limit the number of items returned. Defaults to 500. */
-    first?: (Scalars['Int'] | null), 
+    first?: (Scalars['Int'] | null),
     /** Order by a field. */
-    orderBy?: (WritingsComponentOrderByEnum | null), 
+    orderBy?: (WritingsComponentOrderByEnum | null),
     /** Search configuration */
-    search?: (WritingsComponentSearchInput | null), 
+    search?: (WritingsComponentSearchInput | null),
     /** Skip the first n items. */
     skip?: (Scalars['Int'] | null)} })
     __typename?: boolean | number
@@ -971,7 +971,7 @@ export interface WorksGenqlSelection{
     _analyticsKey?: { __args: {
     /**
      * The scope of the analytics key. Use `send` for just ingesting data. Use `query` if you need to show an analytics data in your website.
-     * 
+     *
      * Have in mind, if you expose your `query` analytics key in the frontend, you'll be exposing all of this block's analytics data to the public. This is generally safe, but it might not be in your case.
      */
     scope?: (AnalyticsKeyScope | null)} } | boolean | number
@@ -997,7 +997,7 @@ export interface WorksComponentGenqlSelection{
     _analyticsKey?: { __args: {
     /**
      * The scope of the analytics key. Use `send` for just ingesting data. Use `query` if you need to show an analytics data in your website.
-     * 
+     *
      * Have in mind, if you expose your `query` analytics key in the frontend, you'll be exposing all of this block's analytics data to the public. This is generally safe, but it might not be in your case.
      */
     scope?: (AnalyticsKeyScope | null)} } | boolean | number
@@ -1029,7 +1029,7 @@ export interface WritingsGenqlSelection{
     _analyticsKey?: { __args: {
     /**
      * The scope of the analytics key. Use `send` for just ingesting data. Use `query` if you need to show an analytics data in your website.
-     * 
+     *
      * Have in mind, if you expose your `query` analytics key in the frontend, you'll be exposing all of this block's analytics data to the public. This is generally safe, but it might not be in your case.
      */
     scope?: (AnalyticsKeyScope | null)} } | boolean | number
@@ -1055,7 +1055,7 @@ export interface WritingsComponentGenqlSelection{
     _analyticsKey?: { __args: {
     /**
      * The scope of the analytics key. Use `send` for just ingesting data. Use `query` if you need to show an analytics data in your website.
-     * 
+     *
      * Have in mind, if you expose your `query` analytics key in the frontend, you'll be exposing all of this block's analytics data to the public. This is generally safe, but it might not be in your case.
      */
     scope?: (AnalyticsKeyScope | null)} } | boolean | number
@@ -1087,7 +1087,7 @@ export interface _AgentStartGenqlSelection{
     _analyticsKey?: { __args: {
     /**
      * The scope of the analytics key. Use `send` for just ingesting data. Use `query` if you need to show an analytics data in your website.
-     * 
+     *
      * Have in mind, if you expose your `query` analytics key in the frontend, you'll be exposing all of this block's analytics data to the public. This is generally safe, but it might not be in your case.
      */
     scope?: (AnalyticsKeyScope | null)} } | boolean | number
@@ -1193,24 +1193,24 @@ export interface _agentsGenqlSelection{
 export interface _componentsGenqlSelection{
     works?: (worksComponent_AsListGenqlSelection & { __args?: {
     /** Filter by a field. */
-    filter?: (WorksComponentFilterInput | null), 
+    filter?: (WorksComponentFilterInput | null),
     /** Limit the number of items returned. Defaults to 500. */
-    first?: (Scalars['Int'] | null), 
+    first?: (Scalars['Int'] | null),
     /** Order by a field. */
-    orderBy?: (WorksComponentOrderByEnum | null), 
+    orderBy?: (WorksComponentOrderByEnum | null),
     /** Search configuration */
-    search?: (WorksComponentSearchInput | null), 
+    search?: (WorksComponentSearchInput | null),
     /** Skip the first n items. */
     skip?: (Scalars['Int'] | null)} })
     writings?: (writingsComponent_AsListGenqlSelection & { __args?: {
     /** Filter by a field. */
-    filter?: (WritingsComponentFilterInput | null), 
+    filter?: (WritingsComponentFilterInput | null),
     /** Limit the number of items returned. Defaults to 500. */
-    first?: (Scalars['Int'] | null), 
+    first?: (Scalars['Int'] | null),
     /** Order by a field. */
-    orderBy?: (WritingsComponentOrderByEnum | null), 
+    orderBy?: (WritingsComponentOrderByEnum | null),
     /** Search configuration */
-    search?: (WritingsComponentSearchInput | null), 
+    search?: (WritingsComponentSearchInput | null),
     /** Skip the first n items. */
     skip?: (Scalars['Int'] | null)} })
     __typename?: boolean | number
@@ -1221,7 +1221,7 @@ export interface worksComponent_AsListGenqlSelection{
     _analyticsKey?: { __args: {
     /**
      * The scope of the analytics key. Use `send` for just ingesting data. Use `query` if you need to show an analytics data in your website.
-     * 
+     *
      * Have in mind, if you expose your `query` analytics key in the frontend, you'll be exposing all of this block's analytics data to the public. This is generally safe, but it might not be in your case.
      */
     scope?: (AnalyticsKeyScope | null)} } | boolean | number
@@ -1247,7 +1247,7 @@ export interface writingsComponent_AsListGenqlSelection{
     _analyticsKey?: { __args: {
     /**
      * The scope of the analytics key. Use `send` for just ingesting data. Use `query` if you need to show an analytics data in your website.
-     * 
+     *
      * Have in mind, if you expose your `query` analytics key in the frontend, you'll be exposing all of this block's analytics data to the public. This is generally safe, but it might not be in your case.
      */
     scope?: (AnalyticsKeyScope | null)} } | boolean | number
