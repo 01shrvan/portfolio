@@ -301,3 +301,19 @@
 .prose :where(pre) {
   border: 1px solid var(--color-rule);
 }
+
+.prose :where(img) {
+  width: 100%;
+  border: 1px solid var(--color-rule);
+  /* Diagrams are exported on white; on the dark ground they need their own
+     surface or they read as a hole punched in the page. */
+  background: #fff;
+  padding: 0.75rem;
+}
+
+.prose :where(figcaption) {
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
