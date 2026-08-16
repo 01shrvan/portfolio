@@ -1,0 +1,261 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+@import "@fontsource-variable/schibsted-grotesk";
+@import "@fontsource-variable/martian-mono";
+
+/* Theme is a class on <html>, not a media query — the toggle has to win
+   over the OS preference. */
+@custom-variant dark (&:where(.dark, .dark *));
+@custom-variant light (&:where(.light, .light *));
+
+/* ---------------------------------------------------------------------------
+   Ink & filament
+
+   Ground is a warm charcoal with real chroma in it, not neutral #0a0a0a.
+   Ink is bone — printed cream on a saturated stock, never pure white. One
+   accent does the work: a filament orange that reads like the warm bulb
+   over a desk at 2am. Light mode is a lit paper in the same warm family,
+   so the identity survives the toggle instead of becoming a different site.
+--------------------------------------------------------------------------- */
+
+@theme {
+  --font-sans: "Schibsted Grotesk Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "Martian Mono Variable", ui-monospace, monospace;
+
+  --color-ground: oklch(0.202 0.007 66);
+  --color-surface: oklch(0.255 0.008 66);
+  --color-ink: oklch(0.945 0.038 90);
+  --color-ink-soft: oklch(0.735 0.032 86);
+  --color-ink-dim: oklch(0.45 0.022 82);
+  --color-rule: oklch(0.44 0.022 82);
+  --color-rule-strong: oklch(0.58 0.026 84);
+  --color-filament: oklch(0.72 0.17 46);
+
+  --text-step--1: clamp(0.78rem, 0.75rem + 0.15vw, 0.85rem);
+  --text-step-0: clamp(0.95rem, 0.9rem + 0.24vw, 1.08rem);
+  --text-step-1: clamp(1.19rem, 1.1rem + 0.42vw, 1.44rem);
+  --text-step-2: clamp(1.48rem, 1.34rem + 0.72vw, 1.92rem);
+  --text-display: clamp(1.7rem, 1.4rem + 1.2vw, 2.1rem);
+  --text-display-sm: clamp(1.45rem, 1.25rem + 0.9vw, 1.8rem);
+
+  --spacing-gutter: clamp(1.15rem, 0.6rem + 2.4vw, 2.6rem);
+
+  --container-sheet: 46rem;
+  --container-measure: 62ch;
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+:root {
+  --grain-opacity: 0.075;
+  /* The halftone plate prints in bone on charcoal. */
+  --field-ink: 242 232 201;
+  --field-gain: 1;
+}
+
+:root.light {
+  --color-ground: oklch(0.955 0.022 88);
+  --color-surface: oklch(0.915 0.026 88);
+  --color-ink: oklch(0.235 0.012 62);
+  --color-ink-soft: oklch(0.435 0.014 70);
+  --color-ink-dim: oklch(0.68 0.022 82);
+  --color-rule: oklch(0.7 0.022 82);
+  --color-rule-strong: oklch(0.55 0.02 78);
+  --color-filament: oklch(0.53 0.17 40);
+
+  --grain-opacity: 0.04;
+  /* On paper the plate prints in brick, not black — dark dots at this
+     density read as dirt, a warm ink reads as a risograph. Gain pulls
+     coverage down so it stays an illustration rather than a mass. */
+  --field-ink: 168 72 44;
+  --field-gain: 0.58;
+}
+
+@layer base {
+  * {
+    border-color: var(--color-rule);
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background: var(--color-ground);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-size: var(--text-step-0);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* Light type on a dark ground reads lighter — give it more air. */
+  :root.dark body {
+    line-height: 1.68;
+  }
+
+  ::selection {
+    background: var(--color-filament);
+    color: var(--color-ground);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-filament);
+    outline-offset: 3px;
+  }
+
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+  p {
+    text-wrap: pretty;
+  }
+}
+
+@layer components {
+  .display {
+    font-weight: 600;
+    line-height: 1.1;
+    letter-spacing: -0.015em;
+  }
+
+  .data {
+    font-family: var(--font-mono);
+    font-size: 0.66rem;
+    letter-spacing: 0.02em;
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Registration marks — the crosses a printer aligns plates against. */
+  .reg-mark {
+    position: absolute;
+    width: 7px;
+    height: 7px;
+    z-index: 2;
+    pointer-events: none;
+  }
+  .reg-mark::before,
+  .reg-mark::after {
+    content: "";
+    position: absolute;
+    background: var(--color-rule-strong);
+  }
+  .reg-mark::before {
+    inset-block: 0;
+    left: 3px;
+    width: 1px;
+  }
+  .reg-mark::after {
+    inset-inline: 0;
+    top: 3px;
+    height: 1px;
+  }
+
+  /* Dotted leader connecting a row's title to its trailing data. */
+  .leader {
+    flex: 1 1 auto;
+    min-width: 1.5rem;
+    align-self: flex-end;
+    height: 1px;
+    margin-bottom: 0.42em;
+    background-image: radial-gradient(
+      circle,
+      var(--color-rule-strong) 0.5px,
+      transparent 0.5px
+    );
+    background-size: 5px 1px;
+    background-repeat: repeat-x;
+  }
+
+  .link {
+    color: var(--color-filament);
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.18em;
+    text-decoration-color: color-mix(
+      in oklch,
+      var(--color-filament),
+      transparent 60%
+    );
+    transition: text-decoration-color 180ms var(--ease-out-quint);
+  }
+  .link:hover {
+    text-decoration-color: var(--color-filament);
+  }
+}
+
+/* Print grain — keeps the flat digital surface from reading as plastic. */
+@utility grain {
+  &::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 40;
+    pointer-events: none;
+    opacity: var(--grain-opacity);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+}
+
+/* --- Motion ---------------------------------------------------------------
+   Content is visible by default and animates from that state, so a headless
+   render or a background tab still ships a complete page.
+------------------------------------------------------------------------- */
+
+@keyframes rule-draw {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes lift {
+  from {
+    opacity: 0;
+    transform: translateY(0.55rem);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes pulse-mark {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.15;
+    transform: scale(0.7);
+  }
+}
+
+.anim-rule {
+  transform-origin: left center;
+  animation: rule-draw 900ms var(--ease-out-expo) both;
+}
+.anim-lift {
+  animation: lift 620ms var(--ease-out-quint) both;
+}
+.anim-mark {
+  animation: pulse-mark 2.4s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

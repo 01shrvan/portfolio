@@ -1,0 +1,14 @@
+---
+interface Props {
+  title: string;
+  lede: string;
+}
+const { title, lede } = Astro.props;
+---
+
+<section class="px-gutter pt-12">
+  <h1 class="display anim-lift text-display-sm">{title}</h1>
+  <p class="anim-lift mt-2 max-w-measure text-ink-soft [animation-delay:100ms]">
+    {lede}
+  </p>
+</section>

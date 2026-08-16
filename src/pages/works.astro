@@ -1,0 +1,43 @@
+---
+import { getCollection } from "astro:content";
+import Base from "@/layouts/Base.astro";
+import Shell from "@/components/Shell.astro";
+import PageHead from "@/components/PageHead.astro";
+import RuledHeading from "@/components/RuledHeading.astro";
+import EntryRow from "@/components/EntryRow.astro";
+
+const works = (await getCollection("works")).sort(
+  (a, b) => a.data.order - b.data.order,
+);
+---
+
+<Base
+  title="Works"
+  description="Projects I've shipped end to end — what each one does and the problem it solves."
+>
+  <Shell>
+    <PageHead
+      title="Works"
+      lede="Projects I've shipped end to end. Everything here is live or open source — follow the arrow for the build or the code."
+    />
+
+    <section class="px-gutter pt-12">
+      <RuledHeading count={works.length}>All projects</RuledHeading>
+      <div class="mt-2">
+        {
+          works.map((entry, i) => (
+            <EntryRow
+              title={entry.data.title}
+              href={entry.data.href}
+              stamp={String(entry.data.date.getFullYear())}
+              meta={entry.data.role}
+              description={entry.data.description}
+              external
+              index={i}
+            />
+          ))
+        }
+      </div>
+    </section>
+  </Shell>
+</Base>

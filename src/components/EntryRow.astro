@@ -1,0 +1,64 @@
+---
+interface Props {
+  title: string;
+  href: string;
+  stamp?: string;
+  meta?: string;
+  description?: string;
+  external?: boolean;
+  index?: number;
+}
+
+const {
+  title,
+  href,
+  stamp,
+  meta,
+  description,
+  external = false,
+  index = 0,
+} = Astro.props;
+---
+
+<a
+  href={href}
+  target={external ? "_blank" : undefined}
+  rel={external ? "noopener noreferrer" : undefined}
+  style={`animation-delay:${90 + index * 45}ms`}
+  class="anim-lift group -mx-2 block px-2 py-3 transition-colors duration-200 hover:bg-surface"
+>
+  <div class="flex items-baseline gap-x-3">
+    {stamp && <span class="data w-[4.2rem] shrink-0 text-ink-soft">{stamp}</span>}
+
+    <span
+      class="font-medium transition-colors duration-200 group-hover:text-filament"
+    >
+      {title}
+    </span>
+
+    <span class="leader hidden sm:block"></span>
+
+    {meta && <span class="data hidden shrink-0 text-ink-soft sm:block">{meta}</span>}
+
+    <svg
+      class="size-3.5 shrink-0 translate-y-0.5 text-ink-soft opacity-0 transition-all duration-200 ease-out-quint group-hover:translate-x-0.5 group-hover:opacity-100"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      aria-hidden="true"
+    >
+      <path d="M7 17 17 7M8 7h9v9"></path>
+    </svg>
+  </div>
+
+  {
+    description && (
+      <p class="mt-1 text-step--1 leading-relaxed text-ink-soft sm:ml-[5.2rem]">
+        {description}
+      </p>
+    )
+  }
+</a>

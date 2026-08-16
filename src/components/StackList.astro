@@ -1,0 +1,28 @@
+---
+import { STACK } from "@/lib/site";
+---
+
+{/* Grouped by layer rather than laid out as a grid of equal tiles. The
+    grouping is the information: it says where in a system each tool sits,
+    which is the claim the page is making. */}
+<dl class="grid grid-cols-[5.5rem_1fr] gap-x-4 gap-y-2 sm:grid-cols-[7rem_1fr]">
+  {
+    STACK.map(({ layer, tools }) => (
+      <div class="contents">
+        <dt class="data pt-[0.3em] uppercase text-ink-soft">{layer}</dt>
+        <dd class="flex flex-wrap gap-x-3.5 gap-y-1 text-step--1">
+          {tools.map((tool) => (
+            <a
+              href={tool.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="transition-colors duration-200 hover:text-filament"
+            >
+              {tool.name}
+            </a>
+          ))}
+        </dd>
+      </div>
+    ))
+  }
+</dl>

@@ -1,0 +1,60 @@
+---
+import { getCollection, render } from "astro:content";
+import type { GetStaticPaths } from "astro";
+import Base from "@/layouts/Base.astro";
+import Shell from "@/components/Shell.astro";
+
+export const getStaticPaths = (async () => {
+  const posts = await getCollection("writings");
+  return posts
+    .filter((p) => !p.data.draft)
+    .map((post) => ({ params: { slug: post.id }, props: { post } }));
+}) satisfies GetStaticPaths;
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+
+const dateFmt = new Intl.DateTimeFormat("en-US", {
+  month: "short",
+  day: "2-digit",
+  year: "numeric",
+});
+---
+
+<Base title={post.data.title} description={post.data.tldr}>
+  <Shell>
+    <article class="px-gutter pt-12">
+      <a
+        href="/writings"
+        class="data anim-lift inline-block uppercase text-ink-soft transition-colors duration-200 hover:text-filament"
+      >
+        &larr; All writing
+      </a>
+
+      <h1 class="display anim-lift mt-6 max-w-[26ch] text-display-sm">
+        {post.data.title}
+      </h1>
+
+      <p
+        class="data anim-lift mt-5 flex flex-wrap items-center gap-x-3 gap-y-1 uppercase text-ink-soft [animation-delay:200ms]"
+      >
+        <span>Shrvan Benke</span>
+        <span aria-hidden class="text-rule-strong">/</span>
+        <time datetime={post.data.date.toISOString()}>
+          {dateFmt.format(post.data.date)}
+        </time>
+      </p>
+
+      <aside class="anim-lift mt-9 max-w-measure border p-4 [animation-delay:280ms]">
+        <p class="data uppercase text-ink-soft">In short</p>
+        <p class="mt-2">{post.data.tldr}</p>
+      </aside>
+
+      <div
+        class="anim-lift prose prose-sm mt-10 max-w-measure [animation-delay:360ms] prose-headings:mt-9 prose-headings:mb-3 prose-headings:font-medium prose-headings:tracking-tight"
+      >
+        <Content />
+      </div>
+    </article>
+  </Shell>
+</Base>

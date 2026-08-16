@@ -1,0 +1,126 @@
+---
+import { getCollection } from "astro:content";
+import Base from "@/layouts/Base.astro";
+import Shell from "@/components/Shell.astro";
+import RuledHeading from "@/components/RuledHeading.astro";
+import EntryRow from "@/components/EntryRow.astro";
+import SpecTable from "@/components/SpecTable.astro";
+import StackList from "@/components/StackList.astro";
+import DitherField from "@/components/DitherField.tsx";
+import { SITE } from "@/lib/site";
+
+const works = (await getCollection("works")).sort(
+  (a, b) => a.data.order - b.data.order,
+);
+
+const writings = (await getCollection("writings"))
+  .filter((p) => !p.data.draft)
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+
+const monthYear = new Intl.DateTimeFormat("en-US", {
+  month: "short",
+  year: "numeric",
+});
+---
+
+<Base>
+  <Shell>
+    <section class="px-gutter pt-12">
+      <div class="flex items-start justify-between gap-8">
+        <div class="anim-lift">
+          <h1 class="display text-display">{SITE.name}</h1>
+          <p class="mt-0.5 text-step-0 text-ink-soft">
+            {SITE.role}, Pune
+          </p>
+        </div>
+
+        {/* The one piece of craft on the page, kept to the size of a
+            postage stamp: a live halftone render rather than an image,
+            sitting beside the text at reading scale. */}
+        <figure class="hidden shrink-0 sm:block">
+          <div class="size-[92px] overflow-hidden border">
+            <DitherField client:visible />
+          </div>
+          <figcaption class="data mt-1.5 uppercase text-ink-soft">
+            Fig. 1
+          </figcaption>
+        </figure>
+      </div>
+
+      <div class="anim-lift mt-7 max-w-measure space-y-3.5 [animation-delay:120ms]">
+        <p>
+          I build software end to end — the data layer through to the interface.
+          In practice that means I&rsquo;m the person who writes the migration
+          and then argues about the empty state it produces.
+        </p>
+        <p>
+          Most of my work sits where the schema meets the screen: models that
+          stay honest under load, APIs that are boring to consume, and
+          front-ends that don&rsquo;t quietly lie about what the server
+          returned. Reach me at{" "}
+          <a href={`mailto:${SITE.email}`} class="link">{SITE.email}</a>.
+        </p>
+      </div>
+    </section>
+
+    <section class="px-gutter pt-12">
+      <RuledHeading>Currently</RuledHeading>
+      <div class="mt-4">
+        <SpecTable
+          rows={[
+            {
+              label: "Status",
+              value: "Open to freelance, contract, and full-time",
+              live: true,
+            },
+            { label: "Based", value: "Pune, India — IST (UTC+5:30)" },
+            { label: "Focus", value: "Data layer, APIs, interface" },
+          ]}
+        />
+      </div>
+    </section>
+
+    <section class="px-gutter pt-12">
+      <RuledHeading href="/works" linkLabel="All">Work</RuledHeading>
+      <div class="mt-2">
+        {
+          works.slice(0, 4).map((entry, i) => (
+            <EntryRow
+              title={entry.data.title}
+              href={entry.data.href}
+              stamp={String(entry.data.date.getFullYear())}
+              meta={entry.data.role}
+              description={entry.data.description}
+              external
+              index={i}
+            />
+          ))
+        }
+      </div>
+    </section>
+
+    <section class="px-gutter pt-12">
+      <RuledHeading href="/writings" linkLabel="All">Writing</RuledHeading>
+      <div class="mt-2">
+        {
+          writings.slice(0, 3).map((post, i) => (
+            <EntryRow
+              title={post.data.title}
+              href={`/writings/${post.id}`}
+              stamp={monthYear.format(post.data.date)}
+              description={post.data.tldr}
+              index={i}
+            />
+          ))
+        }
+      </div>
+    </section>
+
+    <section class="px-gutter pt-12">
+      <RuledHeading>Stack</RuledHeading>
+      <div class="mt-4">
+        <StackList />
+      </div>
+    </section>
+  </Shell>
+</Base>

@@ -1,0 +1,80 @@
+---
+import "@/styles/app.css";
+import { SITE } from "@/lib/site";
+
+interface Props {
+  title?: string;
+  description?: string;
+  /** Page-specific OG image path, relative to the site root. */
+  image?: string;
+}
+
+const {
+  title,
+  description = SITE.description,
+  image = "/og.png",
+} = Astro.props;
+
+const pageTitle = title ? `${title} — ${SITE.name}` : `${SITE.name} — ${SITE.role}`;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+const ogImage = new URL(image, Astro.site);
+---
+
+<!doctype html>
+<html lang="en" class="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <link rel="canonical" href={canonical} />
+
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+    <meta name="author" content={SITE.name} />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={SITE.name} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:creator" content="@01shrvan" />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <meta name="theme-color" content="#2b2723" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#f7f1e4" media="(prefers-color-scheme: light)" />
+
+    {/* Resolve the theme before first paint so the page never flashes. */}
+    <script is:inline>
+      (() => {
+        try {
+          const saved = localStorage.getItem("theme");
+          const prefersLight = window.matchMedia(
+            "(prefers-color-scheme: light)",
+          ).matches;
+          const theme = saved ?? (prefersLight ? "light" : "dark");
+          document.documentElement.classList.toggle("light", theme === "light");
+          document.documentElement.classList.toggle("dark", theme !== "light");
+        } catch {
+          /* Storage blocked — the dark class on <html> already stands. */
+        }
+      })();
+    </script>
+  </head>
+
+  <body class="grain">
+    <a
+      href="#main"
+      class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-sm focus:bg-ink focus:px-4 focus:py-2 focus:text-ground"
+    >
+      Skip to content
+    </a>
+
+    <slot />
+  </body>
+</html>

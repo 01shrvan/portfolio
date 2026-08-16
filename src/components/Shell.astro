@@ -1,0 +1,77 @@
+---
+import { NAV, SOCIALS, SITE } from "@/lib/site";
+import ThemeToggle from "@/components/ThemeToggle.astro";
+
+const path = Astro.url.pathname.replace(/\/$/, "") || "/";
+const isActive = (href: string) => path === href || path.startsWith(`${href}/`);
+---
+
+{/* One measured column with hairlines down both edges. Everything sits
+    inside the same measure so the page reads as a single document rather
+    than a stack of sections competing for attention. */}
+<div class="flex min-h-dvh flex-col">
+  <div class="mx-auto flex w-full max-w-sheet flex-1 flex-col border-x">
+    <header class="sticky top-0 z-20 border-b bg-ground/92 backdrop-blur-md">
+      <div class="relative flex h-12 items-center justify-between gap-3 px-gutter">
+        <a
+          href="/"
+          class="text-step--1 font-medium transition-colors duration-200 hover:text-filament"
+        >
+          {SITE.name}
+        </a>
+
+        <nav class="flex items-center gap-3 sm:gap-5" aria-label="Primary">
+          {
+            NAV.map(({ href, label }) => (
+              <a
+                href={href}
+                aria-current={isActive(href) ? "page" : undefined}
+                class:list={[
+                  "text-step--1 transition-colors duration-200",
+                  isActive(href)
+                    ? "text-filament"
+                    : "text-ink-soft hover:text-ink",
+                ]}
+              >
+                {label}
+              </a>
+            ))
+          }
+          <ThemeToggle />
+        </nav>
+
+        <span class="reg-mark -bottom-[3px] -left-[3px]"></span>
+        <span class="reg-mark -bottom-[3px] -right-[3px]"></span>
+      </div>
+    </header>
+
+    <main id="main" class="flex-1">
+      <slot />
+    </main>
+
+    <footer class="mt-16 border-t px-gutter py-5">
+      <div class="flex flex-wrap items-center justify-between gap-x-5 gap-y-2">
+        <div class="flex flex-wrap items-center gap-x-4 gap-y-1">
+          <a href={`mailto:${SITE.email}`} class="link text-step--1">
+            {SITE.email}
+          </a>
+          {
+            SOCIALS.map(({ label, href }) => (
+              <a
+                href={href}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="text-step--1 text-ink-soft transition-colors duration-200 hover:text-ink"
+              >
+                {label}
+              </a>
+            ))
+          }
+        </div>
+        <p class="data uppercase text-ink-soft">
+          {SITE.location} · © {new Date().getFullYear()}
+        </p>
+      </div>
+    </footer>
+  </div>
+</div>
