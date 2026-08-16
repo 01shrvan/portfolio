@@ -13,7 +13,7 @@ import { Dithering } from "@paper-design/shaders-react";
 
 type Ink = { back: string; front: string };
 
-const DARK: Ink = { back: "#2b2723", front: "#f2e8c9" };
+const DARK: Ink = { back: "#2b2723", front: "#e08a45" };
 const LIGHT: Ink = { back: "#f4eddc", front: "#a8482c" };
 
 function readInk(): Ink {
@@ -58,8 +58,8 @@ export default function Figure() {
         colorFront={ink.front}
         shape="sphere"
         type="4x4"
-        size={1.4}
-        speed={0.5}
+        size={0.32}
+        speed={0.35}
       />
     ) : (
       <div

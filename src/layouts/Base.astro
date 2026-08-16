@@ -21,7 +21,7 @@ const ogImage = new URL(image, Astro.site);
 ---
 
 <!doctype html>
-<html lang="en" class="dark">
+<html lang="en" class="light">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -53,15 +53,15 @@ const ogImage = new URL(image, Astro.site);
     <script is:inline>
       (() => {
         try {
+          // Light is the default for everyone. The OS preference is
+          // deliberately ignored — only an explicit choice on this site
+          // switches to dark, and it persists.
           const saved = localStorage.getItem("theme");
-          const prefersLight = window.matchMedia(
-            "(prefers-color-scheme: light)",
-          ).matches;
-          const theme = saved ?? (prefersLight ? "light" : "dark");
-          document.documentElement.classList.toggle("light", theme === "light");
-          document.documentElement.classList.toggle("dark", theme !== "light");
+          const dark = saved === "dark";
+          document.documentElement.classList.toggle("dark", dark);
+          document.documentElement.classList.toggle("light", !dark);
         } catch {
-          /* Storage blocked — the dark class on <html> already stands. */
+          /* Storage blocked — the light class on <html> already stands. */
         }
       })();
     </script>
