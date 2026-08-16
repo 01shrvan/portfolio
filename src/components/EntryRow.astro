@@ -5,6 +5,7 @@ interface Props {
   stamp?: string;
   meta?: string;
   description?: string;
+  stack?: readonly string[];
   external?: boolean;
   index?: number;
 }
@@ -15,6 +16,7 @@ const {
   stamp,
   meta,
   description,
+  stack = [],
   external = false,
   index = 0,
 } = Astro.props;
@@ -27,21 +29,23 @@ const {
   style={`animation-delay:${90 + index * 45}ms`}
   class="anim-lift group -mx-2 block px-2 py-3 transition-colors duration-200 hover:bg-surface"
 >
-  <div class="flex items-baseline gap-x-3">
-    {stamp && <span class="data w-[4.2rem] shrink-0 text-ink-soft">{stamp}</span>}
+  {/* Below sm the stamp and meta wrap onto their own line instead of
+      squeezing the title into a two-character column. */}
+  <div class="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+    {stamp && <span class="data shrink-0 text-ink-soft sm:w-[4.2rem]">{stamp}</span>}
 
     <span
-      class="font-medium transition-colors duration-200 group-hover:text-filament"
+      class="min-w-0 font-medium transition-colors duration-200 group-hover:text-filament"
     >
       {title}
     </span>
 
     <span class="leader hidden sm:block"></span>
 
-    {meta && <span class="data hidden shrink-0 text-ink-soft sm:block">{meta}</span>}
+    {meta && <span class="data shrink-0 text-ink-soft">{meta}</span>}
 
     <svg
-      class="size-3.5 shrink-0 translate-y-0.5 text-ink-soft opacity-0 transition-all duration-200 ease-out-quint group-hover:translate-x-0.5 group-hover:opacity-100"
+      class="hidden size-3.5 shrink-0 translate-y-0.5 text-ink-soft opacity-0 transition-all duration-200 ease-out-quint group-hover:translate-x-0.5 group-hover:opacity-100 sm:block"
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
@@ -58,6 +62,16 @@ const {
     description && (
       <p class="mt-1 text-step--1 leading-relaxed text-ink-soft sm:ml-[5.2rem]">
         {description}
+      </p>
+    )
+  }
+
+  {
+    stack.length > 0 && (
+      <p class="data mt-2 flex flex-wrap gap-x-2 gap-y-1 text-ink-soft/80 sm:ml-[5.2rem]">
+        {stack.map((tool) => (
+          <span class="border px-1.5 py-0.5">{tool}</span>
+        ))}
       </p>
     )
   }

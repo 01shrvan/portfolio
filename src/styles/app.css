@@ -92,10 +92,9 @@
     text-rendering: optimizeLegibility;
   }
 
-  /* Light type on a dark ground reads lighter — give it more air. */
-  :root.dark body {
-    line-height: 1.68;
-  }
+  /* Line-height stays identical across themes. Varying it per theme
+     reflows every wrapped paragraph on toggle, which reads as the page
+     jumping — very obvious on mobile where lines wrap more often. */
 
   ::selection {
     background: var(--color-filament);
@@ -170,6 +169,42 @@
     );
     background-size: 5px 1px;
     background-repeat: repeat-x;
+  }
+
+  /* Typography plugin ships its own greys, which fight the warm palette
+     on both themes. Point every prose token at ours. */
+  .prose {
+    --tw-prose-body: var(--color-ink-soft);
+    --tw-prose-headings: var(--color-ink);
+    --tw-prose-lead: var(--color-ink-soft);
+    --tw-prose-links: var(--color-filament);
+    --tw-prose-bold: var(--color-ink);
+    --tw-prose-counters: var(--color-ink-soft);
+    --tw-prose-bullets: var(--color-rule-strong);
+    --tw-prose-hr: var(--color-rule);
+    --tw-prose-quotes: var(--color-ink);
+    --tw-prose-quote-borders: var(--color-rule);
+    --tw-prose-captions: var(--color-ink-soft);
+    --tw-prose-code: var(--color-ink);
+    --tw-prose-pre-code: var(--color-ink);
+    --tw-prose-pre-bg: var(--color-surface);
+    --tw-prose-th-borders: var(--color-rule-strong);
+    --tw-prose-td-borders: var(--color-rule);
+  }
+
+  .prose :where(code):not(:where(pre code)) {
+    background: var(--color-surface);
+    padding: 0.14em 0.38em;
+    border-radius: 0.25rem;
+    font-weight: 400;
+    font-size: 0.85em;
+  }
+  .prose :where(code):not(:where(pre code))::before,
+  .prose :where(code):not(:where(pre code))::after {
+    content: "";
+  }
+  .prose :where(pre) {
+    border: 1px solid var(--color-rule);
   }
 
   .link {

@@ -1,6 +1,6 @@
 ---
 title: why i'm even doing this
-tldr: starting a blog in 2026 feels weird but here we are. no grand plan, no content calendar, just trying to stop overthinking and start putting thoughts out there. this is about building in public, figuring things out as i go, and maybe connecting with people who are doing the same.
+tldr: "starting a blog in 2026 feels weird but here we are. no grand plan, no content calendar, just trying to stop overthinking and start putting thoughts out there. this is about building in public, figuring things out as i go, and maybe connecting with people who are doing the same."
 date: 2026-01-04
 ---
 
