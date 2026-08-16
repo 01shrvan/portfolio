@@ -52,3 +52,6 @@ dist/
 # tooling
 .playwright-cli/
 .playwright-mcp/
+
+# next.js (removed)
+.next/
