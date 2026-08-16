@@ -6,7 +6,7 @@ import RuledHeading from "@/components/RuledHeading.astro";
 import EntryRow from "@/components/EntryRow.astro";
 import SpecTable from "@/components/SpecTable.astro";
 import StackList from "@/components/StackList.astro";
-import DitherField from "@/components/DitherField.tsx";
+import Figure from "@/components/Figure.tsx";
 import { SITE, EXPERIENCE } from "@/lib/site";
 
 const works = (await getCollection("works")).sort(
@@ -39,7 +39,7 @@ const monthYear = new Intl.DateTimeFormat("en-US", {
             beside the text at reading scale. */}
         <figure class="hidden shrink-0 sm:block">
           <div class="size-[92px] overflow-hidden border">
-            <DitherField client:visible />
+            <Figure client:visible />
           </div>
           <figcaption class="data mt-1.5 uppercase text-ink-soft">
             Fig. 1
@@ -92,14 +92,14 @@ const monthYear = new Intl.DateTimeFormat("en-US", {
               class="anim-lift py-3"
             >
               <div class="flex flex-wrap items-baseline gap-x-3 gap-y-1">
-                <span class="data shrink-0 text-ink-soft">{job.period}</span>
+                <span class="data shrink-0 text-ink-soft sm:w-[9.5rem]">{job.period}</span>
                 <span class="font-medium">{job.role}</span>
                 <span class="leader hidden sm:block" />
                 <span class="data shrink-0 text-ink-soft">
                   {job.company} &middot; {job.place}
                 </span>
               </div>
-              <p class="mt-1 text-step--1 leading-relaxed text-ink-soft sm:ml-[7.6rem]">
+              <p class="mt-1 text-step--1 leading-relaxed text-ink-soft sm:ml-[10.5rem]">
                 {job.note}
               </p>
             </div>
