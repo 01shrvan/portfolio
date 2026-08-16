@@ -130,13 +130,16 @@
     font-variant-numeric: tabular-nums;
   }
 
-  /* Registration marks — the crosses a printer aligns plates against. */
+  /* Registration marks — the crosses a printer aligns plates against.
+     Centred with a transform rather than a negative offset, so the cross
+     sits exactly on the corner instead of half a pixel off it. */
   .reg-mark {
     position: absolute;
-    width: 7px;
-    height: 7px;
-    z-index: 2;
+    width: 9px;
+    height: 9px;
     pointer-events: none;
+    z-index: 2;
+    transform: translate(-50%, 50%);
   }
   .reg-mark::before,
   .reg-mark::after {
@@ -146,13 +149,15 @@
   }
   .reg-mark::before {
     inset-block: 0;
-    left: 3px;
+    left: 50%;
     width: 1px;
+    margin-left: -0.5px;
   }
   .reg-mark::after {
     inset-inline: 0;
-    top: 3px;
+    top: 50%;
     height: 1px;
+    margin-top: -0.5px;
   }
 
   /* Dotted leader connecting a row's title to its trailing data. */

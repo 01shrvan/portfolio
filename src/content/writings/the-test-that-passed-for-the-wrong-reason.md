@@ -1,114 +1,93 @@
 ---
 title: the test that passed for the wrong reason
-tldr: "i wrote six concurrency tests for an agentic document system. they all passed. then i deleted the lock they were supposed to be testing and re-ran them — and they still passed. this is what i learned about writing tests that can actually fail, and the other calls i made building doctask."
+tldr: "i wrote six concurrency tests. they all passed. then i deleted the lock they were supposed to be testing and they still passed. here's that, plus the other calls i made building doctask."
 date: 2026-08-14
 ---
 
-i built a thing called doctask for an engineering round. the repo is private for now, but the interesting parts are the decisions, not the code, so here they are.
+i built a thing called doctask for an engineering round. the repo is private but i can talk about what's in it.
 
-the short version: it takes a pile of related procurement documents — a purchase order, a supplier acknowledgement, an MSA, some amendments, invoices — and works out where they disagree. every document describes the same commercial reality and none of them quite agree, and nobody reads all of it until something goes wrong.
+it reads a pile of procurement documents. a purchase order, a supplier acknowledgement, an msa, a few amendments. they all describe the same deal and none of them agree. it works out where they disagree and writes that into one table, with a citation to the exact line each claim came from.
 
-what it produces is a contract position register. one row per clause area — warranty, liability, delivery, payment, governing law — recording what each side says, a verdict, and a citation to the exact place in the source it came from.
+![the doctask pipeline, from watched folder and api through the langgraph stage machine to a human review gate and postgres](/writings/doctask-architecture.png)
 
-![the doctask pipeline, from watched folder and API through the langgraph stage machine to a human review gate and postgres](/writings/doctask-architecture.png)
+fastapi serves the api and the ui. an mcp server exposes the same operations as tools. langgraph runs the stages and checkpoints them so a killed run resumes. postgres holds the register.
 
-fastapi serves the rest surface and the built ui from the same process. an mcp server exposes the same operations as tools. both call the same service methods, so neither surface has a privileged path. langgraph runs the stage machine and checkpoints it, so a killed run resumes. postgres with pgvector holds the register and its revision history.
+anyway. the part i actually want to write about is a test that lied to me.
 
-but the part i actually want to write about is a test that lied to me.
+## the lock i could delete
 
-## six passing tests and a lock i could delete
+the register is shared state. multiple documents can land at once and each one rewrites part of it. so there's a lock around it, and i wrote six tests for that lock. sixteen threads hammering the same pile, that sort of thing.
 
-the register is shared state. multiple documents can land at once, and each one recomputes some subset of clause areas. so there's a lock around the read-then-write window, and i wrote six tests to prove it works. sixteen threads racing at the same pile, that kind of thing.
+all six passed.
 
-all six passed. good.
+then i deleted the lock and ran them again. they still passed.
 
-then, mostly out of paranoia, i deleted the lock and ran them again.
-
-they still passed.
-
-that is a genuinely bad feeling. six tests, all green, all of them incapable of detecting the absence of the thing they existed to check. if i'd shipped that and someone later refactored the lock away, nothing would have caught it. the tests were decoration.
+six tests, all green, none of them able to detect the absence of the thing they existed to check.
 
 ## why they couldn't fail
 
-cpython's GIL switches between bytecodes, not inside them. a read-then-write in python is more than one bytecode, so the window where a race can actually happen is real — but it's *narrow*, and the interpreter usually doesn't choose to switch inside it.
+cpython switches threads between bytecodes, not inside them. a read-then-write is more than one bytecode, so the race window is real, but it's tiny. the scheduler mostly doesn't land in it.
 
-sixteen threads sounds like a lot. it isn't. it's sixteen threads that each spend most of their time doing something other than sitting in that specific two-instruction gap. the odds of the scheduler landing inside the window on any given run are low enough that a test can pass a hundred times in a row and still be worthless.
-
-so "i ran it with lots of threads and it didn't break" is not evidence of anything. it's a test that measures the interpreter's scheduling luck.
+sixteen threads sounds like a lot. it isn't. they spend almost none of their time sitting in that two instruction gap. a test can pass a hundred times in a row and still be measuring nothing but scheduling luck.
 
 ![sixteen threads racing a read-then-write window, with and without the lock](/writings/doctask-race.png)
 
-## the fix: widen the window on purpose
+## the fix
 
-the version that counts doesn't add more threads. it reaches into the exact read-then-write window and holds it open — a deliberate yield at the point where the race actually lives, so the scheduler *has* to make the choice that matters.
-
-that test behaves like a test should:
+the version that counts doesn't add more threads. it holds the read-then-write window open on purpose, so the scheduler has to make the choice that matters.
 
 ```
-WITH the lock:     7 passed
-WITHOUT the lock:  FAILED — assert 16 == 1
+with the lock:     7 passed
+without the lock:  FAILED — assert 16 == 1
 ```
 
-sixteen copies of one document, and without the lock you get sixteen where you should have one. now removing the lock breaks something. that's the whole bar.
+sixteen copies of one document where there should be one. now deleting the lock breaks something.
 
-i kept the other six. they check a weaker and different claim — that the happy path doesn't deadlock or corrupt under ordinary load — and that's worth having. i just stopped pretending they were the ones holding the lock to account.
+i kept the other six. they check that the normal path doesn't deadlock under load, which is worth having. i just stopped calling them concurrency tests.
 
-the general lesson, which i keep relearning: **a test that has never failed hasn't been tested.** if you can't state the change that would make it go red, you don't know what it covers. deleting the implementation and re-running is about ten seconds of work and it's the only way to find out.
+if you can't say what change would turn a test red, you don't know what it covers. deleting the code and re-running takes ten seconds.
 
-## silence is a verdict, and a model never decides it
+## silence
 
-the other decision i'd defend hardest.
+comparing two documents has three outcomes, not two. they agree, they conflict, or one of them just doesn't mention it.
 
-when you compare two documents, there are three outcomes, not two. they can agree. they can conflict. or one of them can simply not mention the topic at all.
+"the supplier accepted our liability cap" and "the supplier never mentioned liability" are not the same fact. a tool that reports them the same way is worse than no tool, because it looks like coverage over exactly the gaps that hurt you later.
 
-"the supplier accepted our liability cap" and "the supplier never mentioned liability" are completely different facts with completely different consequences, and a tool that reports them the same way is worse than no tool — it manufactures a false sense of coverage over exactly the gaps that hurt you later.
+so silence is its own verdict. no model gets consulted for it, it's decided structurally, and a test injects a judge that raises if it ever gets called. every row records what judged it. for silence that field is null, so "no model touched this" is queryable instead of being a claim in a readme.
 
-so `silence` is a first-class verdict and never collapses into `agree`. two things enforce it:
+the rule is a check constraint in the schema too. if the app is wrong the database still refuses.
 
-- when one side is absent, no model is consulted at all. it's decided structurally. a test injects a judge that **raises on contact** to prove that branch is unreachable.
-- every verdict records `judged_by`. for silence it's `null` — so "no model was involved in this" is a queryable fact, not a claim in a readme.
+## the second pile
 
-and the rule is a `CHECK` constraint in the schema, not only in application code. if the app is wrong, the database still refuses.
+a clause called "limitation of liability" and one called "maximum recoverable amount" are the same clause, so matching is semantic rather than string equality on headings.
 
-## matching by substance, not by heading
+to keep myself honest there are two test piles. pile a has conventional headings and is full of conflicts. pile b uses none of pile a's headings and is mostly agreements.
 
-a clause titled "limitation of liability" and one titled "maximum recoverable amount" are the same clause. so matching is semantic, not string equality on headings.
+pile b exists because a system that always finds conflicts looks great on pile a and is useless.
 
-the way i kept myself honest about this: two test piles. pile a uses conventional headings and is full of conflicts. pile b uses **none** of pile a's headings — liability shows up as "liability ceiling", delivery as "mobilisation and site access", governing law as "forum for disputes" — and is mostly agreements.
+## updates
 
-pile b exists because a system that always finds conflicts would look fantastic on pile a and be completely useless. if your demo data only contains the answer you want, you've built a demo, not a system.
-
-## an update should cost like an update
-
-new documents land in a watched folder. the naive thing is to recompute the whole register every time, which is fine for seven clause areas and awful for seven hundred.
-
-so each arrival recomputes only the areas the new source touches. everything else is carried across as the *identical object*, and its content hash is compared before and after. recomputations and model calls are counted, not asserted:
+new documents land in a watched folder. recomputing the whole register every time is fine for seven clause areas and terrible for seven hundred. so each arrival only recomputes what the new document touches. everything else is carried over as the same object and hashed to prove it.
 
 ```
 revised acknowledgement, payment term changed  →  3 areas recomputed, 3 judge calls
 the same bytes arriving again                  →  0 areas recomputed, 0 judge calls
 ```
 
-counting the calls matters more than it sounds. "it was fast" is a vibe. "it made zero model calls" is a fact you can regress against.
+counting calls beats timing them. "it was fast" is a vibe. "it made zero model calls" is something you can regress against.
 
-and when a new source contradicts something already committed, it surfaces the conflict rather than quietly resolving it. the old value stands until a person approves the revision. the system doesn't get to overwrite a human decision because new paper showed up.
+if a new document contradicts something already committed it flags the conflict instead of quietly overwriting. the old value stands until a person approves the change.
 
-## the documents are not allowed to give orders
+## the documents are hostile
 
-these are documents from counterparties. some of them are adversarial by definition.
+these come from counterparties. some of them are adversarial by definition.
 
-so the reviewer sees the source verbatim — citations have to be exact, because the buyer needs to see what the supplier actually wrote — but what a model reads goes through a wrapper that quarantines it. there's a test with an instruction welded into the middle of a real clause, not sitting in an obvious block at the end, because that's what an actual attempt would look like.
+the reviewer sees the source exactly as written, because they need to see what the supplier actually said. what a model reads goes through a wrapper. there's a test with an instruction buried inside a real clause rather than sitting at the end where it would be obvious.
 
-i'll say the honest part too: **the denylist is defeatable by paraphrase.** it raises the cost of the attack and makes the attempt visible in the logs. it is not proof of safety, and writing it down as though it were would be the same failure as the silence collapse — reporting more confidence than i have.
+the honest part: the denylist loses to paraphrase. it raises the cost and makes the attempt show up in logs, and that's it. claiming more would be the same mistake as collapsing silence into agree.
 
-## what i'd tell past me
+## limits
 
-three things.
+the offline judge is a keyword heuristic. it reports itself as `heuristic` so no verdict looks better than it is. it only compares the newest document per side, so merging a po with its amendments is the next thing.
 
-**delete the implementation and re-run the test.** if it still passes, you wrote a test for something else. this took ten seconds and saved me from shipping six green lies.
-
-**count things instead of timing them.** call counts and object identity (`is`, not `==`) are assertions that survive refactors and slow CI machines. durations are not.
-
-**write the limitations down while you still remember them.** the denylist being defeatable, the offline judge being a keyword heuristic that reports itself as `heuristic`, only comparing the newest document per side — all of that went into the repo in a file next to the code. a limitation you've stated is a known edge. one you've buried is a bug someone else finds.
-
-the register survives a process restart, the tests run on a fresh clone with no api key and no docker, and the whole thing starts with one command. but the bit i'd actually want to be asked about in an interview is the lock i deleted on purpose.
+that's all written down in the repo next to the code. a limitation you've stated is a known edge. one you've buried is a bug someone else finds.
