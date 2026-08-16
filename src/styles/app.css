@@ -147,17 +147,18 @@
     position: absolute;
     background: var(--color-rule-strong);
   }
+  /* Integer arm offsets: in a 9px box the 1px arm at 4px is already dead
+     centre, and a whole-pixel position renders crisp at every zoom level
+     where a 50% + half-pixel margin blurs. */
   .reg-mark::before {
     inset-block: 0;
-    left: 50%;
+    left: 4px;
     width: 1px;
-    margin-left: -0.5px;
   }
   .reg-mark::after {
     inset-inline: 0;
-    top: 50%;
+    top: 4px;
     height: 1px;
-    margin-top: -0.5px;
   }
 
   /* Dotted leader connecting a row's title to its trailing data. */
