@@ -1,0 +1,46 @@
+---
+import { getCollection } from "astro:content";
+import Base from "@/layouts/Base.astro";
+import Shell from "@/components/Shell.astro";
+import PageHead from "@/components/PageHead.astro";
+import RuledHeading from "@/components/RuledHeading.astro";
+import EntryRow from "@/components/EntryRow.astro";
+
+const posts = (await getCollection("writings"))
+  .filter((p) => !p.data.draft)
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+
+const monthYear = new Intl.DateTimeFormat("en-US", {
+  month: "short",
+  year: "numeric",
+});
+---
+
+<Base
+  title="Writing"
+  description="Notes on building software end to end — the parts that don't fit in a commit message."
+>
+  <Shell>
+    <PageHead
+      title="Writing"
+      lede="Notes on the parts of building software that don't fit in a commit message."
+    />
+
+    <section class="px-gutter pt-12">
+      <RuledHeading count={posts.length}>All posts</RuledHeading>
+      <div class="mt-2">
+        {
+          posts.map((post, i) => (
+            <EntryRow
+              title={post.data.title}
+              href={`/writings/${post.id}`}
+              stamp={monthYear.format(post.data.date)}
+              description={post.data.tldr}
+              index={i}
+            />
+          ))
+        }
+      </div>
+    </section>
+  </Shell>
+</Base>

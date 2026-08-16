@@ -1,0 +1,21 @@
+---
+import Base from "@/layouts/Base.astro";
+import Shell from "@/components/Shell.astro";
+---
+
+<Base title="Not found" description="That page doesn't exist.">
+  <Shell>
+    <section class="px-gutter pt-12">
+      <p class="data uppercase text-ink-soft">404</p>
+      <h1 class="display mt-2 text-display-sm">Nothing here.</h1>
+      <p class="mt-2 max-w-measure text-ink-soft">
+        That page either moved or never existed. The work is still where you
+        left it.
+      </p>
+      <div class="mt-6 flex flex-wrap gap-x-5 gap-y-2">
+        <a href="/" class="link text-step--1">Back home</a>
+        <a href="/works" class="link text-step--1">See the work</a>
+      </div>
+    </section>
+  </Shell>
+</Base>

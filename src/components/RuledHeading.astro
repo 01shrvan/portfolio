@@ -1,0 +1,37 @@
+---
+interface Props {
+  count?: number;
+  href?: string;
+  linkLabel?: string;
+}
+
+const { count, href, linkLabel = "All" } = Astro.props;
+---
+
+{/* Section label with a hairline running out to the measure and the item
+    count as a superscript — the device that keeps a long page scannable.
+    Deliberately sentence case: an all-caps tracked kicker over every
+    section is the tell we're avoiding. */}
+<div class="flex items-center gap-3">
+  <h2 class="shrink-0 text-step--1 font-medium">
+    <slot />
+    {
+      count !== undefined && (
+        <sup class="ml-0.5 text-[0.68em] font-normal tabular-nums text-ink-soft">
+          {count}
+        </sup>
+      )
+    }
+  </h2>
+  <span class="anim-rule h-px flex-1 bg-rule"></span>
+  {
+    href && (
+      <a
+        href={href}
+        class="shrink-0 text-step--1 text-ink-soft transition-colors duration-200 hover:text-filament"
+      >
+        {linkLabel}
+      </a>
+    )
+  }
+</div>

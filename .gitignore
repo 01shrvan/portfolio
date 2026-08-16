@@ -44,3 +44,14 @@ token.json
 
 # Deployment
 .vercel
+
+# astro
+dist/
+.astro/
+
+# tooling
+.playwright-cli/
+.playwright-mcp/
+
+# next.js (removed)
+.next/
