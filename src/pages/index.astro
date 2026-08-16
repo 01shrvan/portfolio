@@ -6,6 +6,7 @@ import RuledHeading from "@/components/RuledHeading.astro";
 import EntryRow from "@/components/EntryRow.astro";
 import SpecTable from "@/components/SpecTable.astro";
 import StackList from "@/components/StackList.astro";
+import Quote from "@/components/Quote.astro";
 import Figure from "@/components/Figure.tsx";
 import { SITE, EXPERIENCE } from "@/lib/site";
 
@@ -150,6 +151,13 @@ const monthYear = new Intl.DateTimeFormat("en-US", {
       <div class="mt-4">
         <StackList />
       </div>
+    </section>
+
+    <section class="px-gutter pt-12">
+      <Quote
+        text="On this path no effort is ever wasted, and no gain is ever reversed; even a little of this practice protects one from great fear."
+        source="Bhagavad Gita"
+      />
     </section>
   </Shell>
 </Base>

@@ -55,3 +55,10 @@ dist/
 
 # next.js (removed)
 .next/
+
+# agent tooling — local config, never belongs in the repo
+.agents/
+.claude/
+.codex/
+.playwright/
+.vercel/

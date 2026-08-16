@@ -8,7 +8,11 @@ import tailwindcss from "@tailwindcss/vite";
 export default defineConfig({
   site: "https://shrvans-space.vercel.app",
   output: "static",
-  integrations: [react(), mdx(), sitemap()],
+  integrations: [
+    react(),
+    mdx(),
+    sitemap({ filter: (page) => !page.includes("/og-card") }),
+  ],
   vite: {
     plugins: [tailwindcss()],
   },
