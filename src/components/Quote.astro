@@ -1,17 +1,13 @@
 ---
-interface Props {
-  text: string;
-  source: string;
-}
+import { QUOTES, quoteForDay } from "@/lib/quotes";
 
-const { text, source } = Astro.props;
+const quote = quoteForDay();
 ---
 
-{/* Dashed rules top and bottom so it reads as a pulled-aside panel rather
-    than another section of the document. The quote mark is decoration and
-    is hidden from screen readers — the quotation marks in the text carry
-    the meaning. */}
-<figure class="relative overflow-hidden border-y border-dashed bg-surface/60 px-6 py-7 sm:px-9">
+<figure
+  data-quote
+  class="relative overflow-hidden border-y border-dashed bg-surface/60 px-6 py-7 sm:px-9"
+>
   <span
     aria-hidden="true"
     class="pointer-events-none absolute -bottom-8 left-2 select-none font-mono text-[8rem] leading-none text-ink/[0.06] sm:text-[10rem]"
@@ -20,11 +16,32 @@ const { text, source } = Astro.props;
   </span>
 
   <blockquote class="relative">
-    <p class="data max-w-[62ch] text-[0.72rem] italic leading-[1.85] text-ink-soft sm:text-[0.78rem]">
-      &ldquo;{text}&rdquo;
+    <p
+      data-quote-text
+      class="data max-w-[62ch] text-[0.72rem] italic leading-[1.85] text-ink-soft sm:text-[0.78rem]"
+    >
+      &ldquo;{quote.text}&rdquo;
     </p>
     <figcaption class="data mt-3 text-right italic text-ink-soft">
-      &mdash; {source}
+      &mdash; <span data-quote-source>{quote.source}</span>
     </figcaption>
   </blockquote>
 </figure>
+
+<script is:inline define:vars={{ pool: QUOTES }}>
+  (() => {
+    const root = document.querySelector("[data-quote]");
+    if (!root || !Array.isArray(pool) || pool.length === 0) return;
+
+    const now = new Date();
+    const day = Math.floor(
+      Date.UTC(now.getFullYear(), now.getMonth(), now.getDate()) / 86400000,
+    );
+    const quote = pool[day % pool.length];
+
+    const text = root.querySelector("[data-quote-text]");
+    const source = root.querySelector("[data-quote-source]");
+    if (text) text.textContent = `“${quote.text}”`;
+    if (source) source.textContent = quote.source;
+  })();
+</script>

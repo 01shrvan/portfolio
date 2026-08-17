@@ -1,8 +1,4 @@
 ---
-/* The social card, rendered as a real page so it inherits the site's own
-   fonts and tokens. `npm run og` screenshots it to public/og.png. It is
-   excluded from the sitemap and marked noindex — it exists to be captured,
-   not to be visited. */
 import "@/styles/app.css";
 import { SITE } from "@/lib/site";
 ---
@@ -57,8 +53,6 @@ import { SITE } from "@/lib/site";
     </div>
 
     <style>
-      /* A static halftone: even dots, with a radial mask so density alone
-         reads as a sphere — the same logic as the live Fig. 1 plate. */
       .og-plate {
         background-image: radial-gradient(
           circle,

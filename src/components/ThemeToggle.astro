@@ -1,6 +1,3 @@
-{/* Both icons occupy the same grid cell so the button's box never changes
-    size between themes — swapping visibility on differently-sized nodes is
-    what makes a nav jump on toggle. */}
 <button
   type="button"
   data-theme-toggle
@@ -35,7 +32,6 @@
 </button>
 
 <script>
-  // Delegated so it survives client-side navigation.
   document.addEventListener("click", (event) => {
     const target = event.target as HTMLElement | null;
     if (!target?.closest("[data-theme-toggle]")) return;
@@ -49,7 +45,6 @@
     try {
       localStorage.setItem("theme", next);
     } catch {
-      /* Storage blocked; the choice just won't persist across visits. */
     }
   });
 </script>

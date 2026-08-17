@@ -5,7 +5,6 @@ import { SITE } from "@/lib/site";
 interface Props {
   title?: string;
   description?: string;
-  /** Page-specific OG image path, relative to the site root. */
   image?: string;
 }
 
@@ -52,19 +51,14 @@ const ogImage = new URL(image, Astro.site);
     <meta name="theme-color" content="#2b2723" media="(prefers-color-scheme: dark)" />
     <meta name="theme-color" content="#f7f1e4" media="(prefers-color-scheme: light)" />
 
-    {/* Resolve the theme before first paint so the page never flashes. */}
     <script is:inline>
       (() => {
         try {
-          // Light is the default for everyone. The OS preference is
-          // deliberately ignored — only an explicit choice on this site
-          // switches to dark, and it persists.
           const saved = localStorage.getItem("theme");
           const dark = saved === "dark";
           document.documentElement.classList.toggle("dark", dark);
           document.documentElement.classList.toggle("light", !dark);
         } catch {
-          /* Storage blocked — the light class on <html> already stands. */
         }
       })();
     </script>

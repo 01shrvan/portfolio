@@ -31,13 +31,11 @@ const monthYear = new Intl.DateTimeFormat("en-US", {
         <div class="anim-lift min-w-0">
           <h1 class="display text-display">{SITE.name}</h1>
           <p class="mt-0.5 text-step-0 text-ink-soft">
-            {SITE.role} &middot; goes by <span class="text-ink">{SITE.aka}</span>
+            {SITE.role} &middot; goes by{" "}
+            <span class="font-medium text-filament">{SITE.aka}</span>
           </p>
         </div>
 
-        {/* The one bit of craft on the page, kept to the size of a postage
-            stamp: a live halftone render rather than an image, sitting
-            beside the text at reading scale. */}
         <figure class="hidden shrink-0 sm:block">
           <div class="size-[92px] overflow-hidden border">
             <Figure client:visible />
@@ -74,7 +72,11 @@ const monthYear = new Intl.DateTimeFormat("en-US", {
               value: "open to freelance, contract, and full-time",
               live: true,
             },
-            { label: "Based", value: `${SITE.location} — IST (UTC+5:30)` },
+            {
+              label: "Based",
+              value: `${SITE.location} — IST (UTC+5:30)`,
+              clock: true,
+            },
             { label: "Focus", value: SITE.focus },
           ]}
         />
@@ -90,15 +92,15 @@ const monthYear = new Intl.DateTimeFormat("en-US", {
               style={`animation-delay:${90 + i * 45}ms`}
               class="anim-lift py-3"
             >
-              <div class="flex flex-wrap items-baseline gap-x-3 gap-y-1">
-                <span class="data shrink-0 text-ink-soft sm:w-[9.5rem]">{job.period}</span>
+              <div class="flex flex-wrap items-baseline gap-x-4 gap-y-1">
+                <span class="data shrink-0 text-ink-soft sm:w-rail">{job.stamp}</span>
                 <span class="font-medium">{job.role}</span>
                 <span class="leader hidden sm:block" />
                 <span class="data shrink-0 text-ink-soft">
-                  {job.company} &middot; {job.place}
+                  {job.period} &middot; {job.company} &middot; {job.place}
                 </span>
               </div>
-              <p class="mt-1 text-step--1 leading-relaxed text-ink-soft sm:ml-[10.5rem]">
+              <p class="mt-1 text-step--1 leading-relaxed text-ink-soft sm:ml-rail-offset">
                 {job.note}
               </p>
             </div>
@@ -152,10 +154,7 @@ const monthYear = new Intl.DateTimeFormat("en-US", {
     </section>
 
     <section class="px-gutter pt-12">
-      <Quote
-        text="On this path no effort is ever wasted, and no gain is ever reversed; even a little of this practice protects one from great fear."
-        source="Bhagavad Gita"
-      />
+      <Quote />
     </section>
   </Shell>
 </Base>

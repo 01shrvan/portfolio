@@ -8,10 +8,6 @@ interface Props {
 const { count, href, linkLabel = "All" } = Astro.props;
 ---
 
-{/* Section label with a hairline running out to the measure and the item
-    count as a superscript — the device that keeps a long page scannable.
-    Deliberately sentence case: an all-caps tracked kicker over every
-    section is the tell we're avoiding. */}
 <div class="flex items-center gap-3">
   <h2 class="shrink-0 text-step--1 font-medium">
     <slot />

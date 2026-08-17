@@ -1,16 +1,6 @@
 import { useEffect, useState } from "react";
 import { Dithering } from "@paper-design/shaders-react";
 
-/* Fig. 1 — the one bit of craft on the page.
-
-   A Paper dithering shader: a moving field resolved into hard on/off dots,
-   which is the same halftone logic the rest of the page is printed with.
-   It reads in the theme's own ink rather than a brand colour, so it stays
-   part of the document instead of sitting on top of it.
-
-   Renders a static dot field when reduced motion is requested or WebGL is
-   unavailable — the plate is never an empty box. */
-
 type Ink = { back: string; front: string };
 
 const DARK: Ink = { back: "#2b2723", front: "#e08a45" };
@@ -30,8 +20,6 @@ export default function Figure() {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
       setMode("static");
     } else {
-      // Probe rather than assume: some devices hand back a context-less
-      // canvas and would render nothing at all.
       try {
         const canvas = document.createElement("canvas");
         const gl = canvas.getContext("webgl2") ?? canvas.getContext("webgl");
@@ -41,7 +29,6 @@ export default function Figure() {
       }
     }
 
-    // The theme toggle swaps a class on <html>; follow it.
     const observer = new MutationObserver(() => setInk(readInk()));
     observer.observe(document.documentElement, {
       attributes: true,

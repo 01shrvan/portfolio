@@ -4,11 +4,17 @@ import ThemeToggle from "@/components/ThemeToggle.astro";
 
 const path = Astro.url.pathname.replace(/\/$/, "") || "/";
 const isActive = (href: string) => path === href || path.startsWith(`${href}/`);
+
+const timeFmt = new Intl.DateTimeFormat("en-GB", {
+  timeZone: "Asia/Kolkata",
+  hour: "2-digit",
+  minute: "2-digit",
+  second: "2-digit",
+  hour12: false,
+});
+const initialTime = timeFmt.format(new Date());
 ---
 
-{/* One measured column with hairlines down both edges. Everything sits
-    inside the same measure so the page reads as a single document rather
-    than a stack of sections competing for attention. */}
 <div class="flex min-h-dvh flex-col">
   <div class="mx-auto flex w-full max-w-sheet flex-1 flex-col border-x">
     <header class="sticky top-0 z-20 border-b bg-ground/92 backdrop-blur-md">
@@ -68,10 +74,43 @@ const isActive = (href: string) => path === href || path.startsWith(`${href}/`);
             ))
           }
         </div>
-        <p class="data uppercase text-ink-soft">
-          {SITE.location} · © {new Date().getFullYear()}
+        <p class="data flex items-center gap-x-2 uppercase text-ink-soft">
+          <span>{SITE.location}</span>
+          <span aria-hidden class="text-rule-strong">·</span>
+          <time data-clock class="text-ink">{initialTime}</time>
+          <span>IST</span>
+          <span aria-hidden class="text-rule-strong">·</span>
+          <span>© {new Date().getFullYear()}</span>
         </p>
       </div>
     </footer>
   </div>
 </div>
+
+<script is:inline>
+  (() => {
+    const el = document.querySelector("[data-clock]");
+    if (!el) return;
+
+    const fmt = new Intl.DateTimeFormat("en-GB", {
+      timeZone: "Asia/Kolkata",
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit",
+      hour12: false,
+    });
+    const tick = () => {
+      el.textContent = fmt.format(new Date());
+    };
+
+    tick();
+    setTimeout(() => {
+      tick();
+      setInterval(tick, 1000);
+    }, 1000 - (Date.now() % 1000));
+
+    document.addEventListener("visibilitychange", () => {
+      if (!document.hidden) tick();
+    });
+  })();
+</script>

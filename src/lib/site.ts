@@ -28,20 +28,20 @@ export const EXPERIENCE = [
     company: "Ayritech",
     role: "Full Stack Engineer",
     place: "Mumbai",
-    period: "Jul — Oct 2025",
+    stamp: "2025",
+    period: "Jul — Oct",
     note: "built an in-house web builder platform and the company site. owned features end to end — planning, shipping, and the bugs that showed up after.",
   },
   {
     company: "DreamSkrin",
     role: "Frontend Engineer",
     place: "Remote",
-    period: "Oct 2024 — Sep 2025",
+    stamp: "2024 — 25",
+    period: "Oct — Sep",
     note: "responsive interfaces for bootcamp campaigns and in-house production sites, with a side of designing and publishing the LinkedIn creatives.",
   },
 ] as const;
 
-/* Straight off the resume, verbatim. Add a row when you actually pick
-   something up — don't let this drift into a wish list. */
 export const STACK = [
   {
     layer: "Languages",

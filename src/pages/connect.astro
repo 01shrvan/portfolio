@@ -87,8 +87,6 @@ import { SITE, SOCIALS } from "@/lib/site";
       await navigator.clipboard.writeText(button.dataset.copy ?? "");
       label.textContent = "Copied";
     } catch {
-      // Clipboard blocked (insecure context or denied permission). The
-      // address is selectable text right beside this control, so say so.
       label.textContent = "Select it";
     }
     setTimeout(() => (label.textContent = "Copy"), 2000);

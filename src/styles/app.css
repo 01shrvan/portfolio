@@ -4,20 +4,8 @@
 @import "@fontsource-variable/schibsted-grotesk";
 @import "@fontsource-variable/martian-mono";
 
-/* Theme is a class on <html>, not a media query — the toggle has to win
-   over the OS preference. */
 @custom-variant dark (&:where(.dark, .dark *));
 @custom-variant light (&:where(.light, .light *));
-
-/* ---------------------------------------------------------------------------
-   Ink & filament
-
-   Ground is a warm charcoal with real chroma in it, not neutral #0a0a0a.
-   Ink is bone — printed cream on a saturated stock, never pure white. One
-   accent does the work: a filament orange that reads like the warm bulb
-   over a desk at 2am. Light mode is a lit paper in the same warm family,
-   so the identity survives the toggle instead of becoming a different site.
---------------------------------------------------------------------------- */
 
 @theme {
   --font-sans: "Schibsted Grotesk Variable", ui-sans-serif, system-ui, sans-serif;
@@ -41,6 +29,9 @@
 
   --spacing-gutter: clamp(1.15rem, 0.6rem + 2.4vw, 2.6rem);
 
+  --spacing-rail: 7rem;
+  --spacing-rail-offset: 8rem;
+
   --container-sheet: 46rem;
   --container-measure: 62ch;
 
@@ -50,7 +41,6 @@
 
 :root {
   --grain-opacity: 0.075;
-  /* The halftone plate prints in bone on charcoal. */
   --field-ink: 242 232 201;
   --field-gain: 1;
 }
@@ -66,9 +56,6 @@
   --color-filament: oklch(0.53 0.17 40);
 
   --grain-opacity: 0.04;
-  /* On paper the plate prints in brick, not black — dark dots at this
-     density read as dirt, a warm ink reads as a risograph. Gain pulls
-     coverage down so it stays an illustration rather than a mass. */
   --field-ink: 168 72 44;
   --field-gain: 0.58;
 }
@@ -91,10 +78,6 @@
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
   }
-
-  /* Line-height stays identical across themes. Varying it per theme
-     reflows every wrapped paragraph on toggle, which reads as the page
-     jumping — very obvious on mobile where lines wrap more often. */
 
   ::selection {
     background: var(--color-filament);
@@ -130,9 +113,6 @@
     font-variant-numeric: tabular-nums;
   }
 
-  /* Registration marks — the crosses a printer aligns plates against.
-     Centred with a transform rather than a negative offset, so the cross
-     sits exactly on the corner instead of half a pixel off it. */
   .reg-mark {
     position: absolute;
     width: 9px;
@@ -147,9 +127,6 @@
     position: absolute;
     background: var(--color-rule-strong);
   }
-  /* Integer arm offsets: in a 9px box the 1px arm at 4px is already dead
-     centre, and a whole-pixel position renders crisp at every zoom level
-     where a 50% + half-pixel margin blurs. */
   .reg-mark::before {
     inset-block: 0;
     left: 4px;
@@ -161,7 +138,6 @@
     height: 1px;
   }
 
-  /* Dotted leader connecting a row's title to its trailing data. */
   .leader {
     flex: 1 1 auto;
     min-width: 1.5rem;
@@ -194,7 +170,6 @@
   }
 }
 
-/* Print grain — keeps the flat digital surface from reading as plastic. */
 @utility grain {
   &::after {
     content: "";
@@ -206,11 +181,6 @@
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
   }
 }
-
-/* --- Motion ---------------------------------------------------------------
-   Content is visible by default and animates from that state, so a headless
-   render or a background tab still ships a complete page.
-------------------------------------------------------------------------- */
 
 @keyframes rule-draw {
   from {
@@ -265,15 +235,6 @@
   }
 }
 
-/* --- Prose ----------------------------------------------------------------
-   Left unlayered on purpose: the typography plugin defines its own tokens
-   inside a layer, and layered rules always lose to unlayered ones. Putting
-   these in @layer components let the plugin's greys win, which made
-   article headings render near-invisible on the dark ground.
-------------------------------------------------------------------------- */
-
-/* Typography plugin ships its own greys, which fight the warm palette
-   on both themes. Point every prose token at ours. */
 .prose {
   --tw-prose-body: var(--color-ink-soft);
   --tw-prose-headings: var(--color-ink);
@@ -311,8 +272,6 @@
 .prose :where(img) {
   width: 100%;
   border: 1px solid var(--color-rule);
-  /* Diagrams are exported on white; on the dark ground they need their own
-     surface or they read as a hole punched in the page. */
   background: #fff;
   padding: 0.75rem;
 }

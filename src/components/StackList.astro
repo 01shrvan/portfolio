@@ -2,9 +2,6 @@
 import * as si from "simple-icons";
 import { STACK } from "@/lib/site";
 
-/* Logos are inlined from simple-icons at build time — no network requests,
-   no icon font, and they inherit currentColor so they follow the theme
-   instead of glowing at their brand colour on a warm ground. */
 function iconPath(slug: string | undefined): string | null {
   if (!slug) return null;
   const key = `si${slug.charAt(0).toUpperCase()}${slug.slice(1)}`;
@@ -13,7 +10,9 @@ function iconPath(slug: string | undefined): string | null {
 }
 ---
 
-<dl class="grid gap-x-4 gap-y-3 sm:grid-cols-[7rem_1fr]">
+<dl
+  class="grid gap-x-4 gap-y-3 sm:grid-cols-[var(--spacing-rail)_1fr]"
+>
   {
     STACK.map(({ layer, tools }) => (
       <div class="contents">
