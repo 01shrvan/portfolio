@@ -5,6 +5,6 @@ role: tooling lead
 href: https://packdaddy.vercel.app/
 date: 2026-05-09
 featured: true
-order: 2
+order: 3
 stack: [Node.js, CLI, npm, pnpm, yarn, bun]
 ---

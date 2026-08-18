@@ -5,6 +5,6 @@ role: founder & product lead
 href: https://github.com/01shrvan/calla-dev
 date: 2026-01-04
 featured: true
-order: 4
+order: 5
 stack: [Next.js, TypeScript, tRPC, AI]
 ---

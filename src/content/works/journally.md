@@ -5,6 +5,6 @@ role: product owner
 href: https://journally01.vercel.app/
 date: 2026-01-04
 featured: false
-order: 6
+order: 7
 stack: [Next.js, TypeScript]
 ---

@@ -5,6 +5,6 @@ role: founder
 href: https://github.com/01shrvan/gitwise
 date: 2026-01-04
 featured: false
-order: 5
+order: 6
 stack: [Next.js, TypeScript]
 ---

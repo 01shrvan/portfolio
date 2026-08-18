@@ -5,6 +5,6 @@ role: built it, billed it
 href: https://bagdaddy.vercel.app/
 date: 2026-05-31
 featured: true
-order: 3
+order: 4
 stack: [Next.js, TypeScript, Payments]
 ---
