@@ -29,10 +29,12 @@ const monthYear = new Intl.DateTimeFormat("en-US", {
     <section class="px-gutter pt-12">
       <div class="flex items-start justify-between gap-6">
         <div class="anim-lift min-w-0">
-          <h1 class="display text-display">{SITE.name}</h1>
-          <p class="mt-0.5 text-step-0 text-ink-soft">
-            {SITE.role} &middot; goes by{" "}
-            <span class="font-medium text-filament">{SITE.aka}</span>
+          <h1 class="display text-display">
+            shrvan benke{" "}
+            <span class="font-normal text-ink-soft">({SITE.aka})</span>
+          </h1>
+          <p class="mt-1 text-step-0 text-ink-soft">
+            full-stack engineer from mumbai, mostly living on the frontend
           </p>
         </div>
 
@@ -48,28 +50,30 @@ const monthYear = new Intl.DateTimeFormat("en-US", {
 
       <div class="anim-lift mt-7 max-w-measure space-y-3.5 [animation-delay:120ms]">
         <p>
-          i&rsquo;m shrvan. full-stack engineer in mumbai, mostly front end. i
-          build web apps end to end and care more about how they feel than how
-          clever the backend is.
+          currently freelancing; prev. ayritech, dreamskrin. my day to day is
+          next.js and typescript, but im way more obsessive about how a thing
+          feels than how clever the backend is
         </p>
         <p>
-          most of my time goes into interfaces. next.js, react, typescript,
-          tailwind. i built a web builder platform at ayritech and campaign
-          sites at dreamskrin. on the side i ship my own things, which is where
-          most of the work below comes from. reach me at{" "}
-          <a href={`mailto:${SITE.email}`} class="link">{SITE.email}</a>.
+          i like building products end to end, the schema and the screen both.
+          most of whats below started as something i wanted to exist and
+          couldnt find, so i built it myself
+        </p>
+        <p>
+          reach me at{" "}
+          <a href={`mailto:${SITE.email}`} class="link">{SITE.email}</a>
         </p>
       </div>
     </section>
 
     <section class="px-gutter pt-12">
-      <RuledHeading>Currently</RuledHeading>
+      <RuledHeading>currently</RuledHeading>
       <div class="mt-4">
         <SpecTable
           rows={[
             {
-              label: "Status",
-              value: "open to freelance, contract, and full-time",
+              label: "status",
+              value: "open to freelance, contract and full-time",
               live: true,
             },
             {
@@ -77,14 +81,14 @@ const monthYear = new Intl.DateTimeFormat("en-US", {
               value: `${SITE.location} — IST (UTC+5:30)`,
               clock: true,
             },
-            { label: "Focus", value: SITE.focus },
+            { label: "focus", value: SITE.focus },
           ]}
         />
       </div>
     </section>
 
     <section class="px-gutter pt-12">
-      <RuledHeading count={EXPERIENCE.length}>Experience</RuledHeading>
+      <RuledHeading count={EXPERIENCE.length}>experience</RuledHeading>
       <div class="mt-2">
         {
           EXPERIENCE.map((job, i) => (
@@ -110,7 +114,7 @@ const monthYear = new Intl.DateTimeFormat("en-US", {
     </section>
 
     <section class="px-gutter pt-12">
-      <RuledHeading href="/works" linkLabel="All">Work</RuledHeading>
+      <RuledHeading href="/works" linkLabel="all">works</RuledHeading>
       <div class="mt-2">
         {
           works.slice(0, 4).map((entry, i) => (
@@ -130,7 +134,7 @@ const monthYear = new Intl.DateTimeFormat("en-US", {
     </section>
 
     <section class="px-gutter pt-12">
-      <RuledHeading href="/writings" linkLabel="All">Writing</RuledHeading>
+      <RuledHeading href="/writings" linkLabel="all">writings</RuledHeading>
       <div class="mt-2">
         {
           writings.slice(0, 3).map((post, i) => (
@@ -147,7 +151,7 @@ const monthYear = new Intl.DateTimeFormat("en-US", {
     </section>
 
     <section class="px-gutter pt-12">
-      <RuledHeading>Stack</RuledHeading>
+      <RuledHeading>stack</RuledHeading>
       <div class="mt-4">
         <StackList />
       </div>

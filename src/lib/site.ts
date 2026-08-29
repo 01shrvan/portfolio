@@ -1,14 +1,14 @@
 export const SITE = {
   name: "Shrvan Benke",
   aka: "astra",
-  role: "Full-stack engineer",
-  focus: "Web apps, front-end heavy",
+  role: "full-stack engineer",
+  focus: "web apps, frontend heavy",
   location: "Mumbai, India",
   email: "benkeshrvan@gmail.com",
   phone: "+91 79777 88679",
   url: "https://shrvans-space.vercel.app",
   description:
-    "Full-stack engineer in Mumbai who mostly lives on the front end. I build web apps end to end and care how they feel, not just whether they work.",
+    "full-stack engineer from mumbai, mostly living on the frontend. i build products end to end and care a lot about how they feel.",
 } as const;
 
 export const NAV = [
@@ -25,20 +25,20 @@ export const SOCIALS = [
 
 export const EXPERIENCE = [
   {
-    company: "Ayritech",
-    role: "Full Stack Engineer",
-    place: "Mumbai",
+    company: "ayritech",
+    role: "full stack engineer",
+    place: "mumbai",
     stamp: "2025",
     period: "Jul — Oct",
-    note: "built an in-house web builder platform and the company site. owned features end to end — planning, shipping, and the bugs that showed up after.",
+    note: "built an in-house web builder platform and the company site. owned features end to end, planning through to the bugs that showed up after"
   },
   {
-    company: "DreamSkrin",
-    role: "Frontend Engineer",
-    place: "Remote",
+    company: "dreamskrin",
+    role: "frontend engineer",
+    place: "remote",
     stamp: "2024 — 25",
     period: "Oct — Sep",
-    note: "responsive interfaces for bootcamp campaigns and in-house production sites, with a side of designing and publishing the LinkedIn creatives.",
+    note: "responsive interfaces for bootcamp campaigns and in-house production sites. also designed and published the linkedin creatives on the side"
   },
 ] as const;
 

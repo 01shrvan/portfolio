@@ -12,17 +12,17 @@ const works = (await getCollection("works")).sort(
 ---
 
 <Base
-  title="Works"
-  description="Projects I've shipped end to end — what each one does and the problem it solves."
+  title="works"
+  description="products and experiments i've built. most are live, some are just repos."
 >
   <Shell>
     <PageHead
-      title="Works"
-      lede="Projects I've shipped end to end. Everything here is live or open source — follow the arrow for the build or the code."
+      title="works"
+      lede="products and experiments i've built. most are live, some are just repos"
     />
 
     <section class="px-gutter pt-12">
-      <RuledHeading count={works.length}>All projects</RuledHeading>
+      <RuledHeading count={works.length}>all</RuledHeading>
       <div class="mt-2">
         {
           works.map((entry, i) => (

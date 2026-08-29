@@ -8,17 +8,17 @@ import { SITE, SOCIALS } from "@/lib/site";
 ---
 
 <Base
-  title="Connect"
-  description="Open to freelance, contract, and full-time work."
+  title="connect"
+  description="open to freelance, contract and full-time work."
 >
   <Shell>
     <PageHead
-      title="Connect"
-      lede="Tell me what you're building and where it's stuck. I read everything and reply to anything with a real project behind it."
+      title="connect"
+      lede="building something and stuck somewhere? tell me about it. i read everything"
     />
 
     <section class="px-gutter pt-12">
-      <RuledHeading>Email</RuledHeading>
+      <RuledHeading>email</RuledHeading>
       <div class="anim-lift mt-4 flex flex-wrap items-center gap-x-4 gap-y-2">
         <a href={`mailto:${SITE.email}`} class="link text-step-1">
           {SITE.email}
@@ -32,30 +32,30 @@ import { SITE, SOCIALS } from "@/lib/site";
         </button>
       </div>
       <p class="mt-5 max-w-measure text-ink-soft">
-        Useful things to include: what the product does, what the stack looks
-        like, and the deadline you&rsquo;re actually working to.
+        useful stuff to include: what it does, what its built on, and the
+        deadline youre actually working to
       </p>
     </section>
 
     <section class="px-gutter pt-12">
-      <RuledHeading>Details</RuledHeading>
+      <RuledHeading>details</RuledHeading>
       <div class="mt-4">
         <SpecTable
           rows={[
             {
-              label: "Status",
-              value: "Open to freelance, contract, and full-time",
+              label: "status",
+              value: "open to freelance, contract and full-time",
               live: true,
             },
-            { label: "Timezone", value: "IST (UTC+5:30), Mumbai" },
-            { label: "Reply time", value: "Within two working days" },
+            { label: "timezone", value: "ist (utc+5:30), mumbai" },
+            { label: "reply time", value: "usually within two days" },
           ]}
         />
       </div>
     </section>
 
     <section class="px-gutter pt-12">
-      <RuledHeading>Elsewhere</RuledHeading>
+      <RuledHeading>elsewhere</RuledHeading>
       <div class="mt-4 flex flex-wrap gap-x-5 gap-y-2">
         {
           SOCIALS.map(({ label, href }) => (
