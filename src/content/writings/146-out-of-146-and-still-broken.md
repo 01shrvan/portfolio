@@ -6,7 +6,7 @@ date: 2026-08-31
 
 i spent a couple of days writing an http/2 server in rust. from raw tcp sockets, no h2 crate, no hyper, no hpack library. zero dependencies, all of it, framing and huffman coding and the dynamic table included.
 
-the reason i picked a protocol and not another crud app is that i didnt want to be the one deciding whether it worked. h2spec already exists. its 146 cases written by people who actually read rfc 7540, and it prints a number you dont get to argue with. every other project in this folder i scoped myself and then graded myself, which is not the same thing as being right.
+the reason i picked a protocol and not another crud app is that i didnt want to be the one deciding whether it worked. h2spec already exists. 146 cases, written by someone who is not me, and it prints a number i dont get to argue with. every other project in this folder i scoped myself and then graded myself, which is not the same thing as being right.
 
 first run: 41 passed, 104 failed, 209 seconds. most of that time was the suite waiting on responses that never came.
 
@@ -43,6 +43,8 @@ the case that broke: the client overflows the connection flow control window and
 what actually happens is this. if you close a tcp socket while unread data is still sitting in your receive queue, the stack sends an RST rather than a FIN. and on an RST the peer is entitled to bin whatever it had buffered from you, the goaway included. before buffering, the frames went out early enough that it never came up. after, the timing shifted and it did.
 
 fix was shutting down the write side properly and draining the socket before dropping it. back to 146.
+
+![the same goaway frame, written and flushed both times. on the left the socket closes with unread data and the kernel sends RST, so the client discards it](/writings/weft-rst-vs-fin.png)
 
 i like this one because the bug wasnt really in my code. it was in what i assumed `close()` meant. the write succeeded, it just didnt arrive.
 
