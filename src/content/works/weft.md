@@ -1,6 +1,6 @@
 ---
 title: weft
-description: "an http/2 server written from raw tcp sockets in rust. no h2 crate, no hyper, no hpack library, zero dependencies. passes all 146 cases of h2spec, the conformance suite the protocol's own testers wrote, and lands within 2x of node's nghttp2-backed server on throughput."
+description: "an http/2 server in rust, written from raw tcp sockets. no h2 crate, no hyper, no hpack library, zero dependencies. passes all 146 cases of h2spec, a conformance suite i had no hand in writing. node's http2 is still 1.8x faster and that number is in the readme."
 role: wrote it from the socket up
 href: https://github.com/01shrvan/weft
 date: 2026-08-31

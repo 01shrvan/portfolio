@@ -38,7 +38,7 @@ the version that counts doesn't add more threads. it holds the read-then-write w
 
 ```
 with the lock:     7 passed
-without the lock:  FAILED — assert 16 == 1
+without the lock:  FAILED - assert 16 == 1
 ```
 
 sixteen copies of one document where there should be one. now deleting the lock breaks something.
