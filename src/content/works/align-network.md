@@ -5,6 +5,6 @@ role: low-ball ceo + product brain
 href: https://align-network.xyz
 date: 2026-01-04
 featured: true
-order: 2
+order: 3
 stack: [Next.js, Prisma, Neon Postgres, TanStack Query, TypeScript]
 ---

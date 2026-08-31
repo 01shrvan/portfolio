@@ -5,6 +5,6 @@ role: founder · in build
 href: https://parchi.shrvan.xyz
 date: 2026-08-14
 featured: true
-order: 1
+order: 2
 stack: [Next.js, TypeScript, React, Supabase]
 ---
