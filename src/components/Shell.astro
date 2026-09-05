@@ -56,14 +56,14 @@ const initialTime = timeFmt.format(new Date());
     </main>
 
     <footer class="mt-16 border-t px-gutter py-5">
-      <p class="data flex flex-wrap items-center gap-x-2 gap-y-1 uppercase text-ink-soft">
-        <span>{SITE.location}</span>
-        <span aria-hidden class="text-rule-strong">·</span>
-        <time data-clock class="text-ink">{initialTime}</time>
-        <span>IST</span>
-        <span aria-hidden class="text-rule-strong">·</span>
-        <span>© {new Date().getFullYear()}</span>
-      </p>
+      <div class="data flex items-center justify-between gap-4 lowercase text-ink-soft">
+        <span class="shrink-0 text-ink">@{SITE.aka}</span>
+        <span class="truncate">{SITE.location}</span>
+        <span class="shrink-0">
+          <time data-clock class="text-ink">{initialTime}</time> ist
+        </span>
+        <span class="shrink-0">© {new Date().getFullYear()}</span>
+      </div>
     </footer>
   </div>
 </div>
