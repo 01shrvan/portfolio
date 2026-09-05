@@ -1,5 +1,5 @@
 ---
-import { NAV, SOCIALS, SITE } from "@/lib/site";
+import { NAV, SITE } from "@/lib/site";
 import ThemeToggle from "@/components/ThemeToggle.astro";
 
 const path = Astro.url.pathname.replace(/\/$/, "") || "/";
@@ -56,33 +56,14 @@ const initialTime = timeFmt.format(new Date());
     </main>
 
     <footer class="mt-16 border-t px-gutter py-5">
-      <div class="flex flex-wrap items-center justify-between gap-x-5 gap-y-2">
-        <div class="flex flex-wrap items-center gap-x-4 gap-y-1">
-          <a href={`mailto:${SITE.email}`} class="link text-step--1">
-            {SITE.email}
-          </a>
-          {
-            SOCIALS.map(({ label, href }) => (
-              <a
-                href={href}
-                target="_blank"
-                rel="noopener noreferrer"
-                class="text-step--1 text-ink-soft transition-colors duration-200 hover:text-ink"
-              >
-                {label}
-              </a>
-            ))
-          }
-        </div>
-        <p class="data flex items-center gap-x-2 uppercase text-ink-soft">
-          <span>{SITE.location}</span>
-          <span aria-hidden class="text-rule-strong">·</span>
-          <time data-clock class="text-ink">{initialTime}</time>
-          <span>IST</span>
-          <span aria-hidden class="text-rule-strong">·</span>
-          <span>© {new Date().getFullYear()}</span>
-        </p>
-      </div>
+      <p class="data flex flex-wrap items-center gap-x-2 gap-y-1 uppercase text-ink-soft">
+        <span>{SITE.location}</span>
+        <span aria-hidden class="text-rule-strong">·</span>
+        <time data-clock class="text-ink">{initialTime}</time>
+        <span>IST</span>
+        <span aria-hidden class="text-rule-strong">·</span>
+        <span>© {new Date().getFullYear()}</span>
+      </p>
     </footer>
   </div>
 </div>
