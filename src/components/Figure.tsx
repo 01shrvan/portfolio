@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import { Dithering, ImageDithering } from "@paper-design/shaders-react";
 
-type Ink = { back: string; front: string };
+type Ink = { back: string; front: string; mid: string };
 type Track = { song: string; artist: string; art: string; url: string } | null;
 type TrackState = Track | undefined;
 
-const DARK: Ink = { back: "#2b2723", front: "#e08a45" };
-const LIGHT: Ink = { back: "#f4eddc", front: "#a8482c" };
+const DARK: Ink = { back: "#2b2723", front: "#f2e8c9", mid: "#e08a45" };
+const LIGHT: Ink = { back: "#f4eddc", front: "#2b2723", mid: "#a8482c" };
 
 const readInk = (): Ink =>
   document.documentElement.classList.contains("light") ? LIGHT : DARK;
@@ -80,8 +80,10 @@ export default function Figure({ discordId }: { discordId?: string }) {
       <ImageDithering
         className="h-full w-full"
         image={track.art}
-        originalColors
-        colorSteps={5}
+        colorBack={ink.back}
+        colorFront={ink.front}
+        colorHighlight={ink.mid}
+        colorSteps={7}
         type="8x8"
         size={1}
       />
@@ -89,7 +91,7 @@ export default function Figure({ discordId }: { discordId?: string }) {
       <Dithering
         className="h-full w-full"
         colorBack={ink.back}
-        colorFront={ink.front}
+        colorFront={ink.mid}
         shape="sphere"
         type="4x4"
         size={0.32}
@@ -99,7 +101,7 @@ export default function Figure({ discordId }: { discordId?: string }) {
       <div
         className="h-full w-full"
         style={{
-          backgroundImage: `radial-gradient(circle, ${ink.front} 0.9px, transparent 0.9px)`,
+          backgroundImage: `radial-gradient(circle, ${ink.mid} 0.9px, transparent 0.9px)`,
           backgroundSize: "4px 4px",
         }}
       />
