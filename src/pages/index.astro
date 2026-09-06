@@ -45,14 +45,9 @@ const hasDetail = (w: { body?: string; data: { verify: unknown[]; numbers: unkno
           </p>
         </div>
 
-        <figure class="hidden shrink-0 sm:block">
-          <div class="size-[92px] overflow-hidden border">
-            <Figure client:visible />
-          </div>
-          <figcaption class="data mt-1.5 uppercase text-ink-soft">
-            Fig. 1
-          </figcaption>
-        </figure>
+        <div class="hidden sm:block">
+          <Figure client:visible discordId={SITE.discordId} />
+        </div>
       </div>
 
       <div class="anim-lift mt-7 max-w-measure space-y-3.5 [animation-delay:120ms]">

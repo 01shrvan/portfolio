@@ -5,30 +5,100 @@ const { discordId } = SITE;
 
 {
   discordId && (
-    <div data-now data-discord={discordId} hidden class="contents">
+    <div data-now data-discord={discordId} class="contents">
       <dt class="data pt-[0.3em] uppercase text-ink-soft">listening</dt>
-      <dd class="flex items-baseline gap-2 text-step--1">
-        <span class="relative flex size-1.5 shrink-0 translate-y-[-0.15em]">
-          <span class="anim-mark absolute inline-flex size-full rounded-full bg-filament" />
-          <span class="relative inline-flex size-1.5 rounded-full bg-filament" />
+      <dd class="min-w-0 text-step--1">
+        <span data-now-skeleton class="block h-[0.7rem] w-48 animate-pulse bg-surface" />
+
+        <span data-now-idle hidden class="text-ink-soft">
+          not listening to anything
         </span>
-        <span class="min-w-0">
-          <a
-            data-now-link
-            class="text-ink transition-colors duration-200 hover:text-filament"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <span data-now-track />
-          </a>
-          <span class="text-ink-soft"> &middot; <span data-now-artist /></span>
+
+        <span data-now-body hidden class="block">
+          <span class="flex items-baseline gap-2">
+            <a
+              data-now-link
+              target="_blank"
+              rel="noopener noreferrer"
+              class="shrink-0 text-ink transition-colors duration-200 hover:text-filament"
+            >
+              <span data-now-track />
+            </a>
+            <span data-now-bar class="now-bar" />
+            <span data-now-time class="data shrink-0 text-ink-soft" />
+          </span>
+          <span data-now-artist class="mt-0.5 block text-ink-soft" />
         </span>
       </dd>
     </div>
   )
 }
 
+<style>
+  .now-bar {
+    position: relative;
+    flex: 1 1 auto;
+    min-width: 2rem;
+    align-self: flex-end;
+    height: 1px;
+    margin-bottom: 0.42em;
+    background-image: radial-gradient(
+      circle,
+      var(--color-rule-strong) 0.5px,
+      transparent 0.5px
+    );
+    background-size: 5px 1px;
+    background-repeat: repeat-x;
+  }
+
+  .now-bar::before {
+    content: "";
+    position: absolute;
+    inset: 0 auto 0 0;
+    width: calc(var(--played, 0) * 100%);
+    background-image: radial-gradient(
+      circle,
+      var(--color-filament) 0.9px,
+      transparent 0.9px
+    );
+    background-size: 5px 1px;
+    background-repeat: repeat-x;
+    transition: width 1s linear;
+  }
+</style>
+
 <script>
+  type Song = {
+    song: string;
+    artist: string;
+    track_id: string;
+    timestamps?: { start: number; end: number };
+  };
+
+  let current: Song | null = null;
+
+  const clock = (ms: number) => {
+    const total = Math.max(0, Math.floor(ms / 1000));
+    return `${Math.floor(total / 60)}:${String(total % 60).padStart(2, "0")}`;
+  };
+
+  const paint = () => {
+    const el = document.querySelector<HTMLElement>("[data-now]");
+    if (!el || !current?.timestamps) return;
+
+    const { start, end } = current.timestamps;
+    const now = Date.now();
+    const length = end - start;
+    if (length <= 0) return;
+
+    const played = Math.min(Math.max((now - start) / length, 0), 1);
+    const bar = el.querySelector<HTMLElement>("[data-now-bar]");
+    const time = el.querySelector<HTMLElement>("[data-now-time]");
+
+    bar?.style.setProperty("--played", String(played));
+    if (time) time.textContent = `${clock(now - start)} / ${clock(length)}`;
+  };
+
   const render = async () => {
     const el = document.querySelector<HTMLElement>("[data-now]");
     if (!el) return;
@@ -36,33 +106,47 @@ const { discordId } = SITE;
     const id = el.dataset.discord;
     if (!id) return;
 
+    const skeleton = el.querySelector<HTMLElement>("[data-now-skeleton]");
+    const idle = el.querySelector<HTMLElement>("[data-now-idle]");
+    const body = el.querySelector<HTMLElement>("[data-now-body]");
+
+    const show = (which: "idle" | "body") => {
+      if (skeleton) skeleton.hidden = true;
+      if (idle) idle.hidden = which !== "idle";
+      if (body) body.hidden = which !== "body";
+    };
+
     try {
       const res = await fetch(`https://api.lanyard.rest/v1/users/${id}`);
-      if (!res.ok) return;
+      if (!res.ok) return show("idle");
 
       const { data } = await res.json();
-      const song = data?.spotify;
+      const song: Song | undefined = data?.spotify;
       if (!song?.song) {
-        el.hidden = true;
-        return;
+        current = null;
+        return show("idle");
       }
+
+      current = song;
 
       const track = el.querySelector("[data-now-track]");
       const artist = el.querySelector("[data-now-artist]");
       const link = el.querySelector<HTMLAnchorElement>("[data-now-link]");
-      if (!track || !artist || !link) return;
+      if (track) track.textContent = song.song.toLowerCase();
+      if (artist) artist.textContent = song.artist.split(";")[0].trim().toLowerCase();
+      if (link) link.href = `https://open.spotify.com/track/${song.track_id}`;
 
-      track.textContent = song.song.toLowerCase();
-      artist.textContent = song.artist.split(";")[0].trim().toLowerCase();
-      link.href = `https://open.spotify.com/track/${song.track_id}`;
-      el.hidden = false;
+      show("body");
+      paint();
     } catch {
-      el.hidden = true;
+      show("idle");
     }
   };
 
   render();
-  setInterval(render, 30000);
+  paint();
+  setInterval(paint, 1000);
+  setInterval(render, 20000);
   document.addEventListener("visibilitychange", () => {
     if (!document.hidden) render();
   });
