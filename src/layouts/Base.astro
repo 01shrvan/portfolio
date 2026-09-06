@@ -11,7 +11,7 @@ interface Props {
 const {
   title,
   description = SITE.description,
-  image = "/og/home.png",
+  image = "/og/home.jpg",
 } = Astro.props;
 
 const pageTitle = (
@@ -43,6 +43,10 @@ const ogImage = new URL(image, Astro.site);
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
     <meta property="og:image" content={ogImage} />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={pageTitle} />
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:creator" content="@01shrvan" />

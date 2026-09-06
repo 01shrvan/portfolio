@@ -1,5 +1,6 @@
 import { execSync } from "node:child_process";
-import { mkdirSync, readdirSync } from "node:fs";
+import { mkdirSync, readdirSync, unlinkSync } from "node:fs";
+import sharp from "sharp";
 import { resolve } from "node:path";
 
 const base = process.env.OG_BASE ?? "http://localhost:4550";
@@ -14,7 +15,10 @@ run(`npx playwright-cli open --browser=chrome`);
 run(`npx playwright-cli resize 1200 630`);
 for (const slug of slugs) {
   run(`npx playwright-cli goto ${base}/og/${slug}`);
-  run(`npx playwright-cli screenshot --filename="${resolve("public/og", `${slug}.png`)}"`);
-  console.log(`  ${slug}.png`);
+  const png = resolve("public/og", `${slug}.png`);
+  run(`npx playwright-cli screenshot --filename="${png}"`);
+  await sharp(png).jpeg({ quality: 88, mozjpeg: true }).toFile(png.replace(/\.png$/, ".jpg"));
+  unlinkSync(png);
+  console.log(`  ${slug}.jpg`);
 }
 console.log(`wrote ${slugs.length} cards`);

@@ -7,7 +7,7 @@ export const SITE = {
   email: "benkeshrvan@gmail.com",
   phone: "+91 79777 88679",
   discordId: "1148276718998671550",
-  url: "https://shrvans-space.vercel.app",
+  url: "https://www.shrvan.xyz",
   description:
     "full-stack engineer from mumbai, mostly living on the frontend. i build products end to end and care a lot about how they feel.",
 } as const;
