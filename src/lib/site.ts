@@ -12,9 +12,9 @@ export const SITE = {
 } as const;
 
 export const NAV = [
-  { href: "/works", label: "Works" },
-  { href: "/writings", label: "Writing" },
-  { href: "/connect", label: "Connect" },
+  { href: "/works", label: "works" },
+  { href: "/writings", label: "writings" },
+  { href: "/connect", label: "connect" },
 ] as const;
 
 export const SOCIALS = [
@@ -29,15 +29,15 @@ export const EXPERIENCE = [
     role: "full stack engineer",
     place: "mumbai",
     stamp: "2025",
-    period: "Jul — Oct",
+    period: "jul–oct",
     note: "built an in-house web builder platform and the company site. owned features end to end, planning through to the bugs that showed up after"
   },
   {
     company: "dreamskrin",
     role: "frontend engineer",
     place: "remote",
-    stamp: "2024 — 25",
-    period: "Oct — Sep",
+    stamp: "2024–25",
+    period: "oct–sep",
     note: "responsive interfaces for bootcamp campaigns and in-house production sites. also designed and published the linkedin creatives on the side"
   },
 ] as const;

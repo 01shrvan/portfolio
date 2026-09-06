@@ -12,6 +12,32 @@ const works = defineCollection({
     featured: z.boolean().default(false),
     order: z.number().default(99),
     stack: z.array(z.string()).default([]),
+    repo: z.string().url().optional(),
+    live: z.string().url().optional(),
+    writeup: z.string().optional(),
+    verify: z
+      .array(
+        z.object({
+          command: z.string(),
+          result: z.string().optional(),
+        }),
+      )
+      .default([]),
+    numbers: z
+      .array(
+        z.object({
+          label: z.string(),
+          value: z.string(),
+          note: z.string().optional(),
+        }),
+      )
+      .default([]),
+    counter: z
+      .object({
+        claim: z.string(),
+        detail: z.string(),
+      })
+      .optional(),
   }),
 });
 

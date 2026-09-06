@@ -14,6 +14,7 @@ const monthYear = new Intl.DateTimeFormat("en-US", {
   month: "short",
   year: "numeric",
 });
+const stamp = (d: Date) => monthYear.format(d).toLowerCase();
 ---
 
 <Base
@@ -34,7 +35,7 @@ const monthYear = new Intl.DateTimeFormat("en-US", {
             <EntryRow
               title={post.data.title}
               href={`/writings/${post.id}`}
-              stamp={monthYear.format(post.data.date)}
+              stamp={stamp(post.data.date)}
               description={post.data.tldr}
               index={i}
             />

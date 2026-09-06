@@ -1,0 +1,33 @@
+---
+interface Props {
+  items: { command: string; result?: string }[];
+}
+const { items } = Astro.props;
+---
+
+<div class="overflow-hidden border">
+  {
+    items.map((item, i) => (
+      <div class:list={["group relative", i > 0 && "border-t"]}>
+        <div class="flex items-start gap-3 px-3 py-2.5 sm:px-4">
+          <span aria-hidden class="data shrink-0 pt-[0.15em] text-rule-strong">
+            $
+          </span>
+          <code class="data min-w-0 flex-1 overflow-x-auto whitespace-pre text-ink">
+            {item.command}
+          </code>
+          <button
+            type="button"
+            data-copy={item.command}
+            class="data shrink-0 border border-rule-strong px-1.5 py-0.5 uppercase text-ink-soft transition-colors duration-200 hover:border-filament hover:text-filament"
+          >
+            <span data-copy-label>copy</span>
+          </button>
+        </div>
+        {item.result && (
+          <pre class="data overflow-x-auto border-t border-dashed bg-surface/50 px-3 py-2.5 text-ink-soft sm:px-4">{item.result}</pre>
+        )}
+      </div>
+    ))
+  }
+</div>

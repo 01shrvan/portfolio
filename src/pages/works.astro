@@ -9,6 +9,11 @@ import EntryRow from "@/components/EntryRow.astro";
 const works = (await getCollection("works")).sort(
   (a, b) => a.data.order - b.data.order,
 );
+const hasDetail = (w: { body?: string; data: { verify: unknown[]; numbers: unknown[]; counter?: unknown } }) =>
+  Boolean(w.body?.trim()) ||
+  w.data.verify.length > 0 ||
+  w.data.numbers.length > 0 ||
+  Boolean(w.data.counter);
 ---
 
 <Base
@@ -28,11 +33,11 @@ const works = (await getCollection("works")).sort(
           works.map((entry, i) => (
             <EntryRow
               title={entry.data.title}
-              href={entry.data.href}
+              href={hasDetail(entry) ? `/works/${entry.id}` : entry.data.href}
               stamp={String(entry.data.date.getFullYear())}
               meta={entry.data.role}
               description={entry.data.description}
-              external
+              external={!hasDetail(entry)}
               index={i}
             />
           ))

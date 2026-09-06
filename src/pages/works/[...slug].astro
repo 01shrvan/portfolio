@@ -1,0 +1,171 @@
+---
+import { getCollection, render } from "astro:content";
+import type { GetStaticPaths } from "astro";
+import Base from "@/layouts/Base.astro";
+import Shell from "@/components/Shell.astro";
+import RuledHeading from "@/components/RuledHeading.astro";
+import SpecTable from "@/components/SpecTable.astro";
+import VerifyBlock from "@/components/VerifyBlock.astro";
+
+export const getStaticPaths = (async () => {
+  const works = await getCollection("works");
+  return works
+    .filter(
+      (w) =>
+        Boolean(w.body?.trim()) ||
+        w.data.verify.length > 0 ||
+        w.data.numbers.length > 0 ||
+        Boolean(w.data.counter),
+    )
+    .map((entry) => ({ params: { slug: entry.id }, props: { entry } }));
+}) satisfies GetStaticPaths;
+
+const { entry } = Astro.props;
+const {
+  title,
+  description,
+  role,
+  date,
+  stack,
+  href,
+  repo,
+  writeup,
+  verify,
+  numbers,
+  counter,
+} = entry.data;
+
+const { Content } = await render(entry);
+const hasBody = Boolean(entry.body?.trim());
+
+const links = [
+  { label: "live", href },
+  repo ? { label: "source", href: repo } : null,
+  writeup ? { label: "the writeup", href: writeup } : null,
+].filter(Boolean) as { label: string; href: string }[];
+---
+
+<Base title={title} description={description}>
+  <Shell>
+    <section class="px-gutter pt-12">
+      <a
+        href="/works"
+        class="data anim-lift inline-block lowercase text-ink-soft transition-colors duration-200 hover:text-filament"
+      >
+        &larr; all works
+      </a>
+
+      <h1 class="display anim-lift mt-6 text-display-sm">{title}</h1>
+
+      <p
+        class="data anim-lift mt-4 flex flex-wrap items-center gap-x-2 gap-y-1 lowercase text-ink-soft [animation-delay:120ms]"
+      >
+        <span>{date.getFullYear()}</span>
+        <span aria-hidden class="text-rule-strong">·</span>
+        <span>{role}</span>
+      </p>
+
+      <p class="anim-lift mt-6 max-w-measure text-ink-soft [animation-delay:180ms]">
+        {description}
+      </p>
+
+      {
+        stack.length > 0 && (
+          <p class="data anim-lift mt-5 flex flex-wrap gap-x-2 gap-y-2 text-ink-soft [animation-delay:220ms]">
+            {stack.map((tool) => (
+              <span class="border px-1.5 py-0.5">{tool}</span>
+            ))}
+          </p>
+        )
+      }
+    </section>
+
+    {
+      verify.length > 0 && (
+        <section class="px-gutter pt-12">
+          <RuledHeading>verify it yourself</RuledHeading>
+          <div class="mt-4 max-w-measure">
+            <VerifyBlock items={verify} />
+          </div>
+        </section>
+      )
+    }
+
+    {
+      numbers.length > 0 && (
+        <section class="px-gutter pt-12">
+          <RuledHeading>numbers</RuledHeading>
+          <div class="mt-4">
+            <SpecTable
+              rows={numbers.map((n) => ({
+                label: n.label,
+                value: n.note ? `${n.value} · ${n.note}` : n.value,
+              }))}
+            />
+          </div>
+        </section>
+      )
+    }
+
+    {
+      counter && (
+        <section class="px-gutter pt-12">
+          <RuledHeading>where it loses</RuledHeading>
+          <div class="mt-4 max-w-measure border-y border-dashed py-4">
+            <p>{counter.claim}</p>
+            <p class="mt-2 text-step--1 leading-relaxed text-ink-soft">
+              {counter.detail}
+            </p>
+          </div>
+        </section>
+      )
+    }
+
+    {
+      hasBody && (
+        <section class="px-gutter pt-12">
+          <RuledHeading>notes</RuledHeading>
+          <div class="prose prose-sm mt-5 w-full max-w-measure prose-headings:mt-8 prose-headings:mb-2 prose-headings:font-medium prose-headings:tracking-tight">
+            <Content />
+          </div>
+        </section>
+      )
+    }
+
+    <section class="px-gutter pt-12">
+      <div class="flex flex-wrap gap-x-5 gap-y-2">
+        {
+          links.map((l) => (
+            <a
+              href={l.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="link text-step--1"
+            >
+              {l.label} &#8599;
+            </a>
+          ))
+        }
+      </div>
+    </section>
+  </Shell>
+</Base>
+
+<script>
+  document.addEventListener("click", async (event) => {
+    const target = event.target as HTMLElement | null;
+    const button = target?.closest<HTMLButtonElement>("[data-copy]");
+    if (!button) return;
+
+    const label = button.querySelector("[data-copy-label]");
+    if (!label) return;
+
+    try {
+      await navigator.clipboard.writeText(button.dataset.copy ?? "");
+      label.textContent = "copied";
+    } catch {
+      label.textContent = "select it";
+    }
+    setTimeout(() => (label.textContent = "copy"), 2000);
+  });
+</script>

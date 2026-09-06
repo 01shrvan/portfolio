@@ -22,6 +22,12 @@ const monthYear = new Intl.DateTimeFormat("en-US", {
   month: "short",
   year: "numeric",
 });
+const stamp = (d: Date) => monthYear.format(d).toLowerCase();
+const hasDetail = (w: { body?: string; data: { verify: unknown[]; numbers: unknown[]; counter?: unknown } }) =>
+  Boolean(w.body?.trim()) ||
+  w.data.verify.length > 0 ||
+  w.data.numbers.length > 0 ||
+  Boolean(w.data.counter);
 ---
 
 <Base>
@@ -77,8 +83,8 @@ const monthYear = new Intl.DateTimeFormat("en-US", {
               live: true,
             },
             {
-              label: "Based",
-              value: `${SITE.location} — IST (UTC+5:30)`,
+              label: "based",
+              value: "mumbai, india (utc+5:30)",
               clock: true,
             },
             { label: "focus", value: SITE.focus },
@@ -120,12 +126,12 @@ const monthYear = new Intl.DateTimeFormat("en-US", {
           works.slice(0, 4).map((entry, i) => (
             <EntryRow
               title={entry.data.title}
-              href={entry.data.href}
+              href={hasDetail(entry) ? `/works/${entry.id}` : entry.data.href}
               stamp={String(entry.data.date.getFullYear())}
               meta={entry.data.role}
               description={entry.data.description}
               stack={entry.data.stack}
-              external
+              external={!hasDetail(entry)}
               index={i}
             />
           ))
@@ -141,7 +147,7 @@ const monthYear = new Intl.DateTimeFormat("en-US", {
             <EntryRow
               title={post.data.title}
               href={`/writings/${post.id}`}
-              stamp={monthYear.format(post.data.date)}
+              stamp={stamp(post.data.date)}
               description={post.data.tldr}
               index={i}
             />
