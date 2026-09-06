@@ -10,7 +10,7 @@ export default defineConfig({
   integrations: [
     react(),
     mdx(),
-    sitemap({ filter: (page) => !page.includes("/og-card") }),
+    sitemap({ filter: (page) => !page.includes("/og/") }),
   ],
   vite: {
     plugins: [tailwindcss()],

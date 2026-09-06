@@ -52,7 +52,11 @@ const links = candidates.filter(
 );
 ---
 
-<Base title={title} description={description}>
+<Base
+  title={title}
+  description={description}
+  image={`/og/works-${entry.id}.png`}
+>
   <Shell>
     <section class="px-gutter pt-12">
       <a

@@ -1,14 +1,20 @@
-/* Screenshots /og-card from a running preview server into public/og.png, so
-   the card is rendered in the site's real fonts by a real browser.
-   Usage: npm run build && npm run preview  (then, in another shell) npm run og */
 import { execSync } from "node:child_process";
+import { mkdirSync, readdirSync } from "node:fs";
 import { resolve } from "node:path";
 
-const url = process.env.OG_URL ?? "http://localhost:4321/og-card";
-const out = resolve("public/og.png");
+const base = process.env.OG_BASE ?? "http://localhost:4550";
+const slugs = readdirSync(resolve("dist/og"), { withFileTypes: true })
+  .filter((d) => d.isDirectory())
+  .map((d) => d.name);
+
+mkdirSync(resolve("public/og"), { recursive: true });
 const run = (cmd) => execSync(cmd, { stdio: "inherit" });
 
+run(`npx playwright-cli open --browser=chrome`);
 run(`npx playwright-cli resize 1200 630`);
-run(`npx playwright-cli goto ${url}`);
-run(`npx playwright-cli screenshot --filename="${out}"`);
-console.log(`wrote ${out}`);
+for (const slug of slugs) {
+  run(`npx playwright-cli goto ${base}/og/${slug}`);
+  run(`npx playwright-cli screenshot --filename="${resolve("public/og", `${slug}.png`)}"`);
+  console.log(`  ${slug}.png`);
+}
+console.log(`wrote ${slugs.length} cards`);

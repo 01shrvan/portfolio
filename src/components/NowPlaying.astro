@@ -5,22 +5,26 @@ const { discordId } = SITE;
 
 {
   discordId && (
-    <p
-      data-now
-      data-discord={discordId}
-      hidden
-      class="data mt-4 flex flex-wrap items-center gap-x-2 gap-y-1 lowercase text-ink-soft"
-    >
-      <span class="relative flex size-1.5 shrink-0">
-        <span class="anim-mark absolute inline-flex size-full rounded-full bg-filament" />
-        <span class="relative inline-flex size-1.5 rounded-full bg-filament" />
-      </span>
-      <span>listening to</span>
-      <a data-now-link class="text-ink hover:text-filament" target="_blank" rel="noopener noreferrer">
-        <span data-now-track />
-      </a>
-      <span data-now-artist />
-    </p>
+    <div data-now data-discord={discordId} hidden class="contents">
+      <dt class="data pt-[0.3em] uppercase text-ink-soft">listening</dt>
+      <dd class="flex items-baseline gap-2 text-step--1">
+        <span class="relative flex size-1.5 shrink-0 translate-y-[-0.15em]">
+          <span class="anim-mark absolute inline-flex size-full rounded-full bg-filament" />
+          <span class="relative inline-flex size-1.5 rounded-full bg-filament" />
+        </span>
+        <span class="min-w-0">
+          <a
+            data-now-link
+            class="text-ink transition-colors duration-200 hover:text-filament"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <span data-now-track />
+          </a>
+          <span class="text-ink-soft"> &middot; <span data-now-artist /></span>
+        </span>
+      </dd>
+    </div>
   )
 }
 
@@ -48,8 +52,8 @@ const { discordId } = SITE;
       const link = el.querySelector<HTMLAnchorElement>("[data-now-link]");
       if (!track || !artist || !link) return;
 
-      track.textContent = song.song;
-      artist.textContent = `by ${song.artist.split(";")[0]}`;
+      track.textContent = song.song.toLowerCase();
+      artist.textContent = song.artist.split(";")[0].trim().toLowerCase();
       link.href = `https://open.spotify.com/track/${song.track_id}`;
       el.hidden = false;
     } catch {

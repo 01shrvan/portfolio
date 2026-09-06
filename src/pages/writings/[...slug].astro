@@ -21,7 +21,11 @@ const dateFmt = new Intl.DateTimeFormat("en-US", {
 });
 ---
 
-<Base title={post.data.title} description={post.data.tldr}>
+<Base
+  title={post.data.title}
+  description={post.data.tldr}
+  image={`/og/writings-${post.id}.png`}
+>
   <Shell>
     <article class="px-gutter pt-12">
       <a
