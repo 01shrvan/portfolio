@@ -6,6 +6,7 @@ import RuledHeading from "@/components/RuledHeading.astro";
 import EntryRow from "@/components/EntryRow.astro";
 import SpecTable from "@/components/SpecTable.astro";
 import StackList from "@/components/StackList.astro";
+import NowPlaying from "@/components/NowPlaying.astro";
 import Quote from "@/components/Quote.astro";
 import Figure from "@/components/Figure.tsx";
 import { SITE, EXPERIENCE } from "@/lib/site";
@@ -90,6 +91,7 @@ const hasDetail = (w: { body?: string; data: { verify: unknown[]; numbers: unkno
             { label: "focus", value: SITE.focus },
           ]}
         />
+        <NowPlaying />
       </div>
     </section>
 
