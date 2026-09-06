@@ -26,9 +26,9 @@ import { SITE, SOCIALS } from "@/lib/site";
         <button
           type="button"
           data-copy={SITE.email}
-          class="data h-7 border border-rule-strong px-2.5 uppercase text-ink-soft transition-colors duration-200 hover:border-filament hover:text-filament"
+          class="data h-7 border border-rule-strong px-2.5 lowercase text-ink-soft transition-colors duration-200 hover:border-filament hover:text-filament"
         >
-          <span data-copy-label>Copy</span>
+          <span data-copy-label>copy</span>
         </button>
       </div>
       <p class="mt-5 max-w-measure text-ink-soft">
@@ -85,10 +85,10 @@ import { SITE, SOCIALS } from "@/lib/site";
 
     try {
       await navigator.clipboard.writeText(button.dataset.copy ?? "");
-      label.textContent = "Copied";
+      label.textContent = "copied";
     } catch {
-      label.textContent = "Select it";
+      label.textContent = "select it";
     }
-    setTimeout(() => (label.textContent = "Copy"), 2000);
+    setTimeout(() => (label.textContent = "copy"), 2000);
   });
 </script>

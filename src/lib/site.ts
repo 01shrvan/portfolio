@@ -18,9 +18,9 @@ export const NAV = [
 ] as const;
 
 export const SOCIALS = [
-  { label: "GitHub", href: "https://github.com/01shrvan" },
-  { label: "LinkedIn", href: "https://linkedin.com/in/shrvanbenke" },
-  { label: "X", href: "https://x.com/01shrvan" },
+  { label: "github", href: "https://github.com/01shrvan" },
+  { label: "linkedin", href: "https://linkedin.com/in/shrvanbenke" },
+  { label: "x", href: "https://x.com/01shrvan" },
 ] as const;
 
 export const EXPERIENCE = [

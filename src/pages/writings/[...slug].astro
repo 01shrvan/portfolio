@@ -26,9 +26,9 @@ const dateFmt = new Intl.DateTimeFormat("en-US", {
     <article class="px-gutter pt-12">
       <a
         href="/writings"
-        class="data anim-lift inline-block uppercase text-ink-soft transition-colors duration-200 hover:text-filament"
+        class="data anim-lift inline-block lowercase text-ink-soft transition-colors duration-200 hover:text-filament"
       >
-        &larr; All writing
+        &larr; all writing
       </a>
 
       <h1 class="display anim-lift mt-6 max-w-[26ch] text-display-sm">
@@ -36,9 +36,9 @@ const dateFmt = new Intl.DateTimeFormat("en-US", {
       </h1>
 
       <p
-        class="data anim-lift mt-5 flex flex-wrap items-center gap-x-3 gap-y-1 uppercase text-ink-soft [animation-delay:200ms]"
+        class="data anim-lift mt-5 flex flex-wrap items-center gap-x-3 gap-y-1 lowercase text-ink-soft [animation-delay:200ms]"
       >
-        <span>Shrvan Benke</span>
+        <span>shrvan benke</span>
         <span aria-hidden class="text-rule-strong">/</span>
         <time datetime={post.data.date.toISOString()}>
           {dateFmt.format(post.data.date)}
@@ -46,7 +46,7 @@ const dateFmt = new Intl.DateTimeFormat("en-US", {
       </p>
 
       <aside class="anim-lift mt-9 w-full max-w-measure border p-4 [animation-delay:280ms]">
-        <p class="data uppercase text-ink-soft">In short</p>
+        <p class="data lowercase text-ink-soft">in short</p>
         <p class="mt-2">{post.data.tldr}</p>
       </aside>
 
