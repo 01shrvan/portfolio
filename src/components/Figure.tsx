@@ -80,11 +80,10 @@ export default function Figure({ discordId }: { discordId?: string }) {
       <ImageDithering
         className="h-full w-full"
         image={track.art}
-        colorBack={ink.back}
-        colorFront={ink.front}
-        colorHighlight={ink.front}
-        type="4x4"
-        size={2}
+        originalColors
+        colorSteps={5}
+        type="8x8"
+        size={1}
       />
     ) : mode === "shader" ? (
       <Dithering
