@@ -38,11 +38,18 @@ const {
 const { Content } = await render(entry);
 const hasBody = Boolean(entry.body?.trim());
 
-const links = [
-  { label: "live", href },
+const isRepo = (u: string) => /github\.com/.test(u);
+const norm = (u: string) => u.replace(/\/+$/, "");
+
+const candidates = [
+  { label: isRepo(href) ? "source" : "live", href },
   repo ? { label: "source", href: repo } : null,
   writeup ? { label: "the writeup", href: writeup } : null,
 ].filter(Boolean) as { label: string; href: string }[];
+
+const links = candidates.filter(
+  (l, i) => candidates.findIndex((c) => norm(c.href) === norm(l.href)) === i,
+);
 ---
 
 <Base title={title} description={description}>
