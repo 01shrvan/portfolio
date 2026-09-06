@@ -143,11 +143,19 @@ const { discordId } = SITE;
     }
   };
 
-  render();
-  paint();
-  setInterval(paint, 1000);
-  setInterval(render, 20000);
+  const start = () => {
+    clearInterval((window as any).__nowPaint);
+    clearInterval((window as any).__nowPoll);
+    if (!document.querySelector("[data-now]")) return;
+    render();
+    paint();
+    (window as any).__nowPaint = setInterval(paint, 1000);
+    (window as any).__nowPoll = setInterval(render, 20000);
+  };
+
+  document.addEventListener("astro:page-load", start);
   document.addEventListener("visibilitychange", () => {
     if (!document.hidden) render();
   });
+  start();
 </script>

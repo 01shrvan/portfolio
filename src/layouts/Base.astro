@@ -1,5 +1,6 @@
 ---
 import "@/styles/app.css";
+import { ClientRouter } from "astro:transitions";
 import { SITE } from "@/lib/site";
 
 interface Props {
@@ -74,6 +75,7 @@ const ogImage = new URL(image, Astro.site);
         }
       })();
     </script>
+    <ClientRouter />
   </head>
 
   <body class="grain">

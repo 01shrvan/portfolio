@@ -70,9 +70,6 @@ const initialTime = timeFmt.format(new Date());
 
 <script is:inline>
   (() => {
-    const el = document.querySelector("[data-clock]");
-    if (!el) return;
-
     const fmt = new Intl.DateTimeFormat("en-GB", {
       timeZone: "Asia/Kolkata",
       hour: "2-digit",
@@ -80,18 +77,28 @@ const initialTime = timeFmt.format(new Date());
       second: "2-digit",
       hour12: false,
     });
-    const tick = () => {
-      el.textContent = fmt.format(new Date());
+
+    const start = () => {
+      const el = document.querySelector("[data-clock]");
+      if (!el) return;
+
+      const tick = () => {
+        el.textContent = fmt.format(new Date());
+      };
+
+      clearInterval(window.__clock);
+      clearTimeout(window.__clockAlign);
+      tick();
+      window.__clockAlign = setTimeout(() => {
+        tick();
+        window.__clock = setInterval(tick, 1000);
+      }, 1000 - (Date.now() % 1000));
     };
 
-    tick();
-    setTimeout(() => {
-      tick();
-      setInterval(tick, 1000);
-    }, 1000 - (Date.now() % 1000));
-
+    document.addEventListener("astro:page-load", start);
     document.addEventListener("visibilitychange", () => {
-      if (!document.hidden) tick();
+      if (!document.hidden) start();
     });
+    start();
   })();
 </script>
